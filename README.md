@@ -70,4 +70,39 @@ Le LLM reçoit en entrée :
 - La prédiction `h(x)` pour l'instance `x`
 
 Il génère une explication en langage naturel, par exemple :
-> *"Le patient présente un risque de diabète principalement dû à un taux de glucose élevé, à l'âge et au poids. Son taux de cholestérol et son statut non-fumeur réduisent légèrement cette probabilité."*
+"Le patient présente un risque de diabète principalement dû à un taux de glucose élevé, à l'âge et au poids. Son taux de cholestérol et son statut non-fumeur réduisent légèrement cette probabilité."
+
+### Module 2 — Module de Parsing
+Extrait des **règles logiques** à partir de l'explication générée, puis **filtre les règles hors-domaine** pour limiter les hallucinations.
+
+Chaque modèle est entraîné sur des variables précises avec des plages de valeurs définies. Le **domaine théorique** du modèle, c'est cet espace valide. Exemple pour le dataset Diabetes :
+
+| Variable | Plage valide |
+|---|---|
+| Glucose | 0 – 200 mg/dL |
+| Âge | 18 – 90 ans |
+| Poids | 40 – 150 kg |
+
+Problème : le LLM peut inventer des règles qui ne correspondent à aucune variable ou valeur présente dans les données d'entraînement, par exemple :
+
+"Si le patient a les yeux bleus → risque élevé" : variable inexistante
+"Si glucose = 450 mg/dL → risque élevé" : valeur impossible dans le dataset
+
+#### Hallucination
+C'est ce qu'on appelle une hallucination : le LLM produit une information fausse mais formulée avec confiance et apparente cohérence. Le danger est que ces règles erronées semblent plausibles à l'utilisateur non-expert, créant une illusion de fidélité. Il fait alors confiance à une explication qui ne reflète pas ce que le modèle a réellement calculé. C'est pour contrer ce risque que le module de parsing fait un filtrage des règles hors-domaine.
+
+#### Processus de filtrage
+```
+Règle générée par le LLM
+        ↓
+La variable existe-t-elle dans les données d'entraînement ?
+        ↓ OUI                           ↓ NON
+La valeur est-elle              → REJETÉE (hors-domaine)
+dans la plage valide ?
+  ↓ OUI         ↓ NON
+CONSERVÉE       REJETÉE
+```
+
+Sans ce filtrage, une explication peut sembler cohérente à l'utilisateur tout en étant techniquement fausse — c'est ce que l'article appelle les **l'illusion de fidélité**.
+
+L'hallucination est la cause, l'illusion de fidélité est la conséquence côté utilisateur.
