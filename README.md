@@ -73,9 +73,13 @@ Il génère une explication en langage naturel, par exemple :
 "Le patient présente un risque de diabète principalement dû à un taux de glucose élevé, à l'âge et au poids. Son taux de cholestérol et son statut non-fumeur réduisent légèrement cette probabilité."
 
 ### Module 2 — Module de Parsing
-Extrait des **règles logiques** à partir de l'explication générée, puis **filtre les règles hors-domaine** pour limiter les hallucinations.
+But : transformer le texte naturel en règles logiques vérifiables, tout en réduisant les hallucinations.
 
-Chaque modèle est entraîné sur des variables précises avec des plages de valeurs définies. Le **domaine théorique** du modèle, c'est cet espace valide. Exemple pour le dataset Diabetes :
+#### Étape 1 : L'Extraction des Règles (via prompt)
+
+Ce module utilse le LLM  comme un parseur pour **extraire des règles logiques** à partir de l'explication générée, le système utilise la méthode du Few-Shot Learning (apprentissage à l'aide de quelques exemples). Puis il **filtre les règles hors-domaine** pour limiter les hallucinations.
+
+Chaque modèle est entraîné sur des variables précises avec des plages de valeurs définies. Le **domaine théorique** du modèle, c'est en fait l'espace valide. Exemple pour le dataset Diabetes :
 
 | Variable | Plage valide |
 |---|---|
@@ -89,20 +93,39 @@ Problème : le LLM peut inventer des règles qui ne correspondent à aucune vari
 "Si glucose = 450 mg/dL → risque élevé" : valeur impossible dans le dataset
 
 #### Hallucination
-C'est ce qu'on appelle une hallucination : le LLM produit une information fausse mais formulée avec confiance et apparente cohérence. Le danger est que ces règles erronées semblent plausibles à l'utilisateur non-expert, créant une illusion de fidélité. Il fait alors confiance à une explication qui ne reflète pas ce que le modèle a réellement calculé. C'est pour contrer ce risque que le module de parsing fait un filtrage des règles hors-domaine.
+C'est ce qu'on appelle une hallucination : le LLM produit une information fausse mais formulée avec confiance et apparente cohérence. Le danger est que ces règles erronées semblent plausibles à l'utilisateur non-expert, créant une illusion de fidélité. Il fait alors confiance à une explication qui ne reflète pas ce que le modèle a réellement calculé. C'est pour contrer ce risque que le module de parsing fait un **filtrage** des règles hors-domaine.
 
 #### Processus de filtrage
 ```
-Règle générée par le LLM
-        ↓
-La variable existe-t-elle dans les données d'entraînement ?
-        ↓ OUI                           ↓ NON
-La valeur est-elle              → REJETÉE (hors-domaine)
-dans la plage valide ?
-  ↓ OUI         ↓ NON
-CONSERVÉE       REJETÉE
+ÉTAPE 1 - Vérification de l'existence : La variable citée par le LLM existe-t-elle dans les données d'entraînement ?
+
+NON → Règle REJETÉE.
+
+OUI → On passe à l'étape 2.
+
+ÉTAPE 2 - Vérification de la validité : La valeur associée à cette variable est-t-elle comprise dans la plage du domaine théorique ?
+
+NON → Règle REJETÉE.
+
+OUI → Règle CONSERVÉE.
 ```
 
-Sans ce filtrage, une explication peut sembler cohérente à l'utilisateur tout en étant techniquement fausse — c'est ce que l'article appelle les **l'illusion de fidélité**.
+Sans ce filtrage, une explication peut sembler cohérente à l'utilisateur tout en étant techniquement fausse — c'est ce que l'article appelle les **l'illusion de fidélité**. Autrement dit, l'hallucination est la cause, l'illusion de fidélité est la conséquence côté utilisateur.
 
-L'hallucination est la cause, l'illusion de fidélité est la conséquence côté utilisateur.
+### Module 3 - Évaluation Duale
+
+| | Évaluation Non-Formelle (Qualitative) | Évaluation Formelle (Mathématique) |
+|---|---|---|
+| **Comment** | Un deuxième LLM juge la cohérence logique des règles | Calcul de la métrique `1 − ε_h,x` |
+| **Ce que ça mesure** | Cohérence perçue | Réelle fidélité au modèle interne |
+| **Scores observés** | 83 – 100% | 52 – 84% |
+
+
+ε_h,x est une fonction d'erreur d'explication qui mesure la proportion de cas où les règles extraites par le LLM contredisent le comportement réel du modèle h sur l'instance x. Donc 1 - ε_h,x, c'est l'inverse (proportion de cas où il y a cohérence). Le modèle est en fait converti en circuit booléen pour tester s'il y a compatibilité entre les règles extraites et la logique du modèle.
+
+Plus 1 − ε_h,x est proche de 1 (100%), plus l'explication est fidèle au modèle réel.
+
+*N.B : L'objectif de CoVe est justement d'augmenter ce score.*
+
+
+> **Résultat** : l'écart entre les deux évaluations prouve qu'une explication peut *sembler* cohérente sans être *vraiment* fidèle au modèle.
