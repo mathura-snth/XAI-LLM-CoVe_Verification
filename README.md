@@ -5,8 +5,6 @@
 
 ## L'article propose un framework hybride qui combine des méthodes XAI classiques (SHAP, LIME, Anchors) avec un LLM pour transformer des explications techniques en langage naturel accessible à tous, tout en vérifiant leur fiabilité.
 
----
-
 ## Notions clés abordées
 
 ### XAI — Explainable Artificial Intelligence
@@ -64,20 +62,39 @@ pour produire des explications **personnalisées selon le profil** de l'utilisat
 ```
 
 ### Module 1 — Système Génératif
-Le LLM reçoit en entrée :
-- L'architecture du modèle `h`
-- Les sorties XAI (ex : valeurs SHAP)
-- La prédiction `h(x)` pour l'instance `x`
+>But : Prendre les résultats mathématiques des méthodes d'explicabilité classiques, et les traduire en un texte naturel, fluide et parfaitement adapté à la personne (non-experte) qui le lit.
 
-Il génère une explication en langage naturel, par exemple :
-"Le patient présente un risque de diabète principalement dû à un taux de glucose élevé, à l'âge et au poids. Son taux de cholestérol et son statut non-fumeur réduisent légèrement cette probabilité."
+#### Étape 1 : Réception des données
+
+| Ce que le LLM reçoit | Interprétation |
+|---|---|
+| La prédiction $h(x)$ pour l'instance $x$ |  La donnée dont il est question et la décision finale |
+| L'architecture du modèle $h$ | Les règles internes globales du modèle de Machine Learning |
+| Les sorties XAI (ex : valeurs SHAP) | Les calculs mathématiques bruts qui expliquent le poids de chaque variable |
+
+N.B : $h$ est le modèle prédictif boîte noire. C'est l'algorithme qui a analysé les données et pris une décision. Ici, pour tester la framework, on choisit d'utiliser un **Arbre de Décision** comme modèle cible. Donc ici, $h$ = un arbre de décision entraîné sur un jeu de données.
+
+#### Étape 2 : Cadrage du LLM
+
+Les données reçues à l'Étape 1 sont envoyées à un LLM (comme GPT-4 ou Claude). Le système lui envoie un prompt bien structuré, défini par plusieurs paramètres :
+- le rôle : on lui donne une entité précise
+- le contexte : toutes les données des sorties XAI
+- le profil utilisateur (user query)
+
+#### Étape 3 : Création de l'Explication en langage naturel
+Le LLM génère une explication en langage naturel, par exemple :
+Au lieu d'afficher un graphique avec la valeur Glucose +0.34, il va générer :
+
+"Le patient présente un risque de diabète principalement dû à un taux de glucose élevé, à l'âge et au poids. Son taux de cholestérol normal réduit légèrement cette probabilité."
+
+Ce module accomplit avec succès l'objectif d'accessibilité. Mais comme le LLM a formulé cette phrase librement, il y a un risque qu'il ait ajouté une hallucination logique pour que la phrase sonne mieux.
 
 ### Module 2 — Module de Parsing
-But : transformer le texte naturel en règles logiques vérifiables, tout en réduisant les hallucinations.
+>But : transformer le texte naturel en règles logiques vérifiables, tout en réduisant les hallucinations.
 
 #### Étape 1 : L'Extraction des Règles (via prompt)
 
-Ce module utilse le LLM  comme un parseur pour **extraire des règles logiques** à partir de l'explication générée, le système utilise la méthode du Few-Shot Learning (apprentissage à l'aide de quelques exemples). Puis il **filtre les règles hors-domaine** pour limiter les hallucinations.
+Ce module utilse le LLM  comme un parseur pour **extraire des règles logiques** (ex : Si A et B alors C) à partir de l'explication générée, le système utilise la méthode du Few-Shot Learning (apprentissage à l'aide de quelques exemples).
 
 Chaque modèle est entraîné sur des variables précises avec des plages de valeurs définies. Le **domaine théorique** du modèle, c'est en fait l'espace valide. Exemple pour le dataset Diabetes :
 
@@ -95,15 +112,15 @@ Problème : le LLM peut inventer des règles qui ne correspondent à aucune vari
 #### Hallucination
 C'est ce qu'on appelle une hallucination : le LLM produit une information fausse mais formulée avec confiance et apparente cohérence. Le danger est que ces règles erronées semblent plausibles à l'utilisateur non-expert, créant une illusion de fidélité. Il fait alors confiance à une explication qui ne reflète pas ce que le modèle a réellement calculé. C'est pour contrer ce risque que le module de parsing fait un **filtrage** des règles hors-domaine.
 
-#### Processus de filtrage
+#### Étape 2 : Processus de filtrage
 ```
-ÉTAPE 1 - Vérification de l'existence : La variable citée par le LLM existe-t-elle dans les données d'entraînement ?
+1 - Vérification de l'existence : La variable citée par le LLM existe-t-elle dans les données d'entraînement ?
 
 NON → Règle REJETÉE.
 
 OUI → On passe à l'étape 2.
 
-ÉTAPE 2 - Vérification de la validité : La valeur associée à cette variable est-t-elle comprise dans la plage du domaine théorique ?
+2 - Vérification de la validité : La valeur associée à cette variable est-t-elle comprise dans la plage du domaine théorique ?
 
 NON → Règle REJETÉE.
 
@@ -112,20 +129,39 @@ OUI → Règle CONSERVÉE.
 
 Sans ce filtrage, une explication peut sembler cohérente à l'utilisateur tout en étant techniquement fausse — c'est ce que l'article appelle les **l'illusion de fidélité**. Autrement dit, l'hallucination est la cause, l'illusion de fidélité est la conséquence côté utilisateur.
 
-### Module 3 - Évaluation Duale
+#### Étape 3 : Conversion Binaire
+Pour que les règles finalement conservées puissent être évaluées mathématiquement, le module les convertit dans sous Forme Normale Conjonctive (CNF) par exemple (Si A et B Alors C) devient (NON A ou NON B ou C), une pure équation de booléens qu'on envoie au module 3.
 
+### Module 3 - Évaluation Duale
+>But : Ce module s'assure que les règles logiques extraites à l'étape précédente reflètent fidèlement ce qui s'est réellement passé dans la boîte noire du modèle d'Intelligence Artificielle.
+
+#### Étape 1 : Préparation
+Dans le Module 2 : Ce sont uniquement les petites règles logiques (extraites de la phrase de l'IA) qui sont converties en CNF (ex: NON A OU NON B OU C).
+
+Ici, c'est l'architecture interne complète de l'arbre de décision qui est transformée en un grand circuit booléen (CNF). Résultat : Le modèle n'est plus une boîte noire, c'est une équation logique.
+
+#### Étape 2 : L'Évaluation Non-Formelle
+Le système fait appel à un second LLM indépendant qui va jouer le rôle d'inspecteur en lisant les règles extraites au Module 2 et en vérifiant leur cohérence sémantique par rapport à la structure du modèle.
+
+Les résultats typiques sont souvent **excellents**, l'explication a l'air parfaite.
+
+#### Étape 3 : L'Évaluation Formelle
+La règle extraite (au format binaire FNC du Module 2) est branchée directement dans le circuit booléen du modèle géant (créé à l'Étape 1).
+
+$\epsilon_{h,x}$ est une fonction d'erreur d'explication qui mesure la proportion de cas où les règles extraites par le LLM contredisent le comportement réel du modèle h sur l'instance x. Donc $1-\epsilon_{h,x}$, c'est l'inverse (proportion de cas où il y a cohérence).
+
+*N.B : Plus $1-\epsilon_{h,x}$ est proche de 1 (100%), plus l'explication est fidèle au modèle réel.*
+
+Les résultats typiques sont **beaucoup plus bas**.
+
+Résumé :
 | | Évaluation Non-Formelle (Qualitative) | Évaluation Formelle (Mathématique) |
 |---|---|---|
-| **Comment** | Un deuxième LLM juge la cohérence logique des règles | Calcul de la métrique `1 − ε_h,x` |
+| **Comment** | Un deuxième LLM juge la cohérence logique des règles | Calcul de la métrique $1-\epsilon_{h,x}$ |
 | **Ce que ça mesure** | Cohérence perçue | Réelle fidélité au modèle interne |
 | **Scores observés** | 83 – 100% | 52 – 84% |
-
-
-ε_h,x est une fonction d'erreur d'explication qui mesure la proportion de cas où les règles extraites par le LLM contredisent le comportement réel du modèle h sur l'instance x. Donc 1 - ε_h,x, c'est l'inverse (proportion de cas où il y a cohérence). Le modèle est en fait converti en circuit booléen pour tester s'il y a compatibilité entre les règles extraites et la logique du modèle.
-
-Plus 1 − ε_h,x est proche de 1 (100%), plus l'explication est fidèle au modèle réel.
 
 *N.B : L'objectif de CoVe est justement d'augmenter ce score.*
 
 
-> **Résultat** : l'écart entre les deux évaluations prouve qu'une explication peut *sembler* cohérente sans être *vraiment* fidèle au modèle.
+> **Résultat** : l'écart constant entre les deux évaluations prouve qu'une explication peut *sembler* cohérente sans être *vraiment* fidèle au modèle. Donc en imposant cette double évaluation, le framework protège l'utilisateur en lui donnant un score de fiabilité réel, empêchant ainsi une confiance aveugle envers l'IA.
