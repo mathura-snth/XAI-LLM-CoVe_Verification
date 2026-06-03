@@ -94,7 +94,7 @@ Michael Bloomberg - ancien maire de New York.
 ```
 Métrique de Précision : Mauvaise car sur 3 réponses, 2 sont des hallucinations (Clinton et Bloomberg).
 
-4. On corrige pviaar CoVe qui force le modèle à vérifier sa propre copie en créant des questions courtes pour chaque élément de la liste :  
+4. On corrige via CoVe qui force le modèle à vérifier sa propre copie en créant des questions courtes pour chaque élément de la liste :  
 
 ```text
 Question générée : "Où est née Hillary Clinton ?"
@@ -124,6 +124,23 @@ Alexandria Ocasio-Cortez - membre de la Chambre des représentants.
 La note finale : **Excellente**, le nombre de réponses négatives (les hallucinations) chute, ce qui fait monter le score de précision du modèle sur ce benchmark.  
 
 
-*N.B : La vraie différence avec un benchmark en Recherche d'Information est ce qu'on **évalue** :*
+*N.B : La différence avec un benchmark en Recherche d'Information est ce qu'on **évalue** :*
 - ***IR** : le système cherche dans un **index externe**, la réponse est une **liste de documents classés** et la source de vérité sert à **définir quels docs sont pertinents**. On utilise pour ça les métriques : **nDCG, MAP, Recall@k**.*
 - ***Benchmark LLM (CoVe)** : le système puise dans sa **mémoire interne**, la réponse est du **texte généré**, la source de vérité sert à **vérifier si les faits générés sont corrects**. On utilise pour ça les métriques : **Précision, F1, FACTSCORE**.*
+
+## Baseline
+
+| Modèle utilisé | Prompting | Description & Fonctionnement | But |
+|---|---|---|---|
+| Modèle standard : **Llama 65B** | Few-Shot | Le modèle reçoit des exemples de la tâche à accomplir dans son prompt, puis génère sa réponse d'une seule traite, de gauche à droite. | Mesurer les performances brutes et le taux d'hallucination de l'IA avec aucun mécanisme de vérification. |
+| Le modèle conversationnel	: **Llama 2 70B Chat** | Zero-Shot | Le modèle est interrogé directement, sans aucun exemple. | Prouver que l'utilisation d'une IA de dernière génération optimisée ne résout pas le problème des hallucinations. |
+| Le raisonnement logique : **Llama 2 70B Chat** | Chain-of-Thought (CoT) | On demande au modèle de **réfléchir étape par étape** avant de formuler sa réponse finale. | Démontrer que forcer l'IA à "réfléchir à voix haute" sur des listes factuelles l'embrouille et augmente les hallucinations. |
+
+## Résultats
+- CoVe augmente les performances : les approches standards sont surpassées par CoVe en termes de précision.
+
+- CoVe n'aide pas l'IA à trouver plus de bonnes réponses, mais supprime les faits inventés (chute des "entités négatives").
+
+- Chain-of-Thought (CoT) : Demander à l'IA de "réfléchir étape par étape" pour lister des faits est contre-productif et augmente le nombre d'hallucinations.
+
+- L'importance d'isoler le contexte : Two-step et Factored sont plus efficaces que Joint, prouvant qu'il faut cacher le faux brouillon à l'IA lorsqu'elle s'auto-évalue.
