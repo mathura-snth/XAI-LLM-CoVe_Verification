@@ -39,14 +39,16 @@ La méthode CoVe repose sur l'idée qu'un modèle de langage peut vérifier son 
 Le modèle génère une réponse standard (de gauche à droite) à la requête de l'utilisateur. Cette réponse sert de brouillon de base qui est susceptible de contenir des hallucinations qu'il va falloir trouver.
 
 #### Étape 2 : Planification des vérifications (Plan Verifications)
-En prenant en compte à la fois la requête initiale et son propre brouillon, le modèle génère une série de questions de vérification qui ciblent les affirmations factuelles du texte initial pour les tester.
+En prenant en compte à la fois la requête initiale et son propre brouillon, le modèle génère une série de questions de vérification qui ciblent les affirmations factuelles du texte initial pour les tester. Pour formuler les questions de vérification on utilise la méthode du Few-Shot Prompting (avant de donner la tâche réelle à l'IA, on intègre dans le texte du prompt quelques exemples de de ce que l'on attend d'elle).
 
 #### Étape 3 : Exécution des vérifications (Execute Verifications)
 Le modèle doit répondre aux questions qu'il vient de créer afin d'évaluer si les faits avancés initialement sont justes ou non. C'est l'étape la plus **critique**, car le modèle risque d'être biaisé par son brouillon et de répéter la même hallucination.
 
 Pour contrer cela, on teste différentes variantes d'exécution :
-- Joint : la planification et l'exécution se font dans un seul prompt, mais problème : le modèle lit sa propre erreur et a tendance à la répéter.
-- 2-Step : la planification et l'exécution sont séparées en deux requêtes distinctes. Dans la seconde étape, le contexte fourni au LLM ne contient plus le brouillon initial, on évite ainsi le mimétisme.
-- Factored : chaque question de vérification est posée de manière totalement indépendante dans des prompts séparés, ce qui supprime toute interférence possible entre le brouillon et les différentes questions.
+- Joint : les étapes 2 et 3 se font dans un seul prompt, mais le problème est que le modèle lit sa propre erreur et a tendance à la répéter.
+- 2-Step : les étapes 2 et 3 sont séparées en deux requêtes distinctes, cette fois, à l'étape 3, le contexte fourni au LLM ne contient plus le brouillon initia mais seulement les questions, on évite ainsi le mimétisme.
+- Factored : chaque question de vérification est posée de manière totalement indépendante dans des prompts séparés. Cela supprime non seulement l'influence du brouillon, mais empêche surtout toute interférence possible entre les différentes questions (la réponse à la question A ne peut pas biaiser la réponse à la question B).
 - Factor + Revise : après la réponse aux questions, le système ajoute un prompt supplémentaire dédié au "cross-checking". Le modèle compare le fait initial avec la réponse vérifiée et doit explicitement dire s'il y a une incohérence.
 
+#### Étape 4 : Génération de la réponse vérifiée finale (Final Verified Response)
+Le modèle génère sa réponse définitive et améliorée. Pour cela, le système fournit au modèle un contexte final regroupant le brouillon de départ et toutes les questions/réponses de vérification (et les détections d'incohérences si la méthode Factor+Revise a été utilisée). Ainsi le modèle corrige les hallucinations identifiées à l'étape 3 et renvoie un texte beaucoup plus rigoureux.
