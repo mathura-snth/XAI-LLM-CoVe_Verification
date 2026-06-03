@@ -72,7 +72,7 @@ pour produire des explications **personnalisées selon le profil** de l'utilisat
 | L'architecture du modèle $h$ | Les règles internes globales du modèle de Machine Learning |
 | Les sorties XAI (ex : valeurs SHAP) | Les calculs mathématiques bruts qui expliquent le poids de chaque variable |
 
-N.B : $h$ est le modèle prédictif boîte noire. C'est l'algorithme qui a analysé les données et pris une décision. Ici, pour tester la framework, on choisit d'utiliser un **Arbre de Décision** comme modèle cible. Donc ici, $h$ = un arbre de décision entraîné sur un jeu de données.
+N.B : $h$ est le modèle prédictif boîte noire. C'est l'algorithme qui a analysé les données et pris une décision. Ici, pour tester le framework, on choisit d'utiliser un **Arbre de Décision** comme modèle cible. Donc ici, $h$ = un arbre de décision entraîné sur un jeu de données.
 
 #### Étape 2 : Cadrage du LLM
 
@@ -94,7 +94,7 @@ Ce module accomplit avec succès l'objectif d'accessibilité. Mais comme le LLM 
 
 #### Étape 1 : L'Extraction des Règles (via prompt)
 
-Ce module utilse le LLM  comme un parseur pour **extraire des règles logiques** (ex : Si A et B alors C) à partir de l'explication générée, le système utilise la méthode du Few-Shot Learning (apprentissage à l'aide de quelques exemples).
+Ce module utilise le LLM  comme un parseur pour **extraire des règles logiques** (ex : Si A et B alors C) à partir de l'explication générée, le système utilise la méthode du Few-Shot Learning (apprentissage à l'aide de quelques exemples).
 
 Chaque modèle est entraîné sur des variables précises avec des plages de valeurs définies. Le **domaine théorique** du modèle, c'est en fait l'espace valide. Exemple pour le dataset Diabetes :
 
