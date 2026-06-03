@@ -150,7 +150,7 @@ La règle extraite (au format binaire FNC du Module 2) est branchée directement
 
 $\epsilon_{h,x}$ est une fonction d'erreur d'explication qui mesure la proportion de cas où les règles extraites par le LLM contredisent le comportement réel du modèle h sur l'instance x. Donc $1-\epsilon_{h,x}$, c'est l'inverse (proportion de cas où il y a cohérence).
 
-*N.B : Plus $1-\epsilon_{h,x}$ est proche de 1 (100%), plus l'explication est fidèle au modèle réel.*
+*N.B : Plus* $1-\epsilon_{h,x}$ *est proche de 1 (100%), plus l'explication est fidèle au modèle réel.*
 
 Les résultats typiques sont **beaucoup plus bas**.
 
