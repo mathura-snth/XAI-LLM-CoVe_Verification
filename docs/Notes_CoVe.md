@@ -52,3 +52,78 @@ Pour contrer cela, on teste différentes variantes d'exécution :
 
 #### Étape 4 : Génération de la réponse vérifiée finale (Final Verified Response)
 Le modèle génère sa réponse définitive et améliorée. Pour cela, le système fournit au modèle un contexte final regroupant le brouillon de départ et toutes les questions/réponses de vérification (et les détections d'incohérences si la méthode Factor+Revise a été utilisée). Ainsi le modèle corrige les hallucinations identifiées à l'étape 3 et renvoie un texte beaucoup plus rigoureux.
+
+## Benchmarks
+
+Un benchmark est un standard d'évaluation composé de questions et de réponses de référence (gold answers) tirées d'une source de vérité fiable. On pose les mêmes questions à tous les modèles, on compare leurs réponses au gold, et on obtient un score comparable.
+
+| Benchmark | Ce que l'IA doit faire | Exemple | Métrique |
+|---|---|---|---|
+| Wikidata | Générer une liste simple, le test interroge l'IA sur des relations basiques extraites de la base de données Wikidata |"Quels sont les politiciens nés à Boston ?"|Précision, nb d'entités positives/négatives|
+| Wiki-Category List | Générer une liste experte, l'IA doit énumérer des éléments appartenant à des catégories Wikipédia très spécifiques (rares) |"Citez des films d'horreur animés mexicains."|Précision, nb d'entités positives/négatives|
+| MultiSpanQA | Répondre à des questions à tiroirs. L'IA est testée sans recherche externe autorisée sur des questions exigeant plusieurs petits éléments de réponse précis. |"Qui a inventé la première presse à imprimer et en quelle année ?"|Score F1 (Précision et Rappel)|
+| Longform Generation (Biographies) | Rédaction d'un texte long (plusieurs phrases/paragraphes) sur une entité spécifique |"Donne-moi la biographie de Victor Hugo."|FACTSCORE (vérification des faits par une IA externe)|
+
+#### Exemple concret, benchmark Wikidata
+1. Dans le dataset Wikidata, il n'y a pas de texte, mais des liens mathématiques (les triplets) mis à jour. Par exemple :
+
+```text
+[Donald Trump] -> [Profession : Politicien] -> [Lieu de naissance : Queens, New York]
+
+[Alexandria Ocasio-Cortez] -> [Profession : Politicien] -> [Lieu de naissance : Bronx, New York]
+
+[Hillary Clinton] -> [Profession : Politicien] -> [Lieu de naissance : Chicago, Illinois]
+
+[Michael Bloomberg] -> [Profession : Politicien] -> [Lieu de naissance : Boston, Massachusetts]
+```
+2. On transforme notre filtre de base de données en une question en langage naturel pour tester le modèle de langage (LLM).
+```text
+Question du benchmark : "Citez des politiciens qui sont nés à NY, New York."
+```
+
+3. Le LM classque génère sa liste de gauche à droite, avec des hallucinations car il associe logiquement certains politiciens à New York (parce qu'ils y ont travaillé), même s'ils n'y sont pas nés.  
+
+```text
+Réponse du LLM :
+
+Hillary Clinton - ancienne sénatrice de l'État de New York.
+
+Donald Trump - ancien président des États-Unis.
+
+Michael Bloomberg - ancien maire de New York.
+```
+Métrique de Précision : Mauvaise car sur 3 réponses, 2 sont des hallucinations (Clinton et Bloomberg).
+
+4. On corrige pviaar CoVe qui force le modèle à vérifier sa propre copie en créant des questions courtes pour chaque élément de la liste :  
+
+```text
+Question générée : "Où est née Hillary Clinton ?"
+
+Réponse vérifiée : Chicago, Illinois. (-> l'IA repère l'incohérence)
+
+
+Question générée : "Où est né Donald Trump ?"
+
+Réponse vérifiée : Queens, New York. (-> correct)
+
+
+Question générée : "Où est né Michael Bloomberg ?"
+
+Réponse vérifiée : Boston, Massachusetts. (-> l'IA repère l'incohérence)
+```
+5. Grâce à ces vérifications isolées, le modèle supprime ses erreurs et génère une nouvelle réponse propre.  
+
+```text
+Réponse Finale :
+
+Donald Trump - ancien président des États-Unis.  
+
+Alexandria Ocasio-Cortez - membre de la Chambre des représentants.  
+```
+
+La note finale : **Excellente**, le nombre de réponses négatives (les hallucinations) chute, ce qui fait monter le score de précision du modèle sur ce benchmark.  
+
+
+*N.B : La vraie différence avec un benchmark en Recherche d'Information est ce qu'on **évalue** :*
+- ***IR** : le système cherche dans un **index externe**, la réponse est une **liste de documents classés** et la source de vérité sert à **définir quels docs sont pertinents**. On utilise pour ça les métriques : **nDCG, MAP, Recall@k**.*
+- ***Benchmark LLM (CoVe)** : le système puise dans sa **mémoire interne**, la réponse est du **texte généré**, la source de vérité sert à **vérifier si les faits générés sont corrects**. On utilise pour ça les métriques : **Précision, F1, FACTSCORE**.*
