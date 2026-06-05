@@ -1,0 +1,227 @@
+
+compas:
+  nom: "compas"
+  chemin_csv: "../../data/compas.csv"
+  objectif_classification: "Il s'agit d'un modèle de classification binaire visant à prédire si un individu est coupable (classe 1) ou non (classe 0)."
+  colonne_cible: "two_yr_recidivism"
+  tests_result:
+    exemple:
+      explication: |
+        Le modèle a prédit que cet individu n'est pas coupable (classe 0). Cette décision s'appuie principalement sur trois caractéristiques clés qui ont le plus influencé la prédiction :
+        1. Number_of_Priors (28,75% de contribution) : L'individu a 2 antécédents judiciaires. Ce nombre relativement faible a fortement contribué à la prédiction de non-culpabilité.
+
+        2. score_factor (26,56% de contribution) : Avec une valeur de 0, ce score indique un risque très faible, ce qui a significativement orienté le modèle vers une prédiction de non-culpabilité.
+
+        3. Age_Below_TwentyFive (13,15% de contribution) : Le fait que l'individu ne soit pas âgé de moins de 25 ans (valeur = 0) a également joué un rôle important dans cette prédiction, suggérant que l'âge plus mature est associé à un risque moindre.
+
+        Ces trois variables représentent ensemble plus de 68% de la décision du modèle. Les autres caractéristiques, bien que présentes, ont eu une influence beaucoup plus limitée sur la prédiction finale. Le modèle a donc principalement basé sa décision sur le faible nombre d'antécédents, le score de risque nul et le fait que l'individu ne soit pas dans la catégorie d'âge la plus jeune.
+      regles: |
+        [
+          'Number_of_Priors < 2.5', 'Number_of_Priors > 1.5', 'score_factor < 0.5', 'Age_Below_TwentyFive < 0.5'
+        ]
+  
+placement:
+  nom: "placement"
+  chemin_csv: "../../data/placement.csv"
+  objectif_classification: "Il s'agit d'un modèle de classification binaire visant à prédire si un candidat sera recruté (*1*) ou non (*0*) dans un processus de sélection."
+  colonne_cible: "status"
+  tests_result:
+    exemple:
+      explication: |
+        La prédiction du modèle indiquant que le candidat sera recruté (classe 1) est principalement influencée par les caractéristiques suivantes:
+
+        1. Salaire: Le fait que le salaire soit inférieur ou égal à 250000.00 a la plus grande contribution positive à la prédiction, avec une valeur de 0.128. Cela suggère que le modèle associe un salaire plus bas à une probabilité plus élevée d'être recruté.
+
+        2. Pourcentage d'éducation secondaire: Un pourcentage d'éducation secondaire compris entre 60.42 et 67.00 contribue positivement à la prédiction avec une valeur de 0.038. Cela indique que le modèle considère ce niveau de performance académique comme favorable pour le recrutement.
+
+        3. Pourcentage MBA: Un pourcentage MBA inférieur ou égal à 57.98 a également une contribution positive de 0.033, ce qui signifie que le modèle voit cela comme un facteur favorable.
+
+        En revanche, certaines caractéristiques ont des contributions négatives, mais elles sont moins influentes dans la décision finale. Par exemple, la spécialisation dans l'enseignement secondaire supérieur et le pourcentage de diplôme ont des contributions négatives, mais elles ne suffisent pas à inverser la prédiction globale.
+
+        En résumé, le modèle a principalement basé sa décision sur le salaire et les performances académiques du candidat, qui sont perçus comme favorables pour le recrutement.
+      regles: |
+        [
+          'salary <= 250000.00', 'secondary_education_percentager > 60.42','secondary_education_percentager < 67.00', 'mba_percentage <= 57.98'
+        ]
+
+cancer:
+  nom: "cancer"
+  chemin_csv: "../../data/cancer.csv"
+  objectif_classification: "Il s'agit d'un modèle de classification binaire visant à prédire le type de cancer diagnostiqué maligne (classe 0) ou bénigne (classe 1)"
+  colonne_cible: "diagnosis"
+  tests_result:
+    exemple:
+      explication: |
+        La prédiction du modèle pour cette instance, qui est la classe 0 (maligne), est influencée par plusieurs caractéristiques. Les plus influentes sont:
+
+        1. area_worst: La valeur de cette caractéristique est inférieure ou égale à 509.83, ce qui contribue positivement à la prédiction de la classe 0 avec une contribution de 0.172.
+
+        2. concavity_mean: La valeur de cette caractéristique se situe entre 0.06 et 0.13, ce qui contribue négativement à la prédiction de la classe 0 avec une contribution de -0.163.
+
+        3. concave_points_worst: La valeur de cette caractéristique se situe entre 0.10 et 0.16, ce qui contribue également négativement à la prédiction de la classe 0 avec une contribution de -0.121.
+
+        Ces caractéristiques, en particulier area_worst, ont joué un rôle clé dans la décision du modèle de prédire que le type de cancer est maligne pour cet individu.
+      regles: |
+        [
+          'area_worst <= 509.83', 'concavity_mean >= 0.06','concavity_mean <= 0.13', 'concave_points_worst <= 0.10','concave_points_worst >=0.16'
+        ]
+
+heart:
+  nom: "heart"
+  chemin_csv: "../../data/heart_failure_clinical.csv"
+  objectif_classification: "Il s'agit d'un modèle de classification binaire visant à prédire la mortalité par insufissance cardiaque.Une valeur de 1 signifie que le patient est mort, tandis qu'une valeur de 0 signifie que le patient a survécu"
+  colonne_cible: "death_event"
+  tests_result:
+    exemple:
+      explication: |
+        Le modèle a prédit que le patient survivra (classe 0) à l'insuffisance cardiaque. Les caractéristiques les plus influentes dans cette décision sont les suivantes :
+
+        1. Le niveau de sodium dans le sérum (serum_sodium) est inférieur ou égal à 134.00, ce qui contribue positivement à la prédiction de survie avec une contribution de 0.290.
+        2. Le niveau de créatinine dans le sérum (serum_creatinine) est supérieur à 1.30, ce qui contribue également positivement à la prédiction de survie avec une contribution de 0.226.
+        3. L'absence d'hypertension artérielle (high_blood_pressure) contribue négativement à la prédiction de survie avec une contribution de -0.110.
+        4. La fraction d'éjection (ejection_fraction) est inférieure ou égale à 30.00, ce qui a une contribution positive de 0.069.
+        5. L'âge du patient est supérieur à 69 ans, ce qui ajoute une légère contribution positive de 0.045.
+
+        Ces caractéristiques, en particulier le niveau de sodium dans le sérum et le niveau de créatinine, ont joué un rôle clé dans la prédiction que le patient survivra.
+      regles: |
+        [
+          'serum_sodium <= 134.00', 'serum_creatinine >= 1.30','high_blood_pressure < 0.5', 'ejection_fraction <= 30.00','age > 69'
+        ]
+
+glass:
+  nom: "glass"
+  chemin_csv: "../../data/glass.csv"
+  objectif_classification: | 
+    Il s'agit d'un modèle de classification multiclass visant à prédire le type de verre de l'UCI. 
+    1 (building_windows_float_processed), 2 (building_windows_non_float_processed),3 (vehicle_windows_float_processed), 
+    4 (vehicle_windows_non_float_processed), 5 (containers), 6 (tableware), 7 (headlamps)
+  colonne_cible: "type"
+  tests_result:
+    exemple:
+      explication: |
+       La prédiction du modèle pour cette instance, qui est la classe 1 (building_windows_float_processed), est principalement influencée par plusieurs caractéristiques clés. 
+
+        1. La valeur de 'ba' (baryum) étant inférieure ou égale à 0.00 a la plus grande contribution positive à la prédiction, avec une valeur de 0.301. Cela signifie que l'absence de baryum est fortement associée à la classe 1.
+
+        2. La valeur de 'al' (aluminium) se situant entre 1.35 et 1.62 contribue également positivement à la prédiction, avec une contribution de 0.092. Cela indique que cette plage de valeurs d'aluminium est typique pour la classe 1.
+
+        3. La valeur de 'ri' (indice de réfraction) étant inférieure ou égale à 1.52 ajoute une contribution positive de 0.075, suggérant que cet indice de réfraction est caractéristique de la classe 1.
+
+        4. La valeur de 'ca' (calcium) étant inférieure ou égale à 8.24 contribue positivement avec 0.073, ce qui est cohérent avec les propriétés de la classe 1.
+
+        5. La valeur de 'si' (silicium) étant supérieure à 73.08 a une contribution négative de -0.052, ce qui signifie que cette caractéristique est moins typique pour la classe 1, mais son impact est moindre comparé aux autres caractéristiques.
+
+        Ces caractéristiques, en particulier l'absence de baryum et les niveaux spécifiques d'aluminium, d'indice de réfraction et de calcium, sont les principaux facteurs qui ont conduit le modèle à prédire que cet échantillon appartient à la classe 1.
+      regles: |
+        [
+          'ba <= 0.00', 'al >= 1.35','al <= 1.62', 'ri <= 1.52','ca <= 8.24','si > 73.08'
+        ]
+employee:
+  nom: "employee"
+  chemin_csv: "../../data/employee.csv"
+  objectif_classification: "Il s'agit d'un modèle de classification binaire destiné à prédire si un employé quittera l’entreprise (valeur 1) ou s’il restera (valeur 0)."
+  colonne_cible: "leave_or_not"
+  tests_result:
+    exemple:
+      explication: |
+        Le modèle a prédit que l'employé restera dans l'entreprise (classe 0). Les caractéristiques les plus influentes dans cette décision sont les suivantes :
+
+        1. Payment Tier : L'employé appartient au niveau de paiement 3, ce qui a une contribution négative de -0.230 à la prédiction, indiquant que ce niveau de paiement est associé à une probabilité plus élevée de rester.
+
+        2. Gender : Le genre de l'employé a une contribution de -0.154, ce qui signifie que cette caractéristique est également associée à une probabilité plus élevée de rester.
+
+        3. Joining Year : L'année d'embauche de 2017 contribue à -0.147, suggérant que les employés embauchés autour de cette période sont plus susceptibles de rester.
+
+        Ces trois caractéristiques ont les contributions négatives les plus importantes, ce qui signifie qu'elles influencent fortement la prédiction que l'employé restera dans l'entreprise..
+      regles: |
+        [
+          'payment_tier > 2.5','payment_tier <= 3', 'gender > 0.5','gender <= 1','joining_year > 2016.5','joining_year <= 2017'
+        ]
+
+diabetes:
+  nom: "diabetes"
+  chemin_csv: "../../data/diabetes.csv"
+  objectif_classification: | 
+    Il s'agit d'un modèle de classification destiné à prédire si un patient est atteinte de diabete (valeur 1) ou non (valeur 0).
+  colonne_cible: "outcome"
+  tests_result:
+    exemple:
+      explication: |
+        La prédiction du modèle indiquant que le patient est atteint de diabète (classe 1) est principalement influencée par les caractéristiques suivantes:
+
+        1. Glucose: La valeur de glucose du patient est de 128.0, ce qui se situe dans l'intervalle 122.00 < glucose <= 145.00. Cette caractéristique contribue positivement à la prédiction avec une valeur de 0.093, indiquant un risque accru de diabète.
+
+        2. Diabetes Pedigree Function: La valeur de la fonction héréditaire du diabète est de 0.549, se situant dans l'intervalle 0.37 < diabetes_pedigree_function <= 0.65. Cela contribue également positivement à la prédiction avec une valeur de 0.064, suggérant une prédisposition génétique au diabète.
+
+        Ces deux caractéristiques sont les plus influentes dans la décision du modèle de prédire que le patient est atteint de diabète. Les autres caractéristiques ont des contributions moins significatives ou négatives à la prédiction.
+      regles: |
+        [
+          'glucose > 127.5', 'glucose <= 128.0','diabetes_pedigree_function <= 0.549'
+        ]
+
+tic_tac_toe:
+  nom: "tic_tac_toe"
+  chemin_csv: "../../data/tic_tac_toe.csv"
+  objectif_classification: | 
+    Il s'agit d'un modèle de classification destiné à prédire si le joueur a gagné la partie du morpion (valeur 1) ou non (valeur 0) à partir de la configuration finale du plateau.
+  colonne_cible: "class"
+  tests_result:
+    exemple:
+      explication: |
+        Le modèle a prédit une victoire (classe 1) principalement en raison de la présence de pions dans des positions stratégiques sur le plateau.
+
+        La case centrale (middle_middle_square) a eu la plus forte influence positive sur la prédiction, avec une valeur de 1. Sa contribution a été de 0.355.
+
+        Les cases en haut à gauche (top_left_square) et en bas à droite (bottom_right_square), qui avaient aussi une valeur de 1, ont également fortement soutenu la prédiction de victoire, avec des contributions respectives de 0.223 et 0.206.
+
+        La case en bas à gauche (bottom_left_square), qui avait une valeur de 0, a été le facteur le plus important allant à l'encontre de la victoire, avec une contribution négative de -0.291. Cependant, l'influence positive combinée des cases occupées a été suffisante pour que le modèle prédise une victoire.
+      regles: |
+        [
+          'middle_middle_squar <= 1', 'middle_middle_squar > 0.5' 'top_left_square <= 1','top_left_square > 0.5','bottom_right_square <= 1','bottom_right_square > 0.5','bottom_left_square <= 0'
+        ]
+
+haberman:
+  nom: "haberman"
+  chemin_csv: "../../data/haberman.csv"
+  objectif_classification: | 
+    Il s'agit d'un modèle de classification binaire destiné à prédire la survi (valeur 1) ou la mort(valeur 2) d’une patiente  après une opération du cancer du sein.
+  colonne_cible: "surv_status"
+  tests_result:
+    exemple:
+      explication: |
+        La prédiction du modèle indiquant la survie (classe 0) pour cette patiente est principalement influencée par les caractéristiques suivantes :
+
+        1. Le nombre de ganglions axillaires détectés (axil_nodes) est de 0, ce qui a une contribution significative de -0.241 à la prédiction de survie. Cela signifie que l'absence de ganglions axillaires détectés est fortement associée à une probabilité plus élevée de survie.
+
+        2. L'année de l'opération (op_year) est 60, ce qui contribue à -0.028 à la prédiction. Bien que cette contribution soit moins importante, elle soutient également la prédiction de survie.
+
+        3. L'âge de la patiente est de 38 ans, ce qui a une contribution de -0.012. Cet âge relativement jeune par rapport au seuil de 45 ans est légèrement en faveur de la survie.
+
+        En résumé, l'absence de ganglions axillaires détectés est le facteur le plus déterminant dans la prédiction de survie pour cette patiente.
+      regles: |
+        [
+          'axil_nodes <= 0', 'op_year <= 60','op_year > 59.5','age <= 38','age > 37.5'
+        ]
+
+vote_house_84:
+  nom: "vote_house_84"
+  chemin_csv: "../../data/vote_house_84.csv"
+  objectif_classification: | 
+    Il s'agit d'un modèle de classification binaire destiné à prédire la classe du votant (Democrate: 1, Republicain: 0) en fonctions de leur votes aux differentes types de votes.
+  colonne_cible: "class_name"
+  tests_result:
+    exemple:
+      explication: |
+        La prédiction du modèle pour cet individu est la classe 0, ce qui signifie qu'il est classé comme Républicain. Les caractéristiques les plus influentes dans cette décision sont les suivantes :
+
+        1. La caractéristique "superfund-right-to-sue" a une valeur de 1, ce qui contribue positivement à la prédiction de la classe 0 avec une contribution de 0.117.
+        2. La caractéristique "anti-satellite-test-ban" a une valeur de 0, ce qui contribue négativement à la prédiction de la classe 0 avec une contribution de -0.101.
+        3. La caractéristique "immigration" a une valeur de 0, ce qui contribue négativement à la prédiction de la classe 0 avec une contribution de -0.080.
+        4. La caractéristique "water-project-cost-sharing" a une valeur de 0, ce qui contribue négativement à la prédiction de la classe 0 avec une contribution de -0.075.
+        5. La caractéristique "el-salvador-aid" a une valeur de 1, ce qui contribue négativement à la prédiction de la classe 0 avec une contribution de -0.069.
+
+        Ces caractéristiques, avec leurs valeurs respectives, influencent le modèle à prédire que cet individu est plus susceptible d'être Républicain.
+      regles: |
+        [
+          'superfund-right-to-sue <= 1', 'superfund-right-to-sue > 0.5' 'anti-satellite-test-ban <= 0','immigration <= 0','water-project-cost-sharing <= 0','el-salvador-aid > 0.5','el-salvador-aid <= 1'
+        ]

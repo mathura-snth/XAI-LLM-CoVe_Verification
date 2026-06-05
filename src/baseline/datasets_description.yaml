@@ -1,0 +1,93 @@
+Compas:
+  description: |
+    COMPAS (Correctional Offender Management Profiling for Alternative Sanctions) est un algorithme commercial populaire utilisé par 
+    les juges et les agents de libération conditionnelle pour noter la probabilité de récidive du défendeur criminel (récidivisme)
+
+  nombre_de_colonnne: 12
+  nombre_de_lignes: 6172
+  nombre_de_classes: 2
+
+Placement:
+  description: |
+    Cet ensemble de données se compose de données de placement des étudiants dans un campus XYZ. 
+    Il comprend le pourcentage et la spécialisation des écoles secondaires et supérieures. 
+    Il comprend également la spécialisation du diplôme, le type et l'expérience professionnelle et les offres de salaire aux étudiants placés
+
+  nombre_de_colonnne: 14
+  nombre_de_lignes: 215
+  nombre_de_classes: 2
+
+Cancer:
+  description: |
+    Le cancer du sein est le cancer le plus fréquent chez les femmes dans le monde. Il représente 25 % de tous les cas de cancer et a touché plus de 2,1 millions de personnes rien qu'en 2015.
+    Cet ensemble de données contient des caractéristiques qui peuvent être utilisées pour prédire le cancer de sein.
+  nombre_de_colonnne: 31
+  nombre_de_lignes: 570
+  nombre_de_classes: 2
+
+Heart:
+  description: |
+    L'insuffisance cardiaque est un événement courant causé par les MCV et cet ensemble de données contient 12 caractéristiques 
+    qui peuvent être utilisées pour prédire la mortalité par insuffisance cardiaque.
+
+  nombre_de_colonnne: 13
+  nombre_de_lignes: 299
+  nombre_de_classes: 2
+
+Glass:
+  description: |
+    Il s'agit d'un ensemble de données d'identification du verre de l'UCI. Il contient 10 attributs, y compris l'identifiant. 
+    La réponse est de type verre (7 valeurs discrètes)
+
+  nombre_de_colonnne: 10
+  nombre_de_lignes: 214
+  nombre_de_classes: 7
+
+Employee:
+  description: |
+    Cet ensemble de données contient des informations sur les employés d'une entreprise, y compris leurs antécédents scolaires, 
+    leurs antécédents professionnels, leurs données démographiques et leurs facteurs liés à l'emploi. 
+    Il a été anonymisé pour protéger la vie privée tout en fournissant des informations précieuses sur la main-d'œuvre.
+
+  nombre_de_colonnne: 9
+  nombre_de_lignes: 4653
+  nombre_de_classes: 2
+
+Diabets:
+  description: |
+    Cet ensemble de données provient à l'origine de l'Institut national du diabète et de la digestion et des reins
+
+    Maladies. L'objectif de l'ensemble de données est de prédire diagnostiquement si un patient est atteint de diabète,
+
+    Basé sur certaines mesures de diagnostic incluses dans l'ensemble de données. Plusieurs contraintes ont été imposées
+
+    Sur la sélection de ces instances dans une base de données plus grande. En particulier, toutes les patientes ici sont des femmes au moins 21 ans d'origine indienne Pima.
+
+  nombre_de_colonnne: 9
+  nombre_de_lignes: 768
+  nombre_de_classes: 2
+
+Tic_tac_toe:
+  description: |
+      Cette base de données encode l'ensemble complet des configurations de cartes possibles à la fin des jeux tic-tac-toe, où "x" est supposé avoir joué en premier. 
+      Le concept cible est "gagner pour x" (c'est-à-dire vrai lorsque "x" a l'une des 8 façons possibles de créer un "trois d'affilée"
+    nombre_de_colonnne: 10
+    nombre_de_lignes: 958
+    nombre_de_classes: 2
+
+Haberman:
+  description: |
+    L'ensemble de données contient des cas provenant d'une étude menée entre 1958 et 1970 à l'hôpital Billings de l'Université de Chicago 
+    sur la survie des patientes qui avaient subi une intervention chirurgicale pour un cancer du sein.
+  nombre_de_colonnne: 4
+  nombre_de_lignes: 360
+  nombre_de_classes: 2
+
+Votes_house_84:
+  description: |
+    Cet ensemble de données comprend des votes pour chacun des États-Unis. Les membres du Congrès de la Chambre des représentants sur les 16 votes clés identifiés par la CQA. 
+    La CQA énumère neuf types de votes différents : votés pour, jumelés pour et annoncés pour (ces trois simplifiés à oui), votés contre, appariés contre et annoncés contre (ces trois simplifiés à non), 
+    votés présents, votés présents pour éviter les conflits d'intérêts, et n'ont pas voté ou autrement fait connaître une position (ces trois simplifiés à une disposition inconnue)
+  nombre_de_colonnne: 17
+  nombre_de_lignes: 434
+  nombre_de_classes: 2
