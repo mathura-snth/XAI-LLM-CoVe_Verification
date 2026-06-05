@@ -1,0 +1,212 @@
+{
+  "feature_names": [
+    "ft0",
+    "ft1",
+    "ft2",
+    "ft3",
+    "ft4",
+    "ft5",
+    "ft6",
+    "ft7",
+    "ft8",
+    "ft9",
+    "ft10",
+    "ft11",
+    "ft12"
+  ],
+  "feature_types": [
+    "boolean",
+    "boolean",
+    "boolean",
+    "boolean",
+    "boolean",
+    "boolean",
+    "boolean",
+    "boolean",
+    "boolean",
+    "boolean",
+    "boolean",
+    "boolean",
+    "boolean"
+  ],
+  "class_names": [
+    "0",
+    "1"
+  ],
+  "positive": "1",
+  "nodes": {
+    "0": {
+      "id": 0,
+      "type": "internal",
+      "feature_name": "ft1",
+      "feature_index": 1,
+      "threshold": 56.439998626708984,
+      "id_left": 1,
+      "id_right": 6
+    },
+    "1": {
+      "id": 1,
+      "type": "internal",
+      "feature_name": "ft12",
+      "feature_index": 12,
+      "threshold": 262500.0,
+      "id_left": 2,
+      "id_right": 3
+    },
+    "2": {
+      "id": 2,
+      "type": "leaf",
+      "class": "1"
+    },
+    "3": {
+      "id": 3,
+      "type": "internal",
+      "feature_name": "ft12",
+      "feature_index": 12,
+      "threshold": 302500.0,
+      "id_left": 4,
+      "id_right": 5
+    },
+    "4": {
+      "id": 4,
+      "type": "leaf",
+      "class": "0"
+    },
+    "5": {
+      "id": 5,
+      "type": "leaf",
+      "class": "1"
+    },
+    "6": {
+      "id": 6,
+      "type": "internal",
+      "feature_name": "ft6",
+      "feature_index": 6,
+      "threshold": 55.19000053405762,
+      "id_left": 7,
+      "id_right": 8
+    },
+    "7": {
+      "id": 7,
+      "type": "leaf",
+      "class": "0"
+    },
+    "8": {
+      "id": 8,
+      "type": "internal",
+      "feature_name": "ft1",
+      "feature_index": 1,
+      "threshold": 70.94499969482422,
+      "id_left": 9,
+      "id_right": 20
+    },
+    "9": {
+      "id": 9,
+      "type": "internal",
+      "feature_name": "ft12",
+      "feature_index": 12,
+      "threshold": 264500.0,
+      "id_left": 10,
+      "id_right": 11
+    },
+    "10": {
+      "id": 10,
+      "type": "leaf",
+      "class": "1"
+    },
+    "11": {
+      "id": 11,
+      "type": "internal",
+      "feature_name": "ft12",
+      "feature_index": 12,
+      "threshold": 267500.0,
+      "id_left": 12,
+      "id_right": 19
+    },
+    "12": {
+      "id": 12,
+      "type": "internal",
+      "feature_name": "ft9",
+      "feature_index": 9,
+      "threshold": 52.0,
+      "id_left": 13,
+      "id_right": 14
+    },
+    "13": {
+      "id": 13,
+      "type": "leaf",
+      "class": "1"
+    },
+    "14": {
+      "id": 14,
+      "type": "internal",
+      "feature_name": "ft11",
+      "feature_index": 11,
+      "threshold": 58.0049991607666,
+      "id_left": 15,
+      "id_right": 18
+    },
+    "15": {
+      "id": 15,
+      "type": "internal",
+      "feature_name": "ft2",
+      "feature_index": 2,
+      "threshold": 0.5,
+      "id_left": 16,
+      "id_right": 17
+    },
+    "16": {
+      "id": 16,
+      "type": "leaf",
+      "class": "0"
+    },
+    "17": {
+      "id": 17,
+      "type": "leaf",
+      "class": "1"
+    },
+    "18": {
+      "id": 18,
+      "type": "leaf",
+      "class": "0"
+    },
+    "19": {
+      "id": 19,
+      "type": "leaf",
+      "class": "1"
+    },
+    "20": {
+      "id": 20,
+      "type": "internal",
+      "feature_name": "ft11",
+      "feature_index": 11,
+      "threshold": 71.95499801635742,
+      "id_left": 21,
+      "id_right": 22
+    },
+    "21": {
+      "id": 21,
+      "type": "leaf",
+      "class": "1"
+    },
+    "22": {
+      "id": 22,
+      "type": "internal",
+      "feature_name": "ft1",
+      "feature_index": 1,
+      "threshold": 79.10000228881836,
+      "id_left": 23,
+      "id_right": 24
+    },
+    "23": {
+      "id": 23,
+      "type": "leaf",
+      "class": "0"
+    },
+    "24": {
+      "id": 24,
+      "type": "leaf",
+      "class": "1"
+    }
+  }
+}
