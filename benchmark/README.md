@@ -49,6 +49,28 @@ H2 : f(a) et f(b) de signes opposés (ou valeur y comprise entre f(a) et f(b))
 
 ---
 
+### Règles d'implication
+
+Certaines propriétés impliquent d'autres propriétés. Le benchmark ne doit **pas** considérer comme manquante une hypothèse déduite logiquement d'une hypothèse plus forte.
+
+Exemples :
+```
+f dérivable sur I  ⇒  f continue sur I
+
+f de classe C¹ sur I  ⇒  f dérivable sur I
+                      ⇒  f continue sur I
+
+f(a) < 0 < f(b)  ⇒  0 est compris entre f(a) et f(b)
+```
+Ainsi, dans une copie contenant :
+```
+f est dérivable sur [a,b]
+f(a) < 0 < f(b)
+```
+le modèle ne doit pas signaler l'absence de continuité lors d'une vérification du TVI car cette hypothèse est satisfaite implicitement.
+
+---
+
 ## Mesure concrète
 
 ```
