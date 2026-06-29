@@ -60,3 +60,50 @@ IMPLICATIONS_LIST = [
     ("f continue sur un compact K", "f atteint ses bornes sur K"),
     ("espace complet + précompact", "compact")
 ]
+
+def satisfait(hypotheses_citees, hypothese_requise):
+    """
+    Retourne True si l'hypothèse requise est satisfaite
+    directement ou par implication.
+
+    hypotheses_citees : liste de chaînes
+    hypothese_requise : chaîne
+    """
+
+    # présente explicitement
+    if hypothese_requise in hypotheses_citees:
+        return True
+
+    # recherche récursive dans les implications
+    visites = set()
+
+    def implique(h):
+        if h in visites:
+            return False
+
+        visites.add(h)
+
+        for plus_fort, plus_faible in IMPLICATIONS_LIST:
+
+            if plus_faible == h:
+
+                # la propriété plus forte est citée
+                if plus_fort in hypotheses_citees:
+                    return True
+
+                # ou elle est elle-même impliquée
+                if implique(plus_fort):
+                    return True
+
+        return False
+
+    return implique(hypothese_requise)
+
+from implications import satisfait
+
+print(
+    satisfait(
+        ["f est de classe C1 sur I"],
+        "f est continue sur I"
+    )
+)

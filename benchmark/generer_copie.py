@@ -1,5 +1,6 @@
 import random
 from theoremes import THEOREMES
+from implications import satisfait
 
 TYPES_ERREURS = [
     "correcte",
