@@ -99,11 +99,10 @@ def satisfait(hypotheses_citees, hypothese_requise):
 
     return implique(hypothese_requise)
 
-from implications import satisfait
-
-print(
-    satisfait(
-        ["f est de classe C1 sur I"],
-        "f est continue sur I"
+if __name__ == "__main__":
+    print(
+        satisfait(
+            ["f de classe C1 sur I"],
+            "f continue sur I"
+        )
     )
-)
