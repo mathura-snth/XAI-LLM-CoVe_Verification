@@ -113,32 +113,57 @@ def generer_copie(theoreme_id, type_erreur=None):
     else:
         erreur_appliquee = "correcte"
 
-    # calcul du score
-    n_correctes = sum(1 for h in gold if labels[h] == "presente")
-    score = round(n_correctes / len(gold), 3)
-    est_correcte = score == 1.0 and "inventee" not in labels.values()
+# verdict    
+    est_correcte = True
+    raisons = []
+    
+    for h in gold:
+        if satisfait(hypotheses_citees, h):
+            continue
+        else:
+            est_correcte = False
+            # on cherche les justifications
+            if labels.get(h) == "absente":
+                raisons.append(f"manquante: {texte(h)}")
+            elif labels.get(h) == "mal_formulee":
+                raisons.append(f"mal_formulee: {texte(h)}")
+            elif labels.get(h) == "implication_invalide":
+                raisons.append(f"implication_invalide: {texte(h)}")
+            elif labels.get(h) == "inventee":
+                raisons.append(f"inventee: {h}")
+            else:
+                raisons.append(f"non_satisfaite: {texte(h)}")
+    
+    # les inventions
+    for label in labels.values():
+        if label == "inventee":
+            est_correcte = False
+            # car on a déjà ajouté la raison
+
+    raisons = list(set(raisons))
+    if not raisons and est_correcte:
+        raison = "OK"
+    elif not raisons and not est_correcte:
+        raison = "erreur_inconnue"
+    else:
+        raison = "; ".join(raisons[:2])  # max 2 raisons
 
     return {
-        "theoreme_id": theoreme_id,
-        "nom": th["nom"],
-        "type_erreur": erreur_appliquee,
-        "hypotheses_gold": gold,
-        "hypotheses_citees": hypotheses_citees,
-        "labels": labels,
-        "conclusion": th["conclusion"],
-        "score": score,
-        "est_correcte": est_correcte,
+    "theoreme_id": theoreme_id,
+    "nom": th["nom"],
+    "copie": [texte(h) if h in HYPOTHESES else h for h in hypotheses_citees],
+    "attendu": [texte(h) for h in gold],
+    "est_correcte": est_correcte,
+    "raison": raison,
+    "type_erreur": erreur_appliquee,
     }
 
-
-# test rapide
 if __name__ == "__main__":
-    print("3 exemples sur T01 (Rolle)\n")
-    for type_erreur in ["correcte", "hypothese_manquante", "intervalle_errone"]:
-        copie = generer_copie("T01", type_erreur)
-        print(f"Type : {copie['type_erreur']}")
-        print(f"Gold : {copie['hypotheses_gold']}")
-        print(f"Citées : {copie['hypotheses_citees']}")
-        print(f"Labels: {copie['labels']}")
-        print(f"Score: {copie['score']} | Correcte : {copie['est_correcte']}")
-        print()
+    print("Génération de copies :\n")
+    
+    for type_err in TYPES_ERREURS[:5]:  # 5 exemples
+        copie = generer_copie("T01", type_err)
+        print(f"Copie: {copie['copie']}")
+        print(f"Verdict: {'VRAI' if copie['est_correcte'] else 'FAUX'}")
+        print(f"Raison: {copie['raison']}")
+        print("-----------------------------------------------")
