@@ -1,7 +1,6 @@
 THEOREMES = {
     "T01": {
         "nom": "Théorème de Rolle",
-        "domaine": "Analyse",
         "hypotheses": [
             "f est continue sur [a, b]",
             "f est dérivable sur ]a, b[",
@@ -17,7 +16,6 @@ THEOREMES = {
 
     "T02": {
         "nom": "Théorème des Accroissements Finis (Lagrange)",
-        "domaine": "Analyse",
         "hypotheses": [
             "f est continue sur [a, b]",
             "f est dérivable sur ]a, b["
@@ -26,13 +24,12 @@ THEOREMES = {
         "erreurs_courantes": [
             "f est continue sur ]a, b[",
             "f est dérivable sur [a, b]",
-            "f(a) = f(b)",  # hypothèse de Rolle glissée ici
+            "f(a) = f(b)",
         ]
     },
 
     "T03": {
         "nom": "Théorème des Valeurs Intermédiaires",
-        "domaine": "Analyse",
         "hypotheses": [
             "f est continue sur [a, b]",
             "y est compris entre f(a) et f(b)"
@@ -47,7 +44,6 @@ THEOREMES = {
 
     "T04": {
         "nom": "Théorème de Weierstrass",
-        "domaine": "Analyse",
         "hypotheses": [
             "f est continue sur [a, b]",
             "[a, b] est un intervalle fermé et borné"
@@ -62,7 +58,6 @@ THEOREMES = {
 
     "T05": {
         "nom": "Règle de L'Hôpital",
-        "domaine": "Analyse",
         "hypotheses": [
             "f et g sont dérivables au voisinage de a",
             "g'(x) ≠ 0 au voisinage de a",
@@ -79,7 +74,6 @@ THEOREMES = {
 
     "T06": {
         "nom": "Formule de Taylor-Young",
-        "domaine": "Analyse",
         "hypotheses": [
             "f est n fois dérivable en a"
         ],
@@ -93,7 +87,6 @@ THEOREMES = {
 
     "T07": {
         "nom": "Théorème Fondamental de l'Analyse",
-        "domaine": "Analyse",
         "hypotheses": [
             "f est continue sur [a, b]"
         ],
@@ -107,7 +100,6 @@ THEOREMES = {
 
     "T08": {
         "nom": "Intégration par parties",
-        "domaine": "Analyse",
         "hypotheses": [
             "u et v sont de classe C¹ sur [a, b]"
         ],
@@ -121,7 +113,6 @@ THEOREMES = {
 
     "T09": {
         "nom": "Changement de variable dans une intégrale",
-        "domaine": "Analyse",
         "hypotheses": [
             "φ est de classe C¹ sur [α, β]",
             "f est continue sur φ([α, β])"
@@ -136,7 +127,6 @@ THEOREMES = {
 
     "T10": {
         "nom": "Critère de d'Alembert (séries)",
-        "domaine": "Séries",
         "hypotheses": [
             "uₙ > 0 pour tout n suffisamment grand",
             "lim_{n→∞} u_{n+1}/uₙ = ℓ existe"
@@ -151,7 +141,6 @@ THEOREMES = {
 
     "T11": {
         "nom": "Théorème du rang",
-        "domaine": "Algèbre Linéaire",
         "hypotheses": [
             "f est une application linéaire de E vers F",
             "E est un espace vectoriel de dimension finie n"
@@ -166,7 +155,6 @@ THEOREMES = {
 
     "T12": {
         "nom": "Théorème de la base incomplète",
-        "domaine": "Algèbre Linéaire",
         "hypotheses": [
             "E est un espace vectoriel de dimension finie n",
             "F = (f₁, ..., fₖ) est une famille libre de E avec k ≤ n"
@@ -181,7 +169,6 @@ THEOREMES = {
 
     "T13": {
         "nom": "Diagonalisabilité (valeurs propres distinctes)",
-        "domaine": "Algèbre Linéaire",
         "hypotheses": [
             "f est un endomorphisme de E (dim finie n)",
             "f admet n valeurs propres distinctes"
@@ -196,7 +183,6 @@ THEOREMES = {
 
     "T14": {
         "nom": "Théorème de Cayley-Hamilton",
-        "domaine": "Algèbre Linéaire",
         "hypotheses": [
             "A est une matrice carrée n×n",
             "χ_A est le polynôme caractéristique de A"
@@ -211,7 +197,6 @@ THEOREMES = {
 
     "T15": {
         "nom": "Théorème spectral (matrices symétriques réelles)",
-        "domaine": "Algèbre Linéaire",
         "hypotheses": [
             "A est une matrice carrée réelle",
             "A est symétrique (A = Aᵀ)"
@@ -226,7 +211,6 @@ THEOREMES = {
 
     "T16": {
         "nom": "Inégalité de Cauchy-Schwarz",
-        "domaine": "Algèbre Linéaire",
         "hypotheses": [
             "E est un espace vectoriel muni d'un produit scalaire",
             "u et v sont deux vecteurs de E"
@@ -241,7 +225,6 @@ THEOREMES = {
 
     "T17": {
         "nom": "Projection orthogonale (Hilbert)",
-        "domaine": "Algèbre Linéaire",
         "hypotheses": [
             "E est un espace de Hilbert",
             "F est un sous-espace vectoriel fermé de E"
@@ -256,7 +239,6 @@ THEOREMES = {
 
     "T18": {
         "nom": "Théorème de Heine (continuité uniforme)",
-        "domaine": "Topologie",
         "hypotheses": [
             "f est continue sur [a, b]",
             "[a, b] est un compact (fermé borné de ℝ)"
@@ -271,7 +253,6 @@ THEOREMES = {
 
     "T19": {
         "nom": "Théorème de Bolzano-Weierstrass",
-        "domaine": "Topologie",
         "hypotheses": [
             "(uₙ) est une suite bornée de réels"
         ],
@@ -285,7 +266,6 @@ THEOREMES = {
 
     "T20": {
         "nom": "Théorème de convergence monotone (suites)",
-        "domaine": "Suites",
         "hypotheses": [
             "(uₙ) est une suite croissante",
             "(uₙ) est majorée"
@@ -300,7 +280,6 @@ THEOREMES = {
 
     "T21": {
         "nom": "Théorème des suites adjacentes",
-        "domaine": "Suites",
         "hypotheses": [
             "(uₙ) est croissante et (vₙ) est décroissante",
             "vₙ − uₙ → 0"
@@ -315,7 +294,6 @@ THEOREMES = {
 
     "T22": {
         "nom": "Critère de Cauchy (suites)",
-        "domaine": "Suites",
         "hypotheses": [
             "(uₙ) est une suite dans un espace complet"
         ],
@@ -329,7 +307,6 @@ THEOREMES = {
 
     "T23": {
         "nom": "Théorème de convergence dominée",
-        "domaine": "Intégration",
         "hypotheses": [
             "(fₙ) est une suite de fonctions mesurables",
             "fₙ → f presque partout",
@@ -345,7 +322,6 @@ THEOREMES = {
 
     "T24": {
         "nom": "Théorème de Cauchy-Lipschitz",
-        "domaine": "Équations Différentielles",
         "hypotheses": [
             "f est continue en t",
             "f est lipschitzienne en y",
@@ -361,7 +337,6 @@ THEOREMES = {
 
     "T25": {
         "nom": "Principe de superposition (EDO linéaires)",
-        "domaine": "Équations Différentielles",
         "hypotheses": [
             "L est un opérateur différentiel linéaire",
             "y₁ est solution de L(y) = f₁",
@@ -377,7 +352,6 @@ THEOREMES = {
 
     "T26": {
         "nom": "Théorème Central Limite",
-        "domaine": "Probabilités",
         "hypotheses": [
             "(Xₙ) est une suite de variables aléatoires indépendantes",
             "Les Xₙ sont identiquement distribuées",
@@ -394,7 +368,6 @@ THEOREMES = {
 
     "T27": {
         "nom": "Loi des Grands Nombres (faible)",
-        "domaine": "Probabilités",
         "hypotheses": [
             "(Xₙ) est une suite de variables aléatoires indépendantes",
             "Les Xₙ sont identiquement distribuées",
@@ -410,7 +383,6 @@ THEOREMES = {
 
     "T28": {
         "nom": "Inégalité de Jensen",
-        "domaine": "Probabilités",
         "hypotheses": [
             "φ est une fonction convexe",
             "X est une variable aléatoire réelle intégrable"
@@ -425,7 +397,6 @@ THEOREMES = {
 
     "T29": {
         "nom": "Réduction de Jordan (existence)",
-        "domaine": "Algèbre Linéaire",
         "hypotheses": [
             "A est une matrice carrée n×n à coefficients complexes"
         ],
@@ -439,7 +410,6 @@ THEOREMES = {
 
     "T30": {
         "nom": "Formule de Taylor avec reste de Lagrange",
-        "domaine": "Analyse",
         "hypotheses": [
             "f est n fois dérivable sur [a, b] (continue)",
             "f est n+1 fois dérivable sur ]a, b["
