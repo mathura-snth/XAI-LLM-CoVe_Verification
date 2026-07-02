@@ -1,6 +1,7 @@
 import random
 from theoremes import THEOREMES
-from implications import satisfait
+from hypotheses import HYPOTHESES, texte
+from implications import satisfait, IMPLICATIONS_LIST, MAUVAISES_IMPLICATIONS
 
 TYPES_ERREURS = [
     "correcte",
@@ -10,14 +11,16 @@ TYPES_ERREURS = [
     "hypothese_inventee",
     "intervalle_errone",
     "renforcement_abusif",
+    "implication_valide",
+    "implication_invalide",
 ]
 
 def generer_copie(theoreme_id, type_erreur=None):
     if theoreme_id not in THEOREMES:
         raise ValueError(f"Théorème '{theoreme_id}' inconnu.")
-
     th = THEOREMES[theoreme_id]
     gold = th["hypotheses"]
+    erreurs_courantes = th["erreurs_courantes"]
 
     if type_erreur is None:
         type_erreur = random.choice(TYPES_ERREURS)
@@ -45,14 +48,14 @@ def generer_copie(theoreme_id, type_erreur=None):
             labels[h] = "absente"
 
     # hypothèse mal formulée
-    elif type_erreur == "hypothese_mal_formulee" and th["erreurs_courantes"]:
+    elif type_erreur == "hypothese_mal_formulee" and "erreurs_courantes":
         idx = random.randint(0, len(gold) - 1)
-        hypotheses_citees[idx] = random.choice(th["erreurs_courantes"])
+        hypotheses_citees[idx] = random.choice("erreurs_courantes")
         labels[gold[idx]] = "mal_formulee"
 
     # hypothèse inventée
-    elif type_erreur == "hypothese_inventee" and th["erreurs_courantes"]:
-        h_inventee = random.choice(th["erreurs_courantes"])
+    elif type_erreur == "hypothese_inventee" and "erreurs_courantes":
+        h_inventee = random.choice("erreurs_courantes")
         hypotheses_citees.append(h_inventee)
         labels["[inventee] " + h_inventee] = "inventee"
 
@@ -60,12 +63,12 @@ def generer_copie(theoreme_id, type_erreur=None):
     elif type_erreur == "intervalle_errone":
         modifiee = False
         for i, h in enumerate(hypotheses_citees):
-            if "[a, b]" in h and not modifiee:
-                hypotheses_citees[i] = h.replace("[a, b]", "]a, b[")
+            if h in ["F_CONTINUE_FERME", "F_DERIVABLE_FERME"] and not modifiee:
+                hypotheses_citees[i] = h.replace("FERME", "OUVERT")
                 labels[gold[i]] = "mal_formulee"
                 modifiee = True
-            elif "]a, b[" in h and not modifiee:
-                hypotheses_citees[i] = h.replace("]a, b[", "[a, b]")
+            elif h in ["F_CONTINUE_OUVERT", "F_DERIVABLE_OUVERT"] and not modifiee:
+                hypotheses_citees[i] = h.replace("OUVERT", "FERME")
                 labels[gold[i]] = "mal_formulee"
                 modifiee = True
         if not modifiee:
@@ -74,16 +77,15 @@ def generer_copie(theoreme_id, type_erreur=None):
     # renforcement abusif
     elif type_erreur == "renforcement_abusif":
         renforcements = {
-            "continue": "de classe C¹",
-            "dérivable": "de classe C²",
-            "intégrable": "continue",
-            "mesurable": "continue",
+            "F_CONTINUE_FERME": "F_CLASSE_C1",
+            "F_CONTINUE_OUVERT": "F_CLASSE_C1",
+            "F_DERIVABLE_OUVERT": "F_CLASSE_C2",
+            "F_INTEGRABLE_FERME": "F_CONTINUE_FERME",
         }
         modifiee = False
         for i, h in enumerate(hypotheses_citees):
-            for mot, renfort in renforcements.items():
-                if mot in h and not modifiee:
-                    hypotheses_citees[i] = h.replace(mot, renfort)
+            if h in renforcements and not modifiee:
+                    hypotheses_citees[i] = renforcements[h]
                     labels[gold[i]] = "mal_formulee"
                     modifiee = True
                     break
@@ -101,7 +103,6 @@ def generer_copie(theoreme_id, type_erreur=None):
     return {
         "theoreme_id": theoreme_id,
         "nom": th["nom"],
-        "domaine": th["domaine"],
         "type_erreur": erreur_appliquee,
         "hypotheses_gold": gold,
         "hypotheses_citees": hypotheses_citees,
@@ -117,9 +118,9 @@ if __name__ == "__main__":
     print("3 exemples sur T01 (Rolle)\n")
     for type_erreur in ["correcte", "hypothese_manquante", "intervalle_errone"]:
         copie = generer_copie("T01", type_erreur)
-        print(f"Type     : {copie['type_erreur']}")
-        print(f"Gold     : {copie['hypotheses_gold']}")
-        print(f"Citées   : {copie['hypotheses_citees']}")
-        print(f"Labels   : {copie['labels']}")
-        print(f"Score    : {copie['score']} | Correcte : {copie['est_correcte']}")
+        print(f"Type : {copie['type_erreur']}")
+        print(f"Gold : {copie['hypotheses_gold']}")
+        print(f"Citées : {copie['hypotheses_citees']}")
+        print(f"Labels: {copie['labels']}")
+        print(f"Score: {copie['score']} | Correcte : {copie['est_correcte']}")
         print()
