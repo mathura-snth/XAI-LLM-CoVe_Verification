@@ -21,4 +21,17 @@ for _ in range(N):
 with open(OUTPUT, "w", encoding="utf-8") as f:
     json.dump(dataset, f, ensure_ascii=False, indent=2)
 
-print(f"{N} copies générées et sauvegardées dans '{OUTPUT}'")
+print(f"{N} copies générées dans {OUTPUT}")
+
+# affichage de 2 colonnes
+print("\n" + "="*100)
+print(f"{'COPIE':<70} | {'VERDICT':<30}")
+print("="*100)
+
+for item in dataset:
+    copie = ", ".join(item["copie"])
+    verdict = f"VRAI" if item["est_correcte"] else f"FAUX ({item['raison']})"
+    print(f"{copie[:68]:<70} | {verdict:<30}")
+
+print("="*100)
+print(f"Total: {len(dataset)} | Copies correctes {sum(1 for d in dataset if d['est_correcte'])} | Copies incorrectes : {sum(1 for d in dataset if not d['est_correcte'])}")
