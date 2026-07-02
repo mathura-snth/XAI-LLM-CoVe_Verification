@@ -91,6 +91,24 @@ def generer_copie(theoreme_id, type_erreur=None):
                     break
         if not modifiee:
             erreur_appliquee = "correcte"
+        
+    elif type_erreur == "implication_valide" and IMPLICATIONS_LIST:
+        # le remplacement par une hypothèse plus forte est valide
+        for fort, faible in IMPLICATIONS_LIST:
+            if faible in gold and fort not in hypotheses_citees:
+                idx = hypotheses_citees.index(faible)
+                hypotheses_citees[idx] = fort
+                labels[faible] = "satisfaite_par_implication"
+                break
+    
+    elif type_erreur == "implication_invalide" and MAUVAISES_IMPLICATIONS:
+        # le remplacement par une hypothèse plus faible est INVALIDE
+        for faux_fort, faux_faible in MAUVAISES_IMPLICATIONS:
+            if faux_faible in gold and faux_fort not in hypotheses_citees:
+                idx = hypotheses_citees.index(faux_faible)
+                hypotheses_citees[idx] = faux_fort
+                labels[faux_faible] = "implication_invalide"
+                break
 
     else:
         erreur_appliquee = "correcte"
