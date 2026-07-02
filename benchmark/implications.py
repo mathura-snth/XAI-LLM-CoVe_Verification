@@ -122,6 +122,16 @@ def satisfait(hypotheses_citees, hypothese_requise):
         return False
     return implique(hypothese_requise)
 
+# Mauvaises implications (invalides)
+MAUVAISES_IMPLICATIONS = [
+    ("F_CONTINUE_OUVERT", "F_CONTINUE_FERME"),  # ouvert ≠ fermé
+    ("F_DERIVABLE_OUVERT", "F_DERIVABLE_FERME"),  # ouvert ≠ fermé
+    ("F_CLASSE_CN_UNIQUEMENT", "F_N_FOIS_DERIVABLE_FERME"),  # Cn ne suffit pas pour Lagrange
+    ("F_INTEGRABLE_FERME", "F_CONTINUE_FERME"),  # intégrable n'implique pas continue
+    ("F_BORNEE_FERME", "F_CONTINUE_FERME"),  # bornée n'implique pas continue
+    ("FN_CONVERGE_PP", "FN_CONVERGE_UNIFORMEMENT"),  # pp ⟹ uniforme, FAUX !
+]
+
 if __name__ == "__main__":
     print(" Tests des implications")
     
