@@ -6,7 +6,6 @@ IMPLICATIONS_LIST = [
     ("F_DERIVABLE_OUVERT", "F_CONTINUE_OUVERT"),
     ("F_DERIVABLE_FERME", "F_DERIVABLE_OUVERT"),
     ("F_CLASSE_C1", "F_DERIVABLE_OUVERT"),
-    ("F_CLASSE_C1", "F_CONTINUE_FERME"),
     ("F_CLASSE_C2", "F_CLASSE_C1"),
     ("F_CLASSE_C2", "F_DERIVABLE_OUVERT"),
     ("F_CLASSE_C3", "F_CLASSE_C2"),
@@ -22,8 +21,8 @@ IMPLICATIONS_LIST = [
     ("F_DERIVABLE_R", "F_DERIVABLE_OUVERT"),
     
     # Compacité
-    ("INTERVALLE_COMPACT", "F_DERIVABLE_BORNES"), # [a,b] compact ⟹ [a,b] fermé et borné
-    ("F_DERIVABLE_BORNES", "INTERVALLE_COMPACT"), # équivalence dans ℝ
+    ("INTERVALLE_COMPACT", "INTERVALLE_FERME_BORNE"),
+    ("INTERVALLE_FERME_BORNE", "INTERVALLE_COMPACT"),
     
     # Diagonalisation
     ("F_N_VP_DISTINCTES", "F_ENDOMORPHISME_DIM_FINIE"), # simplification
@@ -46,12 +45,10 @@ IMPLICATIONS_LIST = [
     # Suites
     ("UN_CROISSANTE", "UN_MONOTONE"),
     ("UN_DECROISSANTE_MAJOREE", "UN_BORNEE"),
-    ("UN_CROISSANTE", "UN_BORNEE"), # croissante + majorée ⟹ bornée
     ("UN_CAUCHY", "UN_BORNEE"), # suite de Cauchy ⟹ bornée
     ("UN_CAUCHY", "UN_ESPACE_COMPLET"), # dans un espace complet, Cauchy ⟹ convergence
     
     # Convergence
-    ("UN_CROISSANTE", "UN_MAJOREE"), # pour le théorème de convergence monotone
     ("UN_DECROISSANTE_MAJOREE", "UN_MAJOREE"),
     
     # Suites adjacentes
@@ -62,14 +59,12 @@ IMPLICATIONS_LIST = [
     # Intégrabilité
     ("F_CONTINUE_FERME", "F_INTEGRABLE_FERME"),
     ("F_CONTINUE_FERME", "F_BORNEE_FERME"), # Weierstrass
-    ("F_CLASSE_C1", "F_CONTINUE_FERME"),
     ("UV_CLASSE_C1_FERME", "UV_CONTINUES_FERME"),
     ("UV_CLASSE_C1_FERME", "UPRIME_V_CONTINUES_FERME"),
     ("UV_CLASSE_C2_FERME", "UV_CLASSE_C1_FERME"),
     
     # Changement de variable
     ("PHI_CLASSE_C1", "PHI_CONTINUE"),
-    ("PHI_BIJECTIVE", "PHI_CLASSE_C1"), # simplifié
     
     # Séries
     ("UN_POSITIF_GRAND_N", "SERIE_TERMES_POSITIFS"),

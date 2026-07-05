@@ -27,7 +27,8 @@ HYPOTHESES = {
 
     # Weierstrass
     "INTERVALLE_COMPACT":         "[a, b] est un intervalle fermé et borné",
-
+    "INTERVALLE_FERME_BORNE":   "[a, b] est fermé et borné",
+    
     # Règle de L'Hôpital
     "FG_DERIVABLES_VOISINAGE_A":  "f et g sont dérivables au voisinage de a",
     "G_PRIME_NON_NULLE_VOIS_A":   "g'(x) ≠ 0 au voisinage de a",
