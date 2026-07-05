@@ -444,4 +444,4 @@ if __name__ == "__main__":
         for e in th["erreurs_courantes"]:
             if e not in HYPOTHESES:
                 print(f"Erreur courante '{e}' du théorème {t_id} non trouvée dans HYPOTHESES")
-    print("Vérification terminée.")
+    print("vérification terminée")
