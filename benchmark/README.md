@@ -10,6 +10,21 @@ Chaque théorème a une liste d'hypothèses obligatoires (la vérité terrain). 
 
 À noter que le benchmark ne compare **jamais** du texte en toute lettre : les comparaisons se font sur des identifiants *(ex : F_CONTINUE_FERME)*. Le texte français n'existe que pour l'affichage. C'est pour éliminer les faux négatifs dus aux différences de formulation ("f continue" au lieu de "f est continue").
 
+---
+
+## Architecture du dossier
+
+| Fichier | But |
+|---|---|
+| **`hypotheses.py`** | Catalogue de toutes les hypothèses associées à leur id : `id → texte affiché` |
+| **`theoremes.py`** | Définit les 30 théorèmes : hypothèses obligatoires (ids), conclusion, erreurs courantes (ids) |
+| **`implications.py`** | Ensemble d'implications logiques **valides** et **invalides** et la fonction `satisfait()` |
+| **`generer_copie.py`** | Génère une copie synthétique dégradée selon un type d'erreur donné (ou sans erreur) et calcule du verdict |
+| **`run_benchmark.py`** | Génère N copies (par défaut 100) |
+| **`exporter_tableau.py`** | Convertit le .json en .csv et .md |
+
+---
+
 ## Structure d'une entrée du benchmark
 
 Pour chaque cas, on a toujours trois éléments :
