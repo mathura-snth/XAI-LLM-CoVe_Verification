@@ -5,6 +5,10 @@ Les théorèmes mathématiques ont des hypothèses **formelles et vérifiables**
 On génère synthétiquement des réponses d'étudiants appliquant un théorème (correctement ou non), et on mesure si le LLM détecte les hypothèses manquantes, mal citées, ou inventées.
 
 ---
+## Principe général
+Chaque théorème a une liste d'hypothèses obligatoires (la vérité terrain). Une copie est une version dégradée ou correcte de cette liste, à laquelle est associé un verdict : VRAI / FAUX et, si FAUX, une raison précise.
+
+À noter que le benchmark ne compare **jamais** du texte en toute lettre : les comparaisons se font sur des identifiants *(ex : F_CONTINUE_FERME)*. Le texte français n'existe que pour l'affichage. C'est pour éliminer les faux négatifs dus aux différences de formulation ("f continue" au lieu de "f est continue").
 
 ## Structure d'une entrée du benchmark
 
