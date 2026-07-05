@@ -50,12 +50,12 @@ def generer_copie(theoreme_id, type_erreur=None):
     # hypothèse mal formulée
     elif type_erreur == "hypothese_mal_formulee" and "erreurs_courantes":
         idx = random.randint(0, len(gold) - 1)
-        hypotheses_citees[idx] = random.choice("erreurs_courantes")
+        hypotheses_citees[idx] = random.choice(erreurs_courantes)
         labels[gold[idx]] = "mal_formulee"
 
     # hypothèse inventée
     elif type_erreur == "hypothese_inventee" and "erreurs_courantes":
-        h_inventee = random.choice("erreurs_courantes")
+        h_inventee = random.choice(erreurs_courantes)
         hypotheses_citees.append(h_inventee)
         labels["[inventee] " + h_inventee] = "inventee"
 
