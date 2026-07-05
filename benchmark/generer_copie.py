@@ -135,10 +135,11 @@ def generer_copie(theoreme_id, type_erreur=None):
                 raisons.append(f"non_satisfaite: {texte(h)}")
     
     # les inventions
-    for label in labels.values():
-        if label == "inventee":
+    for label_key, label_val in labels.items():
+        if label_val == "inventee":
             est_correcte = False
             # car on a déjà ajouté la raison
+            raisons.append(f"inventee: {label_key}")
 
     raisons = list(set(raisons))
     if not raisons and est_correcte:
