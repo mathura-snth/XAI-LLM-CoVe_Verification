@@ -10,8 +10,6 @@ IMPLICATIONS_LIST = [
     ("F_CLASSE_C2", "F_DERIVABLE_OUVERT"),
     ("F_CLASSE_C3", "F_CLASSE_C2"),
     ("F_CLASSE_C3", "F_CLASSE_C1"),
-    ("F_CLASSE_CN", "F_CLASSE_C1"),  # simplification
-    ("F_CLASSE_C1", "F_CONTINUE_FERME"),  # C1 sur [a,b] ⟹ continue sur [a,b]
     ("F_DERIVABLE_FERME", "F_CONTINUE_FERME"),
     
     # Continuité sur différents intervalles
@@ -115,7 +113,7 @@ if __name__ == "__main__":
     result = satisfait(["F_CLASSE_C1"], "F_DERIVABLE_OUVERT")
     print(f"C1 sur I ⟹ dérivable sur l'ouvert: {result}")
     
-    # Test 3: Dérivable sur fermé n'implique pas continue sur l'ouvert (c'est vrai par contre)
+    # Test 3 : Dérivable sur [a,b] implique continue sur ]a,b[
     result = satisfait(["F_DERIVABLE_FERME"], "F_CONTINUE_OUVERT")
     print(f"Dérivable sur [a,b] ⟹ continue sur ]a,b[: {result}")    
     

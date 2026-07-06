@@ -126,7 +126,6 @@ Une copie part toujours d'une version **100% correcte** de la vérité terrain, 
 | **`hypothese_mal_formulee`** | Une hypothèse gold est remplacée par un id d'`erreurs_courantes` du théorème |
 | **`hypothese_inventee`** | Un id d'`erreurs_courantes` est ajouté en plus de la liste gold complète |
 | **`intervalle_errone`** | Inversion ouvert/fermé (`FERME` ↔ `OUVERT`) sur une hypothèse gold |
-| **`renforcement_abusif`** | Une hypothèse gold est remplacée par une version artificiellement plus forte et non justifiée |
 | **`implication_valide`** | Une hypothèse gold est remplacée par une hypothèse **plus forte et valide** (tirée de `IMPLICATIONS_LIST`) → doit rester `VRAI` |
 | **`implication_invalide`** | Une hypothèse gold est remplacée par une hypothèse **invalide** (tirée de `MAUVAISES_IMPLICATIONS`) → doit être `FAUX` |
 

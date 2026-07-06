@@ -10,7 +10,6 @@ TYPES_ERREURS = [
     "hypothese_mal_formulee",
     "hypothese_inventee",
     "intervalle_errone",
-    "renforcement_abusif",
     "implication_valide",
     "implication_invalide",
 ]
@@ -71,24 +70,6 @@ def generer_copie(theoreme_id, type_erreur=None):
                 hypotheses_citees[i] = h.replace("OUVERT", "FERME")
                 labels[gold[i]] = "mal_formulee"
                 modifiee = True
-        if not modifiee:
-            erreur_appliquee = "correcte"
-
-    # renforcement abusif
-    elif type_erreur == "renforcement_abusif":
-        renforcements = {
-            "F_CONTINUE_FERME": "F_CLASSE_C1",
-            "F_CONTINUE_OUVERT": "F_CLASSE_C1",
-            "F_DERIVABLE_OUVERT": "F_CLASSE_C2",
-            "F_INTEGRABLE_FERME": "F_CONTINUE_FERME",
-        }
-        modifiee = False
-        for i, h in enumerate(hypotheses_citees):
-            if h in renforcements and not modifiee:
-                    hypotheses_citees[i] = renforcements[h]
-                    labels[gold[i]] = "mal_formulee"
-                    modifiee = True
-                    break
         if not modifiee:
             erreur_appliquee = "correcte"
         
