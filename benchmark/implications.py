@@ -111,7 +111,7 @@ if __name__ == "__main__":
     result = satisfait(["F_CLASSE_C1"], "F_CONTINUE_FERME")
     print(f"C1 sur I ⟹ continue sur I: {result}")
     
-    # Test 2: C1 n'implique pas dérivable sur l'ouvert (vrai)
+    # Test 2: C1 implique dérivable sur l'ouvert (vrai)
     result = satisfait(["F_CLASSE_C1"], "F_DERIVABLE_OUVERT")
     print(f"C1 sur I ⟹ dérivable sur l'ouvert: {result}")
     
