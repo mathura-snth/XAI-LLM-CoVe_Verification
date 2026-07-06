@@ -23,19 +23,10 @@ IMPLICATIONS_LIST = [
     # Compacité
     ("INTERVALLE_COMPACT", "INTERVALLE_FERME_BORNE"),
     ("INTERVALLE_FERME_BORNE", "INTERVALLE_COMPACT"),
-    
-    # Diagonalisation
-    ("F_N_VP_DISTINCTES", "F_ENDOMORPHISME_DIM_FINIE"), # simplification
-    ("A_SYMETRIQUE_EGALE_AT", "A_MATRICE_REELLE"), # symétrique réelle ⟹ réelle
-    ("A_SYMETRIQUE_EGALE_AT", "A_DIAGONALISABLE"),
-    ("F_ENDOMORPHISME_DIM_FINIE", "A_DIAGONALISABLE"),
-    ("POLY_CARAC_SCINDE", "F_ENDOMORPHISME_DIM_FINIE"),
-    
+        
     # Base et famille libre
     ("FAMILLE_EST_BASE", "FAMILLE_LIBRE_K_LEQ_N"),
     ("FAMILLE_EST_BASE", "FAMILLE_GENERATRICE_E"),
-    ("FAMILLE_LIBRE_K_LEQ_N", "E_DIM_FINIE"), # si k ≤ n et libre ⟹ dim E ≥ k, mais pas exactement n
-    ("K_EGAL_N", "FAMILLE_EST_BASE"), # si k=n et libre ⟹ base
     
     # Espaces
     ("E_HILBERT", "E_BANACH"),
@@ -44,17 +35,13 @@ IMPLICATIONS_LIST = [
     
     # Suites
     ("UN_CROISSANTE", "UN_MONOTONE"),
-    ("UN_DECROISSANTE_MAJOREE", "UN_BORNEE"),
     ("UN_CAUCHY", "UN_BORNEE"), # suite de Cauchy ⟹ bornée
-    ("UN_CAUCHY", "UN_ESPACE_COMPLET"), # dans un espace complet, Cauchy ⟹ convergence
     
     # Convergence
     ("UN_DECROISSANTE_MAJOREE", "UN_MAJOREE"),
     
     # Suites adjacentes
     ("UN_CROISS_VN_DECROISS", "UN_CROISSANTE"),
-    ("UN_CROISS_VN_DECROISS", "UN_VN_TOUTES_CROISSANTES"), # partiel
-    ("VN_MOINS_UN_TEND_ZERO", "UN_LEQ_VN"), # si v-u tend vers 0, alors u ≤ v pour n assez grand
     
     # Intégrabilité
     ("F_CONTINUE_FERME", "F_INTEGRABLE_FERME"),
@@ -66,11 +53,6 @@ IMPLICATIONS_LIST = [
     # Changement de variable
     ("PHI_CLASSE_C1", "PHI_CONTINUE"),
     
-    # Séries
-    ("UN_POSITIF_GRAND_N", "SERIE_TERMES_POSITIFS"),
-    ("UN_POSITIF_GRAND_N", "UN_NON_NUL"),
-    ("LIM_RATIO_EXISTE", "LIM_UN_ZERO"), # si le ratio tend vers ℓ et ℓ < 1 ⟹ uₙ tend vers 0
-    
     # Probabilités
     ("VAR_X1_FINIE_POSITIVE", "E_X1_FINIE"),
     ("VAR_X1_FINIE", "E_X1_CARRE_FINIE"),
@@ -78,13 +60,8 @@ IMPLICATIONS_LIST = [
     ("E_X1_FINIE", "E_ABS_X1_FINIE"),
     ("XN_INDEPENDANTES", "XN_INDEP_UNIQUEMENT"),
     ("XN_IID", "XN_INDEPENDANTES"),
-    
-    # Jensen
-    ("X_VA_INTEGRABLE", "X_BORNEE"), # simplifié, pas toujours vrai mais pour l'exemple
-    
+        
     # Compacité (Weierstrass, Heine)
-    ("F_CONTINUE_FERME", "INTERVALLE_COMPACT"), # pour Weierstrass
-    ("F_CONTINUE_FERME", "F_LIPSCHITZIENNE_FERME"), # continu sur compact ⟹ lipschitzien (faux en général)
     ("F_LIPSCHITZIENNE_FERME", "F_UNIF_CONTINUE_FERME"),
     ("F_UNIF_CONTINUE_FERME", "F_CONTINUE_FERME"),
 ]
