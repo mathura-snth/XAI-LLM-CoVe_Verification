@@ -25,110 +25,180 @@ Chaque théorème a une liste d'hypothèses obligatoires (la vérité terrain). 
 
 ---
 
-## Structure d'une entrée du benchmark
+## 3. L'ensemble des hypothèses (`hypotheses.py`)
 
-Pour chaque cas, on a toujours trois éléments :
-- L'**énoncé** (ce qu'on donne à l'IA)
-- La **vérité terrain** (les hypothèses obligatoires)
-- Le **type d'erreur** qu'on veut tester
+```python
+HYPOTHESES = {
+    "F_CONTINUE_FERME":  "f est continue sur [a, b]",
+    "F_DERIVABLE_OUVERT": "f est dérivable sur ]a, b[",
+    "F_EGAL_BORNES":      "f(a) = f(b)",
+    # etc
+}
+```
+- Le fichier contient deux fonctions :
+  - `texte(hyp_id)` → renvoie le texte français d'un id
+  - `textes(hyp_ids)` → renvoie la liste des textes pour une liste d'ids
 
 ---
 
-## Exemple 1 : Théorème de Rolle
+## Les théorèmes (`theoremes.py`)
 
-**Vérité terrain — 3 hypothèses obligatoires :**
-```
-H1 : f continue sur [a, b]
-H2 : f dérivable sur ]a, b[
-H3 : f(a) = f(b)
+Chaque théorème est défini uniquement en termes d'ids :
+
+```python
+"T01": {
+    "nom": "Théorème de Rolle",
+    "hypotheses": ["F_CONTINUE_FERME", "F_DERIVABLE_OUVERT", "F_EGAL_BORNES"],
+    "conclusion": "∃ c ∈ ]a, b[ tel que f'(c) = 0",
+    "erreurs_courantes": ["F_CONTINUE_OUVERT", "F_DERIVABLE_FERME", "F_DERIVABLE_BORNES"],
+},
 ```
 
-| Copie synthétique | Ce que l'IA doit détecter |
+- **`hypotheses`** : la vérité terrain, la liste exhaustive et obligatoire des hypothèses du théorème.
+- **`erreurs_courantes`** : des ids d'hypothèses **plausibles mais incorrectes** pour simuler des copies mal formulées ou inventées. Ce ne sont **jamais** des hypothèses valides pour ce théorème — une erreur courante ne doit jamais apparaître comme `plus_fort` d'une implication valide vers une hypothèse gold du même théorème.
+
+**30 théorèmes** du niveau L3 mathématiques : Analyse, Algèbre Linéaire, Topologie, Probabilités.
+
+---
+
+## Les implications (`implications.py`)
+
+Pour déterminer si une hypothèse citée, même différente de la hypothèse requise, la **satisfait tout de même** parce qu'elle est logiquement plus forte.
+
+### Implications valides — `IMPLICATIONS_LIST`
+
+Liste de paires `(plus_fort, plus_faible)` mathématiquement vraies :
+
+```python
+IMPLICATIONS_LIST = [
+    ("F_DERIVABLE_OUVERT", "F_CONTINUE_OUVERT"),
+    ("F_CLASSE_C1", "F_DERIVABLE_OUVERT"),
+    ("F_CONTINUE_FERME", "F_CONTINUE_OUVERT"),
+    # ...
+]
+```
+
+**Règle de validation pour chaque paire ajoutée à la table :**
+- L'implication doit être **vraie isolément**, sans hypothèse supplémentaire sous-entendue. (`"croissante ⟹ bornée"` est **faux** il manque "majorée" ; une conjonction de deux hypothèses ne se code pas comme une implication à un seul terme)
+- Un id d'`erreurs_courantes` d'un théorème **ne doit jamais** apparaître comme `plus_fort` impliquant une hypothèse `gold` de ce même théorème, sinon l'erreur courante passera comme valide
+- Pas de doublons de paires
+- Chaque id utilisé doit exister dans `HYPOTHESES` (une fonction en fait la vérificatin)
+
+### Implications invalides — `MAUVAISES_IMPLICATIONS`
+
+Liste de paires qui **ressemblent** à des implications valides mais sont fausses (c'est le genre de piège que le LLM doit détecter)
+
+```python
+MAUVAISES_IMPLICATIONS = [
+    ("F_CONTINUE_OUVERT", "F_CONTINUE_FERME"),   # ouvert n'implique PAS fermé
+    ("F_DERIVABLE_OUVERT", "F_DERIVABLE_FERME"), # idem
+    ("F_INTEGRABLE_FERME", "F_CONTINUE_FERME"),  # intégrable n'implique pas continue
+    # ...
+]
+```
+
+Ces paires servent à générer le type d'erreur `implication_invalide`, elles ne sont jamais utilisées par `satisfait()`.
+
+### La fonction `satisfait()`
+
+```python
+def satisfait(hypotheses_citees, hypothese_requise):
+    """
+    True si hypothese_requise est citée directement,
+    ou si elle est déduite par une chaîne d'implications valides
+    à partir d'une hypothèse présente dans hypotheses_citees.
+    """
+```
+
+Recherche **récursive** dans `IMPLICATIONS_LIST` (on utimose une ensemble `visites` pour éviter les cycles), jamais dans `MAUVAISES_IMPLICATIONS`.
+
+---
+
+## Génération des copies (`generer_copie.py`)
+
+Une copie part toujours d'une version **100% correcte** de la vérité terrain, puis est dégradée selon un **type d'erreur** :
+
+| Type d'erreur | Effet |
 |---|---|
-| "f est dérivable sur ]a,b[ et f(a)=f(b), donc ∃c..." | **FAUX** : H1 manquante |
-| "f est continue et dérivable sur [a,b], f(a)=f(b)..." | **FAUX** :  H2 mal citée (dérivable sur fermé ≠ ouvert) |
-| "f est continue sur [a,b], dérivable sur ]a,b[, f(a)=f(b)..." | **VRAI** : Tout correct |
-| "f est continue, dérivable, et atteint ses bornes..." | **FAUX** :  H3 manquante + hypothèse inventée |
+| **`correcte`** | Aucune dégradation |
+| **`hypothese_manquante`** | Une hypothèse gold est retirée |
+| **`plusieurs_manquantes`** | Entre 2 et n−1 hypothèses gold sont retirées |
+| **`hypothese_mal_formulee`** | Une hypothèse gold est remplacée par un id d'`erreurs_courantes` du théorème |
+| **`hypothese_inventee`** | Un id d'`erreurs_courantes` est ajouté en plus de la liste gold complète |
+| **`intervalle_errone`** | Inversion ouvert/fermé (`FERME` ↔ `OUVERT`) sur une hypothèse gold |
+| **`renforcement_abusif`** | Une hypothèse gold est remplacée par une version artificiellement plus forte et non justifiée |
+| **`implication_valide`** | Une hypothèse gold est remplacée par une hypothèse **plus forte et valide** (tirée de `IMPLICATIONS_LIST`) → doit rester `VRAI` |
+| **`implication_invalide`** | Une hypothèse gold est remplacée par une hypothèse **invalide** (tirée de `MAUVAISES_IMPLICATIONS`) → doit être `FAUX` |
+
+### Calcul du verdict
+
+Pour chaque hypothèse `h` de la vérité terrain :
+1. Si `satisfait(hypotheses_citees, h)` est vrai → hypothèse validée (directement ou par implication)
+2. Sinon → copie fausse, raison enregistrée (`manquante`, `mal_formulee`, `implication_invalide`, `inventee`, etc)
+
+Le résultat final contient :
+
+```python
+{
+    "theoreme_id": "T01",
+    "nom": "Théorème de Rolle",
+    "copie": [...],              # textes français affichés
+    "attendu": [...],            # textes français de la vérité terrain
+    "est_correcte": True/False,
+    "raison": "OK" | "manquante: ..." | "mal_formulee: ..." | ...,
+    "type_erreur": "hypothese_manquante" | ...,
+}
+```
 
 ---
 
-## Exemple 2 : Théorème des Valeurs Intermédiaires
+## Génération du dataset (`run_benchmark.py`)
 
-**Vérité terrain — 2 hypothèses obligatoires :**
-```
-H1 : f continue sur [a, b]
-H2 : f(a) et f(b) de signes opposés (ou valeur y comprise entre f(a) et f(b))
+```bash
+python3 run_benchmark.py
 ```
 
-| Copie synthétique | Ce que l'IA doit détecter |
+- Tire aléatoirement (seed fixée pour reproductibilité) un théorème et un type d'erreur, `N` fois (défaut 100)
+- Exporte `benchmark_data.json` : une liste de dictionnaires
+- Affiche un résumé en 2 colonnes (`COPIE` / `VERDICT`) et des statistiques globales (total, correctes, incorrectes)
+
+---
+
+## Exportation sous d'autres formats (`exporter_tableau.py`)
+
+```bash
+python3 exporter_tableau.py
+```
+
+Transforme `benchmark_data.json` en :
+
+- **`benchmark_data_tab.csv`** — colonnes : `ID`, `Théorème`, `Copie`, `Attendu`, `Correct (bool)`, `Correct (texte)`, `Raison`, `Type_erreur`
+- **`benchmark_data_tab.md`** — même contenu en tableau Markdown, avec statistiques globales (total, correctes, fausses, répartition par type d'erreur, top 5 des raisons d'échec)
+
+**Structure finale à 2 colonnes :**
+
+| Colonne | Contenu |
 |---|---|
-| "f est continue et f(a) < 0 < f(b), donc..." | **VRAI** : Correct |
-| "f est dérivable et change de signe, donc..." | **VRAI** : ATTENTION même si dérivable ≠ continue, puisque dérivable implique continue, H1 est vérifiée implicitement |
-| "f est continue sur ]a,b[ et change de signe..." | **FAUX** : H1 sur mauvais intervalle (ouvert au lieu de fermé) |
+| **Copie** | La liste des hypothèses citées par l'étudiant synthétique (texte français) |
+| **Verdict** | `VRAI` / `FAUX` + raison précise si `FAUX` |
 
----
 
-### Règles d'implication
+## Extensibilité
 
-Certaines propriétés impliquent d'autres propriétés. Le benchmark ne doit **pas** considérer comme manquante une hypothèse déduite logiquement d'une hypothèse plus forte.
+Ajouter un théorème ne modifie pas le pipeline d'évaluation :
 
-Exemples :
-```
-f dérivable sur I  ⇒  f continue sur I
+1. Ajouter les nouveaux ids d'hypothèses nécessaires dans `hypotheses.py`
+2. Ajouter l'entrée du théorème dans `theoremes.py` (`hypotheses` + `erreurs_courantes`, en ids)
+3. Ajouter les nouvelles implications valides et invalides correspondantes dans `implications.py`
+4. Relancer `python3 theoremes.py` et `python3 implications.py` pour vérifier qu'aucun id n'est manquant ou dupliqué avant de régénérer le dataset
 
-f de classe C¹ sur I  ⇒  f dérivable sur I
-                      ⇒  f continue sur I
-
-f(a) < 0 < f(b)  ⇒  0 est compris entre f(a) et f(b)
-```
-Ainsi, dans une copie contenant :
-```
-f est dérivable sur [a,b]
-f(a) < 0 < f(b)
-```
-le modèle ne doit pas signaler l'absence de continuité lors d'une vérification du TVI car cette hypothèse est satisfaite implicitement.
-
----
-
-## Mesure concrète
-
-```
-Score de fidélité = hypothèses correctement identifiées / hypothèses totales requises
-```
-
-**Trois types d'erreurs mesurables :**
-
-- **Oubli** — une hypothèse requise n'est pas détectée par le LLM
-- **Invention** — le LLM signale une hypothèse fausse comme manquante
-- **Confusion** — le LLM confond deux théorèmes proches (ex: Rolle vs Lagrange)
-
----
-
-## Lien avec CoVe
-
-Après la correction initiale (brouillon), le LLM génère des questions de vérification :
-
-```
-"Est ce que j'ai bien vérifié que f est continue sur un intervalle FERMÉ ?"
-"Est ce que j'ai distingué l'intervalle de continuité [a,b] de celui de continuité sur ]a,b[ ?"
-"La condition f(a)=f(b) est-elle bien citée ?"
-```
-
-Ces questions courtes et isolées (variante Factored de CoVe) permettent de corriger les oublis et confusions du brouillon initial.
-
----
-
-## Dynamisme du benchmark
-
-Le benchmark s'étend à tout nouveau théorème sans changer sa structure :
-
-| Théorème | Nouvelles hypothèses testées |
+| Domaine | Théorèmes couverts |
 |---|---|
-| Rolle | Continuité, dérivabilité, égalité aux bornes |
-| Lagrange | Continuité, dérivabilité (cas général) |
-| TVI | Continuité, signe aux bornes |
-| Weierstrass | Continuité, compacité |
-| Convergence dominée | Convergence p.p., domination intégrable |
-| *etc* | ... |
-
-Chaque nouveau théorème enrichit la base de connaissances sans modifier le pipeline d'évaluation.
+| Analyse | Rolle, Lagrange, TVI, Weierstrass, L'Hôpital, Taylor-Young, Taylor-Lagrange, TFA, IPP, Changement de variable |
+| Séries | Critère de d'Alembert |
+| Algèbre Linéaire | Rang, Base incomplète, Diagonalisabilité, Cayley-Hamilton, Spectral, Cauchy-Schwarz, Jordan |
+| Topologie | Heine, Bolzano-Weierstrass |
+| Suites | Convergence monotone, Suites adjacentes, Critère de Cauchy |
+| Intégration | Convergence dominée |
+| Équations Différentielles | Cauchy-Lipschitz, Superposition |
+| Probabilités | TCL, LGN faible, Jensen |
