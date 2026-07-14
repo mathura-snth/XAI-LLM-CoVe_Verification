@@ -12,16 +12,32 @@ random.seed(SEED)
 ids = list(THEOREMES.keys())
 dataset = []
 
-for _ in range(N):
+erreurs_vues = set()
+
+max_tentatives = N * 30 # d'après claude pour éviter boucle infinie
+tentatives = 0
+
+while len(dataset) < N and tentatives < max_tentatives:
+    tentatives += 1
     t_id = random.choice(ids)
     type_erreur = random.choice(TYPES_ERREURS)
     copie = generer_copie(t_id, type_erreur)
+
+    if copie["type_erreur"] != "correcte":
+        cle = (copie["theoreme_id"], copie["type_erreur"])
+        if cle in erreurs_vues:
+            continue  # cette paire (théorème, type_erreur) existe déjà, on l'ignore
+        erreurs_vues.add(cle)
+
     dataset.append(copie)
+
+if tentatives >= max_tentatives:
+    print(f"Attention, arrêt après {tentatives} tentatives avec seulement {len(dataset)}/{N} copies")
 
 with open(OUTPUT, "w", encoding="utf-8") as f:
     json.dump(dataset, f, ensure_ascii=False, indent=2)
 
-print(f"{N} copies générées dans {OUTPUT}")
+print(f"{len(dataset)} copies générées dans {OUTPUT} ({tentatives} tentatives)")
 
 # affichage de 2 colonnes
 print("\n" + "="*100)
