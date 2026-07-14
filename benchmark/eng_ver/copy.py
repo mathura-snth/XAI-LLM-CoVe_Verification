@@ -47,13 +47,13 @@ def generate_copy(theorem_id, error_type=None):
             labels[h] = "absent"
 
     # Misformulated hypothesis
-    elif error_type == "misformulated_hypothesis" and "common_errors":
+    elif error_type == "misformulated_hypothesis" and common_errors:
         idx = random.randint(0, len(gold) - 1)
         cited_hypotheses[idx] = random.choice(common_errors)
         labels[gold[idx]] = "misformulated"
 
     # Invented hypothesis
-    elif error_type == "invented_hypothesis" and "common_errors":
+    elif error_type == "invented_hypothesis" and common_errors:
         invented_h = random.choice(common_errors)
         cited_hypotheses.append(invented_h)
         labels["[invented] " + invented_h] = "invented"
