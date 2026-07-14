@@ -122,6 +122,9 @@ def generer_copie(theoreme_id, type_erreur=None):
             # car on a déjà ajouté la raison
             raisons.append(f"inventee: {label_key}")
 
+    if type_erreur == "hypothese_mal_formulee" and est_correcte:
+        erreur_appliquee = "implication_valide"
+
     raisons = list(set(raisons))
     if not raisons and est_correcte:
         raison = "OK"

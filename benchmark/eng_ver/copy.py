@@ -122,6 +122,9 @@ def generate_copy(theorem_id, error_type=None):
             # Already added the reason
             reasons.append(f"invented: {label_key}")
 
+    if error_type == "misformulated_hypothesis" and is_correct:
+        applied_error = "valid_implication"
+
     reasons = list(set(reasons))
     if not reasons and is_correct:
         reason = "OK"
