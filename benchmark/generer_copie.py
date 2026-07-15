@@ -74,7 +74,7 @@ def generer_copie(theoreme_id, type_erreur=None):
             if not modifiee:
                 erreur_appliquee = "correcte"
         
-        elif type_erreur == "implication_invalide" and MAUVAISES_IMPLICATIONS:
+        elif sous_type == "implication_invalide" and MAUVAISES_IMPLICATIONS:
             # le remplacement par une hypothèse plus faible est INVALIDE
             for faux_fort, faux_faible in MAUVAISES_IMPLICATIONS:
                 if faux_faible in gold and faux_fort not in hypotheses_citees:
