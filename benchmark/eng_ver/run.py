@@ -23,11 +23,10 @@ while len(dataset) < N and attempts < max_attempts:
     error_type = random.choice(ERROR_TYPES)
     la_copy = generate_copy(t_id, error_type)
 
-    if la_copy["error_type"] != "correct":
-        key = (la_copy["theorem_id"], tuple(sorted(la_copy["copy"])))
-        if key in seen_errors:
-            continue
-        seen_errors.add(key)
+    key = (la_copy["theorem_id"], tuple(sorted(la_copy["copy"])), la_copy["error_type"])
+    if key in seen_errors:
+        continue
+    seen_errors.add(key)
 
     dataset.append(la_copy)
 
