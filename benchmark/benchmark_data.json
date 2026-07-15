@@ -3,15 +3,31 @@
     "theoreme_id": "T21",
     "nom": "Théorème des suites adjacentes",
     "copie": [
+      "(uₙ) est croissante et (vₙ) est décroissante",
       "vₙ − uₙ → 0"
     ],
     "attendu": [
       "(uₙ) est croissante et (vₙ) est décroissante",
       "vₙ − uₙ → 0"
     ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
+  },
+  {
+    "theoreme_id": "T01",
+    "nom": "Théorème de Rolle",
+    "copie": [
+      "f est dérivable sur ]a, b["
+    ],
+    "attendu": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b[",
+      "f(a) = f(b)"
+    ],
     "est_correcte": false,
-    "raison": "manquante: (uₙ) est croissante et (vₙ) est décroissante",
-    "type_erreur": "hypothese_manquante"
+    "raison": "manquante: f(a) = f(b); manquante: f est continue sur [a, b]",
+    "type_erreur": "plusieurs_manquantes"
   },
   {
     "theoreme_id": "T24",
@@ -19,62 +35,44 @@
     "copie": [
       "f est continue en t",
       "f est lipschitzienne en y",
-      "une condition initiale y(t₀) = y₀ est donnée",
-      "f est continue en y"
+      "une condition initiale y(t₀) = y₀ est donnée"
     ],
     "attendu": [
       "f est continue en t",
       "f est lipschitzienne en y",
       "une condition initiale y(t₀) = y₀ est donnée"
-    ],
-    "est_correcte": false,
-    "raison": "inventee: [inventee] F_CONTINUE_EN_Y",
-    "type_erreur": "hypothese_inventee"
-  },
-  {
-    "theoreme_id": "T08",
-    "nom": "Intégration par parties",
-    "copie": [
-      "u et v sont de classe C¹ sur [a, b]"
-    ],
-    "attendu": [
-      "u et v sont de classe C¹ sur [a, b]"
     ],
     "est_correcte": true,
     "raison": "OK",
     "type_erreur": "correcte"
   },
   {
-    "theoreme_id": "T24",
-    "nom": "Théorème de Cauchy-Lipschitz",
+    "theoreme_id": "T22",
+    "nom": "Critère de Cauchy (suites)",
     "copie": [
-      "f est continue en t",
-      "f est lipschitzienne en y"
+      "(uₙ) est une suite dans un espace complet"
     ],
     "attendu": [
-      "f est continue en t",
-      "f est lipschitzienne en y",
-      "une condition initiale y(t₀) = y₀ est donnée"
+      "(uₙ) est une suite dans un espace complet"
     ],
-    "est_correcte": false,
-    "raison": "manquante: une condition initiale y(t₀) = y₀ est donnée",
-    "type_erreur": "hypothese_manquante"
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
   },
   {
-    "theoreme_id": "T24",
-    "nom": "Théorème de Cauchy-Lipschitz",
+    "theoreme_id": "T03",
+    "nom": "Théorème des Valeurs Intermédiaires",
     "copie": [
-      "f est continue en t",
-      "f est lipschitzienne en y"
+      "f est continue sur [a, b]",
+      "y est compris entre f(a) et f(b)"
     ],
     "attendu": [
-      "f est continue en t",
-      "f est lipschitzienne en y",
-      "une condition initiale y(t₀) = y₀ est donnée"
+      "f est continue sur [a, b]",
+      "y est compris entre f(a) et f(b)"
     ],
-    "est_correcte": false,
-    "raison": "manquante: une condition initiale y(t₀) = y₀ est donnée",
-    "type_erreur": "hypothese_manquante"
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
   },
   {
     "theoreme_id": "T14",
@@ -95,6 +93,7 @@
     "theoreme_id": "T01",
     "nom": "Théorème de Rolle",
     "copie": [
+      "f est continue sur [a, b]",
       "f est dérivable sur ]a, b[",
       "f(a) = f(b)"
     ],
@@ -102,60 +101,91 @@
       "f est continue sur [a, b]",
       "f est dérivable sur ]a, b[",
       "f(a) = f(b)"
-    ],
-    "est_correcte": false,
-    "raison": "manquante: f est continue sur [a, b]",
-    "type_erreur": "hypothese_manquante"
-  },
-  {
-    "theoreme_id": "T08",
-    "nom": "Intégration par parties",
-    "copie": [
-      "u et v sont de classe C¹ sur [a, b]"
-    ],
-    "attendu": [
-      "u et v sont de classe C¹ sur [a, b]"
     ],
     "est_correcte": true,
     "raison": "OK",
     "type_erreur": "correcte"
   },
   {
-    "theoreme_id": "T18",
-    "nom": "Théorème de Heine (continuité uniforme)",
+    "theoreme_id": "T07",
+    "nom": "Théorème Fondamental de l'Analyse",
     "copie": [
-      "f est continue sur [a, b]",
-      "f est continue sur ]a, b["
+      "f est continue sur [a, b]"
     ],
     "attendu": [
-      "f est continue sur [a, b]",
-      "[a, b] est un intervalle fermé et borné"
+      "f est continue sur [a, b]"
     ],
-    "est_correcte": false,
-    "raison": "mal_formulee: [a, b] est un intervalle fermé et borné",
-    "type_erreur": "hypothese_mal_formulee"
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
   },
   {
-    "theoreme_id": "T15",
-    "nom": "Théorème spectral (matrices symétriques réelles)",
+    "theoreme_id": "T17",
+    "nom": "Projection orthogonale (Hilbert)",
     "copie": [
-      "A est une matrice carrée réelle",
-      "A est symétrique (A = Aᵀ)",
-      "A est une matrice carrée complexe"
+      "E est un espace de Hilbert",
+      "F est un sous-espace vectoriel fermé de E"
     ],
     "attendu": [
-      "A est une matrice carrée réelle",
-      "A est symétrique (A = Aᵀ)"
+      "E est un espace de Hilbert",
+      "F est un sous-espace vectoriel fermé de E"
+    ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
+  },
+  {
+    "theoreme_id": "T14",
+    "nom": "Théorème de Cayley-Hamilton",
+    "copie": [
+      "A est une matrice carrée n×n"
+    ],
+    "attendu": [
+      "A est une matrice carrée n×n",
+      "χ_A est le polynôme caractéristique de A"
     ],
     "est_correcte": false,
-    "raison": "inventee: [inventee] A_MATRICE_COMPLEXE",
-    "type_erreur": "hypothese_inventee"
+    "raison": "manquante: χ_A est le polynôme caractéristique de A",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T19",
+    "nom": "Théorème de Bolzano-Weierstrass",
+    "copie": [
+      "(uₙ) est une suite bornée de réels"
+    ],
+    "attendu": [
+      "(uₙ) est une suite bornée de réels"
+    ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
+  },
+  {
+    "theoreme_id": "T26",
+    "nom": "Théorème Central Limite",
+    "copie": [
+      "(Xₙ) est une suite de variables aléatoires indépendantes",
+      "les Xₙ sont identiquement distribuées",
+      "E[X₁] = μ est finie",
+      "Var(X₁) = σ² est finie et strictement positive"
+    ],
+    "attendu": [
+      "(Xₙ) est une suite de variables aléatoires indépendantes",
+      "les Xₙ sont identiquement distribuées",
+      "E[X₁] = μ est finie",
+      "Var(X₁) = σ² est finie et strictement positive"
+    ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
   },
   {
     "theoreme_id": "T25",
     "nom": "Principe de superposition (EDO linéaires)",
     "copie": [
-      "L est un opérateur différentiel linéaire"
+      "L est un opérateur différentiel linéaire",
+      "y₁ est solution de L(y) = f₁"
     ],
     "attendu": [
       "L est un opérateur différentiel linéaire",
@@ -163,57 +193,52 @@
       "y₂ est solution de L(y) = f₂"
     ],
     "est_correcte": false,
-    "raison": "manquante: y₂ est solution de L(y) = f₂; manquante: y₁ est solution de L(y) = f₁",
-    "type_erreur": "plusieurs_manquantes"
+    "raison": "manquante: y₂ est solution de L(y) = f₂",
+    "type_erreur": "hypothese_manquante"
   },
   {
-    "theoreme_id": "T05",
-    "nom": "Règle de L'Hôpital",
+    "theoreme_id": "T09",
+    "nom": "Changement de variable dans une intégrale",
     "copie": [
-      "f et g sont dérivables au voisinage de a",
-      "g'(x) ≠ 0 au voisinage de a",
-      "g(x) ≠ 0 au voisinage de a",
-      "lim_{x→a} f'(x)/g'(x) = ℓ existe"
+      "f est continue sur φ([α, β])"
     ],
     "attendu": [
-      "f et g sont dérivables au voisinage de a",
-      "g'(x) ≠ 0 au voisinage de a",
-      "f(a) = g(a) = 0 ou f et g tendent vers ±∞",
-      "lim_{x→a} f'(x)/g'(x) = ℓ existe"
+      "φ est de classe C¹ sur [α, β]",
+      "f est continue sur φ([α, β])"
     ],
     "est_correcte": false,
-    "raison": "mal_formulee: f(a) = g(a) = 0 ou f et g tendent vers ±∞",
-    "type_erreur": "hypothese_mal_formulee"
+    "raison": "manquante: φ est de classe C¹ sur [α, β]",
+    "type_erreur": "hypothese_manquante"
   },
   {
-    "theoreme_id": "T03",
-    "nom": "Théorème des Valeurs Intermédiaires",
+    "theoreme_id": "T25",
+    "nom": "Principe de superposition (EDO linéaires)",
     "copie": [
-      "f est dérivable sur [a, b]",
-      "y est compris entre f(a) et f(b)"
+      "y₂ est solution de L(y) = f₂"
     ],
     "attendu": [
-      "f est continue sur [a, b]",
-      "y est compris entre f(a) et f(b)"
+      "L est un opérateur différentiel linéaire",
+      "y₁ est solution de L(y) = f₁",
+      "y₂ est solution de L(y) = f₂"
     ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_valide"
+    "est_correcte": false,
+    "raison": "manquante: L est un opérateur différentiel linéaire; manquante: y₁ est solution de L(y) = f₁",
+    "type_erreur": "plusieurs_manquantes"
   },
   {
     "theoreme_id": "T04",
     "nom": "Théorème de Weierstrass",
     "copie": [
-      "f est continue sur ]a, b[",
+      "f est continue sur [a, b]",
       "[a, b] est un intervalle fermé et borné"
     ],
     "attendu": [
       "f est continue sur [a, b]",
       "[a, b] est un intervalle fermé et borné"
     ],
-    "est_correcte": false,
-    "raison": "mal_formulee: f est continue sur [a, b]",
-    "type_erreur": "intervalle_errone"
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
   },
   {
     "theoreme_id": "T28",
@@ -235,23 +260,22 @@
     "nom": "Théorème de convergence monotone (suites)",
     "copie": [
       "(uₙ) est une suite croissante",
-      "(uₙ) est majorée",
-      "(uₙ) est une suite décroissante et majorée"
+      "(uₙ) est majorée"
     ],
     "attendu": [
       "(uₙ) est une suite croissante",
       "(uₙ) est majorée"
     ],
-    "est_correcte": false,
-    "raison": "inventee: [inventee] UN_DECROISSANTE_MAJOREE",
-    "type_erreur": "hypothese_inventee"
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
   },
   {
     "theoreme_id": "T24",
     "nom": "Théorème de Cauchy-Lipschitz",
     "copie": [
       "f est continue en t",
-      "f est lipschitzienne en y",
+      "f est continue en y",
       "une condition initiale y(t₀) = y₀ est donnée"
     ],
     "attendu": [
@@ -259,121 +283,125 @@
       "f est lipschitzienne en y",
       "une condition initiale y(t₀) = y₀ est donnée"
     ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_invalide"
+    "est_correcte": false,
+    "raison": "hypothese_inventee: f est lipschitzienne en y",
+    "type_erreur": "hypothese_inventee"
   },
   {
     "theoreme_id": "T18",
     "nom": "Théorème de Heine (continuité uniforme)",
     "copie": [
-      "f est continue sur [a, b]"
+      "f est continue sur [a, b]",
+      "[a, b] est un intervalle fermé et borné"
     ],
     "attendu": [
       "f est continue sur [a, b]",
       "[a, b] est un intervalle fermé et borné"
-    ],
-    "est_correcte": false,
-    "raison": "manquante: [a, b] est un intervalle fermé et borné",
-    "type_erreur": "hypothese_manquante"
-  },
-  {
-    "theoreme_id": "T03",
-    "nom": "Théorème des Valeurs Intermédiaires",
-    "copie": [
-      "f est continue sur [a, b]",
-      "y est compris entre f(a) et f(b)",
-      "f(a) et f(b) sont de signes strictement opposés"
-    ],
-    "attendu": [
-      "f est continue sur [a, b]",
-      "y est compris entre f(a) et f(b)"
-    ],
-    "est_correcte": false,
-    "raison": "inventee: [inventee] SIGNES_OPPOSES",
-    "type_erreur": "hypothese_inventee"
-  },
-  {
-    "theoreme_id": "T20",
-    "nom": "Théorème de convergence monotone (suites)",
-    "copie": [
-      "(uₙ) est une suite croissante",
-      "(uₙ) est majorée"
-    ],
-    "attendu": [
-      "(uₙ) est une suite croissante",
-      "(uₙ) est majorée"
     ],
     "est_correcte": true,
     "raison": "OK",
     "type_erreur": "correcte"
   },
   {
-    "theoreme_id": "T19",
-    "nom": "Théorème de Bolzano-Weierstrass",
+    "theoreme_id": "T27",
+    "nom": "Loi des Grands Nombres (faible)",
     "copie": [
-      "(uₙ) est une suite croissante"
+      "(Xₙ) est une suite de variables aléatoires indépendantes",
+      "les Xₙ sont identiquement distribuées",
+      "E[|X₁|] est finie"
     ],
     "attendu": [
-      "(uₙ) est une suite bornée de réels"
-    ],
-    "est_correcte": false,
-    "raison": "mal_formulee: (uₙ) est une suite bornée de réels",
-    "type_erreur": "hypothese_mal_formulee"
-  },
-  {
-    "theoreme_id": "T22",
-    "nom": "Critère de Cauchy (suites)",
-    "copie": [
-      "(uₙ) est bornée"
-    ],
-    "attendu": [
-      "(uₙ) est une suite dans un espace complet"
-    ],
-    "est_correcte": false,
-    "raison": "mal_formulee: (uₙ) est une suite dans un espace complet",
-    "type_erreur": "hypothese_mal_formulee"
-  },
-  {
-    "theoreme_id": "T28",
-    "nom": "Inégalité de Jensen",
-    "copie": [
-      "X est bornée",
-      "X est une variable aléatoire réelle intégrable"
-    ],
-    "attendu": [
-      "φ est une fonction convexe",
-      "X est une variable aléatoire réelle intégrable"
-    ],
-    "est_correcte": false,
-    "raison": "mal_formulee: φ est une fonction convexe",
-    "type_erreur": "hypothese_mal_formulee"
-  },
-  {
-    "theoreme_id": "T09",
-    "nom": "Changement de variable dans une intégrale",
-    "copie": [
-      "φ est de classe C¹ sur [α, β]",
-      "f est continue sur φ([α, β])"
-    ],
-    "attendu": [
-      "φ est de classe C¹ sur [α, β]",
-      "f est continue sur φ([α, β])"
+      "(Xₙ) est une suite de variables aléatoires indépendantes",
+      "les Xₙ sont identiquement distribuées",
+      "E[|X₁|] est finie"
     ],
     "est_correcte": true,
     "raison": "OK",
-    "type_erreur": "implication_invalide"
+    "type_erreur": "correcte"
   },
   {
-    "theoreme_id": "T21",
-    "nom": "Théorème des suites adjacentes",
+    "theoreme_id": "T29",
+    "nom": "Réduction de Jordan (existence)",
     "copie": [
-      "(uₙ) est croissante et (vₙ) est décroissante",
-      "vₙ − uₙ → 0"
+      "A est une matrice carrée n×n à coefficients complexes"
     ],
     "attendu": [
-      "(uₙ) est croissante et (vₙ) est décroissante",
-      "vₙ − uₙ → 0"
+      "A est une matrice carrée n×n à coefficients complexes"
+    ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
+  },
+  {
+    "theoreme_id": "T23",
+    "nom": "Théorème de convergence dominée",
+    "copie": [
+      "(fₙ) est une suite de fonctions mesurables",
+      "fₙ → f presque partout",
+      "∃ g intégrable telle que |fₙ| ≤ g p.p. pour tout n"
+    ],
+    "attendu": [
+      "(fₙ) est une suite de fonctions mesurables",
+      "fₙ → f presque partout",
+      "∃ g intégrable telle que |fₙ| ≤ g p.p. pour tout n"
+    ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
+  },
+  {
+    "theoreme_id": "T02",
+    "nom": "Théorème des Accroissements Finis (Lagrange)",
+    "copie": [
+      "f est continue sur [a, b]"
+    ],
+    "attendu": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b["
+    ],
+    "est_correcte": false,
+    "raison": "manquante: f est dérivable sur ]a, b[",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T03",
+    "nom": "Théorème des Valeurs Intermédiaires",
+    "copie": [
+      "y est compris entre f(a) et f(b)"
+    ],
+    "attendu": [
+      "f est continue sur [a, b]",
+      "y est compris entre f(a) et f(b)"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: f est continue sur [a, b]",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T13",
+    "nom": "Diagonalisabilité (valeurs propres distinctes)",
+    "copie": [
+      "f est un endomorphisme de E (dim finie n)",
+      "f admet n valeurs propres distinctes"
+    ],
+    "attendu": [
+      "f est un endomorphisme de E (dim finie n)",
+      "f admet n valeurs propres distinctes"
+    ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
+  },
+  {
+    "theoreme_id": "T15",
+    "nom": "Théorème spectral (matrices symétriques réelles)",
+    "copie": [
+      "A est une matrice carrée réelle",
+      "A est symétrique (A = Aᵀ)"
+    ],
+    "attendu": [
+      "A est une matrice carrée réelle",
+      "A est symétrique (A = Aᵀ)"
     ],
     "est_correcte": true,
     "raison": "OK",
@@ -396,91 +424,40 @@
     "theoreme_id": "T12",
     "nom": "Théorème de la base incomplète",
     "copie": [
-      "E est un espace vectoriel de dimension finie n",
-      "F est une base de E"
+      "E est un espace vectoriel de dimension finie n"
     ],
     "attendu": [
       "E est un espace vectoriel de dimension finie n",
       "F = (f₁, ..., fₖ) est une famille libre de E avec k ≤ n"
     ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "hypothese_mal_formulee"
-  },
-  {
-    "theoreme_id": "T30",
-    "nom": "Formule de Taylor avec reste de Lagrange",
-    "copie": [
-      "f est n+1 fois dérivable sur ]a, b["
-    ],
-    "attendu": [
-      "f est n fois dérivable sur [a, b] (continue)",
-      "f est n+1 fois dérivable sur ]a, b["
-    ],
     "est_correcte": false,
-    "raison": "manquante: f est n fois dérivable sur [a, b] (continue)",
+    "raison": "manquante: F = (f₁, ..., fₖ) est une famille libre de E avec k ≤ n",
     "type_erreur": "hypothese_manquante"
   },
   {
-    "theoreme_id": "T18",
-    "nom": "Théorème de Heine (continuité uniforme)",
+    "theoreme_id": "T20",
+    "nom": "Théorème de convergence monotone (suites)",
     "copie": [
-      "f est lipschitzienne sur [a, b]",
-      "[a, b] est un intervalle fermé et borné"
+      "(uₙ) est majorée"
     ],
     "attendu": [
-      "f est continue sur [a, b]",
-      "[a, b] est un intervalle fermé et borné"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "hypothese_mal_formulee"
-  },
-  {
-    "theoreme_id": "T13",
-    "nom": "Diagonalisabilité (valeurs propres distinctes)",
-    "copie": [
-      "f est un endomorphisme de E (dim finie n)",
-      "f admet n valeurs propres distinctes",
-      "f est une matrice triangulaire"
-    ],
-    "attendu": [
-      "f est un endomorphisme de E (dim finie n)",
-      "f admet n valeurs propres distinctes"
+      "(uₙ) est une suite croissante",
+      "(uₙ) est majorée"
     ],
     "est_correcte": false,
-    "raison": "inventee: [inventee] F_MATRICE_TRIANGULAIRE",
-    "type_erreur": "hypothese_inventee"
+    "raison": "manquante: (uₙ) est une suite croissante",
+    "type_erreur": "hypothese_manquante"
   },
   {
-    "theoreme_id": "T23",
-    "nom": "Théorème de convergence dominée",
+    "theoreme_id": "T09",
+    "nom": "Changement de variable dans une intégrale",
     "copie": [
-      "(fₙ) est une suite de fonctions mesurables",
-      "fₙ → f presque partout",
-      "|fₙ| ≤ M (constante)"
+      "φ est de classe C¹ sur [α, β]",
+      "f est continue sur φ([α, β])"
     ],
     "attendu": [
-      "(fₙ) est une suite de fonctions mesurables",
-      "fₙ → f presque partout",
-      "∃ g intégrable telle que |fₙ| ≤ g p.p. pour tout n"
-    ],
-    "est_correcte": false,
-    "raison": "mal_formulee: ∃ g intégrable telle que |fₙ| ≤ g p.p. pour tout n",
-    "type_erreur": "hypothese_mal_formulee"
-  },
-  {
-    "theoreme_id": "T27",
-    "nom": "Loi des Grands Nombres (faible)",
-    "copie": [
-      "(Xₙ) est une suite de variables aléatoires indépendantes",
-      "les Xₙ sont identiquement distribuées",
-      "E[|X₁|] est finie"
-    ],
-    "attendu": [
-      "(Xₙ) est une suite de variables aléatoires indépendantes",
-      "les Xₙ sont identiquement distribuées",
-      "E[|X₁|] est finie"
+      "φ est de classe C¹ sur [α, β]",
+      "f est continue sur φ([α, β])"
     ],
     "est_correcte": true,
     "raison": "OK",
@@ -503,77 +480,143 @@
     "theoreme_id": "T26",
     "nom": "Théorème Central Limite",
     "copie": [
-      "(Xₙ) est une suite de variables aléatoires indépendantes",
-      "les Xₙ sont identiquement distribuées",
-      "E[X₁] = μ est finie",
-      "Var(X₁) = σ² est finie et strictement positive"
+      "les Xₙ sont identiquement distribuées"
     ],
     "attendu": [
       "(Xₙ) est une suite de variables aléatoires indépendantes",
       "les Xₙ sont identiquement distribuées",
       "E[X₁] = μ est finie",
       "Var(X₁) = σ² est finie et strictement positive"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: Var(X₁) = σ² est finie et strictement positive; manquante: E[X₁] = μ est finie",
+    "type_erreur": "plusieurs_manquantes"
+  },
+  {
+    "theoreme_id": "T30",
+    "nom": "Formule de Taylor avec reste de Lagrange",
+    "copie": [
+      "f est n fois dérivable sur [a, b] (continue)",
+      "f est n+1 fois dérivable sur ]a, b["
+    ],
+    "attendu": [
+      "f est n fois dérivable sur [a, b] (continue)",
+      "f est n+1 fois dérivable sur ]a, b["
     ],
     "est_correcte": true,
     "raison": "OK",
     "type_erreur": "correcte"
   },
   {
-    "theoreme_id": "T13",
-    "nom": "Diagonalisabilité (valeurs propres distinctes)",
+    "theoreme_id": "T29",
+    "nom": "Réduction de Jordan (existence)",
     "copie": [
-      "f est un endomorphisme de E (dim finie n)",
-      "f admet n valeurs propres distinctes",
-      "f admet n valeurs propres (pas nécessairement distinctes)"
+      "A est une matrice carrée n×n à coefficients complexes",
+      "A est une matrice diagonalisable"
     ],
     "attendu": [
-      "f est un endomorphisme de E (dim finie n)",
-      "f admet n valeurs propres distinctes"
+      "A est une matrice carrée n×n à coefficients complexes"
     ],
     "est_correcte": false,
-    "raison": "inventee: [inventee] F_N_VP_NON_DISTINCTES",
+    "raison": "inventee: [inventee] A_DIAGONALISABLE",
     "type_erreur": "hypothese_inventee"
   },
   {
-    "theoreme_id": "T07",
-    "nom": "Théorème Fondamental de l'Analyse",
+    "theoreme_id": "T05",
+    "nom": "Règle de L'Hôpital",
     "copie": [
-      "f est continue sur ]a, b["
+      "f et g sont dérivables au voisinage de a",
+      "g'(x) ≠ 0 au voisinage de a",
+      "lim_{x→a} f'(x)/g'(x) = ℓ existe"
     ],
     "attendu": [
-      "f est continue sur [a, b]"
+      "f et g sont dérivables au voisinage de a",
+      "g'(x) ≠ 0 au voisinage de a",
+      "f(a) = g(a) = 0 ou f et g tendent vers ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ existe"
     ],
     "est_correcte": false,
-    "raison": "mal_formulee: f est continue sur [a, b]",
-    "type_erreur": "intervalle_errone"
+    "raison": "manquante: f(a) = g(a) = 0 ou f et g tendent vers ±∞",
+    "type_erreur": "hypothese_manquante"
   },
   {
-    "theoreme_id": "T07",
-    "nom": "Théorème Fondamental de l'Analyse",
+    "theoreme_id": "T17",
+    "nom": "Projection orthogonale (Hilbert)",
     "copie": [
-      "f est continue sur ]a, b["
+      "F est un sous-espace vectoriel de E (sans fermé)",
+      "F est un sous-espace vectoriel fermé de E"
     ],
     "attendu": [
-      "f est continue sur [a, b]"
+      "E est un espace de Hilbert",
+      "F est un sous-espace vectoriel fermé de E"
     ],
     "est_correcte": false,
-    "raison": "implication_invalide: f est continue sur [a, b]",
-    "type_erreur": "implication_invalide"
+    "raison": "hypothese_inventee: E est un espace de Hilbert",
+    "type_erreur": "hypothese_inventee"
   },
   {
-    "theoreme_id": "T13",
-    "nom": "Diagonalisabilité (valeurs propres distinctes)",
+    "theoreme_id": "T05",
+    "nom": "Règle de L'Hôpital",
     "copie": [
-      "f est un endomorphisme de E (dim finie n)",
-      "f admet n valeurs propres distinctes"
+      "f et g sont dérivables au voisinage de a",
+      "g'(x) ≠ 0 au voisinage de a",
+      "f(a) = g(a) = 0 ou f et g tendent vers ±∞"
     ],
     "attendu": [
-      "f est un endomorphisme de E (dim finie n)",
-      "f admet n valeurs propres distinctes"
+      "f et g sont dérivables au voisinage de a",
+      "g'(x) ≠ 0 au voisinage de a",
+      "f(a) = g(a) = 0 ou f et g tendent vers ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ existe"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: lim_{x→a} f'(x)/g'(x) = ℓ existe",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T12",
+    "nom": "Théorème de la base incomplète",
+    "copie": [
+      "F = (f₁, ..., fₖ) est une famille libre de E avec k ≤ n"
+    ],
+    "attendu": [
+      "E est un espace vectoriel de dimension finie n",
+      "F = (f₁, ..., fₖ) est une famille libre de E avec k ≤ n"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: E est un espace vectoriel de dimension finie n",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T16",
+    "nom": "Inégalité de Cauchy-Schwarz",
+    "copie": [
+      "E est un espace vectoriel muni d'un produit scalaire",
+      "u et v sont deux vecteurs de E"
+    ],
+    "attendu": [
+      "E est un espace vectoriel muni d'un produit scalaire",
+      "u et v sont deux vecteurs de E"
     ],
     "est_correcte": true,
     "raison": "OK",
-    "type_erreur": "implication_invalide"
+    "type_erreur": "correcte"
+  },
+  {
+    "theoreme_id": "T24",
+    "nom": "Théorème de Cauchy-Lipschitz",
+    "copie": [
+      "f est continue en t",
+      "f est lipschitzienne en y",
+      "f est continue en y"
+    ],
+    "attendu": [
+      "f est continue en t",
+      "f est lipschitzienne en y",
+      "une condition initiale y(t₀) = y₀ est donnée"
+    ],
+    "est_correcte": false,
+    "raison": "hypothese_inventee: une condition initiale y(t₀) = y₀ est donnée",
+    "type_erreur": "hypothese_inventee"
   },
   {
     "theoreme_id": "T05",
@@ -583,7 +626,7 @@
       "g'(x) ≠ 0 au voisinage de a",
       "f(a) = g(a) = 0 ou f et g tendent vers ±∞",
       "lim_{x→a} f'(x)/g'(x) = ℓ existe",
-      "g(x) ≠ 0 au voisinage de a"
+      "f et g sont continues en a"
     ],
     "attendu": [
       "f et g sont dérivables au voisinage de a",
@@ -592,77 +635,263 @@
       "lim_{x→a} f'(x)/g'(x) = ℓ existe"
     ],
     "est_correcte": false,
-    "raison": "inventee: [inventee] G_NON_NULLE_VOIS_A",
+    "raison": "inventee: [inventee] FG_CONTINUES_EN_A",
     "type_erreur": "hypothese_inventee"
   },
   {
-    "theoreme_id": "T08",
-    "nom": "Intégration par parties",
+    "theoreme_id": "T14",
+    "nom": "Théorème de Cayley-Hamilton",
     "copie": [
-      "u et v sont de classe C¹ sur [a, b]",
-      "u' et v sont continues sur [a, b]"
+      "χ_A est le polynôme caractéristique de A"
     ],
     "attendu": [
-      "u et v sont de classe C¹ sur [a, b]"
+      "A est une matrice carrée n×n",
+      "χ_A est le polynôme caractéristique de A"
     ],
     "est_correcte": false,
-    "raison": "inventee: [inventee] UPRIME_V_CONTINUES_FERME",
+    "raison": "manquante: A est une matrice carrée n×n",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T23",
+    "nom": "Théorème de convergence dominée",
+    "copie": [
+      "(fₙ) est une suite de fonctions mesurables"
+    ],
+    "attendu": [
+      "(fₙ) est une suite de fonctions mesurables",
+      "fₙ → f presque partout",
+      "∃ g intégrable telle que |fₙ| ≤ g p.p. pour tout n"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: ∃ g intégrable telle que |fₙ| ≤ g p.p. pour tout n; manquante: fₙ → f presque partout",
+    "type_erreur": "plusieurs_manquantes"
+  },
+  {
+    "theoreme_id": "T18",
+    "nom": "Théorème de Heine (continuité uniforme)",
+    "copie": [
+      "[a, b] est un intervalle fermé et borné"
+    ],
+    "attendu": [
+      "f est continue sur [a, b]",
+      "[a, b] est un intervalle fermé et borné"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: f est continue sur [a, b]",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T22",
+    "nom": "Critère de Cauchy (suites)",
+    "copie": [
+      "(uₙ) est une suite dans un espace complet",
+      "(uₙ) est une suite monotone"
+    ],
+    "attendu": [
+      "(uₙ) est une suite dans un espace complet"
+    ],
+    "est_correcte": false,
+    "raison": "inventee: [inventee] UN_MONOTONE",
     "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T05",
+    "nom": "Règle de L'Hôpital",
+    "copie": [
+      "f et g sont dérivables au voisinage de a",
+      "g'(x) ≠ 0 au voisinage de a",
+      "f(a) = g(a) = 0 ou f et g tendent vers ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ existe"
+    ],
+    "attendu": [
+      "f et g sont dérivables au voisinage de a",
+      "g'(x) ≠ 0 au voisinage de a",
+      "f(a) = g(a) = 0 ou f et g tendent vers ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ existe"
+    ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
   },
   {
     "theoreme_id": "T19",
     "nom": "Théorème de Bolzano-Weierstrass",
     "copie": [
-      "(uₙ) est une suite bornée de réels"
+      "(uₙ) est une suite bornée de réels",
+      "(uₙ) est une suite de Cauchy"
     ],
     "attendu": [
       "(uₙ) est une suite bornée de réels"
     ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_valide"
+    "est_correcte": false,
+    "raison": "inventee: [inventee] UN_CAUCHY",
+    "type_erreur": "hypothese_inventee"
   },
   {
-    "theoreme_id": "T29",
-    "nom": "Réduction de Jordan (existence)",
+    "theoreme_id": "T26",
+    "nom": "Théorème Central Limite",
     "copie": [
-      "A est une matrice carrée n×n à coefficients complexes"
+      "(Xₙ) est une suite de variables aléatoires indépendantes",
+      "les Xₙ sont identiquement distribuées",
+      "E[X₁] = μ est finie",
+      "Var(X₁) = σ² est finie et strictement positive",
+      "les Xₙ sont indépendantes (sans identiquement distribuées)"
     ],
     "attendu": [
-      "A est une matrice carrée n×n à coefficients complexes"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_valide"
-  },
-  {
-    "theoreme_id": "T12",
-    "nom": "Théorème de la base incomplète",
-    "copie": [
-      "F est une base de E",
-      "F = (f₁, ..., fₖ) est une famille libre de E avec k ≤ n"
-    ],
-    "attendu": [
-      "E est un espace vectoriel de dimension finie n",
-      "F = (f₁, ..., fₖ) est une famille libre de E avec k ≤ n"
+      "(Xₙ) est une suite de variables aléatoires indépendantes",
+      "les Xₙ sont identiquement distribuées",
+      "E[X₁] = μ est finie",
+      "Var(X₁) = σ² est finie et strictement positive"
     ],
     "est_correcte": false,
-    "raison": "mal_formulee: E est un espace vectoriel de dimension finie n",
-    "type_erreur": "hypothese_mal_formulee"
+    "raison": "inventee: [inventee] XN_INDEP_SANS_IID",
+    "type_erreur": "hypothese_inventee"
   },
   {
-    "theoreme_id": "T16",
-    "nom": "Inégalité de Cauchy-Schwarz",
+    "theoreme_id": "T04",
+    "nom": "Théorème de Weierstrass",
     "copie": [
-      "u et v sont deux vecteurs de E"
+      "f est continue sur ]a, b[",
+      "[a, b] est un intervalle fermé et borné"
     ],
     "attendu": [
-      "E est un espace vectoriel muni d'un produit scalaire",
-      "u et v sont deux vecteurs de E"
+      "f est continue sur [a, b]",
+      "[a, b] est un intervalle fermé et borné"
     ],
     "est_correcte": false,
-    "raison": "manquante: E est un espace vectoriel muni d'un produit scalaire",
+    "raison": "hypothese_inventee: f est continue sur [a, b]",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T02",
+    "nom": "Théorème des Accroissements Finis (Lagrange)",
+    "copie": [
+      "f est continue sur ]a, b[",
+      "f est dérivable sur ]a, b["
+    ],
+    "attendu": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b["
+    ],
+    "est_correcte": false,
+    "raison": "hypothese_inventee: f est continue sur [a, b]",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T15",
+    "nom": "Théorème spectral (matrices symétriques réelles)",
+    "copie": [
+      "A est une matrice carrée réelle"
+    ],
+    "attendu": [
+      "A est une matrice carrée réelle",
+      "A est symétrique (A = Aᵀ)"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: A est symétrique (A = Aᵀ)",
     "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T15",
+    "nom": "Théorème spectral (matrices symétriques réelles)",
+    "copie": [
+      "A est symétrique (A = Aᵀ)"
+    ],
+    "attendu": [
+      "A est une matrice carrée réelle",
+      "A est symétrique (A = Aᵀ)"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: A est une matrice carrée réelle",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T07",
+    "nom": "Théorème Fondamental de l'Analyse",
+    "copie": [
+      "f est de classe C¹ sur I"
+    ],
+    "attendu": [
+      "f est continue sur [a, b]"
+    ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T01",
+    "nom": "Théorème de Rolle",
+    "copie": [
+      "f est continue sur ]a, b[",
+      "f est dérivable sur ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "attendu": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "est_correcte": false,
+    "raison": "hypothese_inventee: f est continue sur [a, b]",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T22",
+    "nom": "Critère de Cauchy (suites)",
+    "copie": [
+      "(uₙ) est une suite dans un espace complet",
+      "(uₙ) est bornée"
+    ],
+    "attendu": [
+      "(uₙ) est une suite dans un espace complet"
+    ],
+    "est_correcte": false,
+    "raison": "inventee: [inventee] UN_BORNEE",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T10",
+    "nom": "Critère de d'Alembert (séries)",
+    "copie": [
+      "lim_{n→∞} u_{n+1}/uₙ = ℓ existe"
+    ],
+    "attendu": [
+      "uₙ > 0 pour tout n suffisamment grand",
+      "lim_{n→∞} u_{n+1}/uₙ = ℓ existe"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: uₙ > 0 pour tout n suffisamment grand",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T02",
+    "nom": "Théorème des Accroissements Finis (Lagrange)",
+    "copie": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b["
+    ],
+    "attendu": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b["
+    ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
+  },
+  {
+    "theoreme_id": "T19",
+    "nom": "Théorème de Bolzano-Weierstrass",
+    "copie": [
+      "(uₙ) est une suite bornée de réels",
+      "(uₙ) est une suite croissante"
+    ],
+    "attendu": [
+      "(uₙ) est une suite bornée de réels"
+    ],
+    "est_correcte": false,
+    "raison": "inventee: [inventee] UN_CROISSANTE",
+    "type_erreur": "hypothese_inventee"
   },
   {
     "theoreme_id": "T28",
@@ -679,19 +908,181 @@
     "type_erreur": "hypothese_manquante"
   },
   {
-    "theoreme_id": "T21",
-    "nom": "Théorème des suites adjacentes",
+    "theoreme_id": "T11",
+    "nom": "Théorème du rang",
     "copie": [
-      "(uₙ) est croissante et (vₙ) est décroissante",
-      "vₙ − uₙ → 0"
+      "f est une application linéaire de E vers F",
+      "E est un espace vectoriel de dimension finie n"
     ],
     "attendu": [
-      "(uₙ) est croissante et (vₙ) est décroissante",
-      "vₙ − uₙ → 0"
+      "f est une application linéaire de E vers F",
+      "E est un espace vectoriel de dimension finie n"
     ],
     "est_correcte": true,
     "raison": "OK",
     "type_erreur": "correcte"
+  },
+  {
+    "theoreme_id": "T13",
+    "nom": "Diagonalisabilité (valeurs propres distinctes)",
+    "copie": [
+      "f est un endomorphisme de E (dim finie n)"
+    ],
+    "attendu": [
+      "f est un endomorphisme de E (dim finie n)",
+      "f admet n valeurs propres distinctes"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: f admet n valeurs propres distinctes",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T01",
+    "nom": "Théorème de Rolle",
+    "copie": [
+      "f est dérivable en a et b",
+      "f est dérivable sur ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "attendu": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "est_correcte": false,
+    "raison": "hypothese_inventee: f est continue sur [a, b]",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T09",
+    "nom": "Changement de variable dans une intégrale",
+    "copie": [
+      "φ est de classe C¹ sur [α, β]"
+    ],
+    "attendu": [
+      "φ est de classe C¹ sur [α, β]",
+      "f est continue sur φ([α, β])"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: f est continue sur φ([α, β])",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T12",
+    "nom": "Théorème de la base incomplète",
+    "copie": [
+      "E est un espace vectoriel de dimension finie n",
+      "F = (f₁, ..., fₖ) est une famille libre de E avec k ≤ n"
+    ],
+    "attendu": [
+      "E est un espace vectoriel de dimension finie n",
+      "F = (f₁, ..., fₖ) est une famille libre de E avec k ≤ n"
+    ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
+  },
+  {
+    "theoreme_id": "T10",
+    "nom": "Critère de d'Alembert (séries)",
+    "copie": [
+      "uₙ > 0 pour tout n suffisamment grand",
+      "lim_{n→∞} u_{n+1}/uₙ = ℓ existe"
+    ],
+    "attendu": [
+      "uₙ > 0 pour tout n suffisamment grand",
+      "lim_{n→∞} u_{n+1}/uₙ = ℓ existe"
+    ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
+  },
+  {
+    "theoreme_id": "T05",
+    "nom": "Règle de L'Hôpital",
+    "copie": [
+      "f et g sont dérivables au voisinage de a"
+    ],
+    "attendu": [
+      "f et g sont dérivables au voisinage de a",
+      "g'(x) ≠ 0 au voisinage de a",
+      "f(a) = g(a) = 0 ou f et g tendent vers ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ existe"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: lim_{x→a} f'(x)/g'(x) = ℓ existe; manquante: g'(x) ≠ 0 au voisinage de a",
+    "type_erreur": "plusieurs_manquantes"
+  },
+  {
+    "theoreme_id": "T03",
+    "nom": "Théorème des Valeurs Intermédiaires",
+    "copie": [
+      "f est continue sur ]a, b[",
+      "y est compris entre f(a) et f(b)"
+    ],
+    "attendu": [
+      "f est continue sur [a, b]",
+      "y est compris entre f(a) et f(b)"
+    ],
+    "est_correcte": false,
+    "raison": "hypothese_inventee: f est continue sur [a, b]",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T11",
+    "nom": "Théorème du rang",
+    "copie": [
+      "f est une application linéaire de E vers F"
+    ],
+    "attendu": [
+      "f est une application linéaire de E vers F",
+      "E est un espace vectoriel de dimension finie n"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: E est un espace vectoriel de dimension finie n",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T27",
+    "nom": "Loi des Grands Nombres (faible)",
+    "copie": [
+      "E[|X₁|] est finie"
+    ],
+    "attendu": [
+      "(Xₙ) est une suite de variables aléatoires indépendantes",
+      "les Xₙ sont identiquement distribuées",
+      "E[|X₁|] est finie"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: (Xₙ) est une suite de variables aléatoires indépendantes; manquante: les Xₙ sont identiquement distribuées",
+    "type_erreur": "plusieurs_manquantes"
+  },
+  {
+    "theoreme_id": "T29",
+    "nom": "Réduction de Jordan (existence)",
+    "copie": [
+      "A est une matrice carrée n×n à coefficients complexes",
+      "A est une matrice carrée réelle"
+    ],
+    "attendu": [
+      "A est une matrice carrée n×n à coefficients complexes"
+    ],
+    "est_correcte": false,
+    "raison": "inventee: [inventee] A_MATRICE_REELLE",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T29",
+    "nom": "Réduction de Jordan (existence)",
+    "copie": [
+      "le polynôme caractéristique de A est scindé sur ℝ"
+    ],
+    "attendu": [
+      "A est une matrice carrée n×n à coefficients complexes"
+    ],
+    "est_correcte": false,
+    "raison": "hypothese_inventee: A est une matrice carrée n×n à coefficients complexes",
+    "type_erreur": "hypothese_inventee"
   },
   {
     "theoreme_id": "T26",
@@ -700,7 +1091,8 @@
       "(Xₙ) est une suite de variables aléatoires indépendantes",
       "les Xₙ sont identiquement distribuées",
       "E[X₁] = μ est finie",
-      "Var(X₁) = σ² est finie et strictement positive"
+      "Var(X₁) = σ² est finie et strictement positive",
+      "σ² > 0 sans mentionner que σ² est finie"
     ],
     "attendu": [
       "(Xₙ) est une suite de variables aléatoires indépendantes",
@@ -708,38 +1100,130 @@
       "E[X₁] = μ est finie",
       "Var(X₁) = σ² est finie et strictement positive"
     ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_valide"
+    "est_correcte": false,
+    "raison": "inventee: [inventee] SIGMA2_POSITIF_SANS_FINI",
+    "type_erreur": "hypothese_inventee"
   },
   {
-    "theoreme_id": "T20",
-    "nom": "Théorème de convergence monotone (suites)",
+    "theoreme_id": "T28",
+    "nom": "Inégalité de Jensen",
     "copie": [
-      "(uₙ) est une suite croissante"
+      "φ est une fonction convexe",
+      "X est une variable aléatoire réelle intégrable",
+      "φ est une fonction concave"
     ],
     "attendu": [
-      "(uₙ) est une suite croissante",
-      "(uₙ) est majorée"
+      "φ est une fonction convexe",
+      "X est une variable aléatoire réelle intégrable"
     ],
     "est_correcte": false,
-    "raison": "manquante: (uₙ) est majorée",
+    "raison": "inventee: [inventee] PHI_CONCAVE",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T01",
+    "nom": "Théorème de Rolle",
+    "copie": [
+      "f est continue sur [a, b]",
+      "f(a) = f(b)"
+    ],
+    "attendu": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: f est dérivable sur ]a, b[",
     "type_erreur": "hypothese_manquante"
   },
   {
-    "theoreme_id": "T13",
-    "nom": "Diagonalisabilité (valeurs propres distinctes)",
+    "theoreme_id": "T25",
+    "nom": "Principe de superposition (EDO linéaires)",
     "copie": [
-      "f est un endomorphisme de E (dim finie n)",
-      "f admet n valeurs propres distinctes"
+      "L est un opérateur différentiel linéaire"
     ],
     "attendu": [
-      "f est un endomorphisme de E (dim finie n)",
-      "f admet n valeurs propres distinctes"
+      "L est un opérateur différentiel linéaire",
+      "y₁ est solution de L(y) = f₁",
+      "y₂ est solution de L(y) = f₂"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: y₂ est solution de L(y) = f₂; manquante: y₁ est solution de L(y) = f₁",
+    "type_erreur": "plusieurs_manquantes"
+  },
+  {
+    "theoreme_id": "T24",
+    "nom": "Théorème de Cauchy-Lipschitz",
+    "copie": [
+      "f est lipschitzienne en y"
+    ],
+    "attendu": [
+      "f est continue en t",
+      "f est lipschitzienne en y",
+      "une condition initiale y(t₀) = y₀ est donnée"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: f est continue en t; manquante: une condition initiale y(t₀) = y₀ est donnée",
+    "type_erreur": "plusieurs_manquantes"
+  },
+  {
+    "theoreme_id": "T02",
+    "nom": "Théorème des Accroissements Finis (Lagrange)",
+    "copie": [
+      "f est dérivable sur [a, b]",
+      "f est dérivable sur ]a, b["
+    ],
+    "attendu": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b["
     ],
     "est_correcte": true,
     "raison": "OK",
-    "type_erreur": "implication_invalide"
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T24",
+    "nom": "Théorème de Cauchy-Lipschitz",
+    "copie": [
+      "f est continue en t"
+    ],
+    "attendu": [
+      "f est continue en t",
+      "f est lipschitzienne en y",
+      "une condition initiale y(t₀) = y₀ est donnée"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: f est lipschitzienne en y; manquante: une condition initiale y(t₀) = y₀ est donnée",
+    "type_erreur": "plusieurs_manquantes"
+  },
+  {
+    "theoreme_id": "T14",
+    "nom": "Théorème de Cayley-Hamilton",
+    "copie": [
+      "A est une matrice carrée n×n",
+      "χ_A est le polynôme caractéristique de A",
+      "A est une matrice symétrique"
+    ],
+    "attendu": [
+      "A est une matrice carrée n×n",
+      "χ_A est le polynôme caractéristique de A"
+    ],
+    "est_correcte": false,
+    "raison": "inventee: [inventee] A_SYMETRIQUE",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T07",
+    "nom": "Théorème Fondamental de l'Analyse",
+    "copie": [
+      "f est continue sur ]a, b["
+    ],
+    "attendu": [
+      "f est continue sur [a, b]"
+    ],
+    "est_correcte": false,
+    "raison": "hypothese_inventee: f est continue sur [a, b]",
+    "type_erreur": "hypothese_inventee"
   },
   {
     "theoreme_id": "T17",
@@ -758,233 +1242,6 @@
     "type_erreur": "hypothese_inventee"
   },
   {
-    "theoreme_id": "T28",
-    "nom": "Inégalité de Jensen",
-    "copie": [
-      "φ est une fonction convexe",
-      "X est une variable aléatoire réelle intégrable"
-    ],
-    "attendu": [
-      "φ est une fonction convexe",
-      "X est une variable aléatoire réelle intégrable"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T22",
-    "nom": "Critère de Cauchy (suites)",
-    "copie": [
-      "(uₙ) est une suite dans un espace complet"
-    ],
-    "attendu": [
-      "(uₙ) est une suite dans un espace complet"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T22",
-    "nom": "Critère de Cauchy (suites)",
-    "copie": [
-      "(uₙ) est une suite dans un espace complet",
-      "(uₙ) est une suite monotone"
-    ],
-    "attendu": [
-      "(uₙ) est une suite dans un espace complet"
-    ],
-    "est_correcte": false,
-    "raison": "inventee: [inventee] UN_MONOTONE",
-    "type_erreur": "hypothese_inventee"
-  },
-  {
-    "theoreme_id": "T11",
-    "nom": "Théorème du rang",
-    "copie": [
-      "f est une application linéaire de E vers F"
-    ],
-    "attendu": [
-      "f est une application linéaire de E vers F",
-      "E est un espace vectoriel de dimension finie n"
-    ],
-    "est_correcte": false,
-    "raison": "manquante: E est un espace vectoriel de dimension finie n",
-    "type_erreur": "hypothese_manquante"
-  },
-  {
-    "theoreme_id": "T14",
-    "nom": "Théorème de Cayley-Hamilton",
-    "copie": [
-      "A est une matrice carrée n×n",
-      "χ_A est le polynôme caractéristique de A"
-    ],
-    "attendu": [
-      "A est une matrice carrée n×n",
-      "χ_A est le polynôme caractéristique de A"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T15",
-    "nom": "Théorème spectral (matrices symétriques réelles)",
-    "copie": [
-      "A est une matrice carrée réelle",
-      "A est symétrique (A = Aᵀ)"
-    ],
-    "attendu": [
-      "A est une matrice carrée réelle",
-      "A est symétrique (A = Aᵀ)"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T24",
-    "nom": "Théorème de Cauchy-Lipschitz",
-    "copie": [
-      "f est continue en t",
-      "f est lipschitzienne en y",
-      "une condition initiale y(t₀) = y₀ est donnée",
-      "f est bornée"
-    ],
-    "attendu": [
-      "f est continue en t",
-      "f est lipschitzienne en y",
-      "une condition initiale y(t₀) = y₀ est donnée"
-    ],
-    "est_correcte": false,
-    "raison": "inventee: [inventee] F_BORNEE",
-    "type_erreur": "hypothese_inventee"
-  },
-  {
-    "theoreme_id": "T25",
-    "nom": "Principe de superposition (EDO linéaires)",
-    "copie": [
-      "L est un opérateur différentiel linéaire"
-    ],
-    "attendu": [
-      "L est un opérateur différentiel linéaire",
-      "y₁ est solution de L(y) = f₁",
-      "y₂ est solution de L(y) = f₂"
-    ],
-    "est_correcte": false,
-    "raison": "manquante: y₂ est solution de L(y) = f₂; manquante: y₁ est solution de L(y) = f₁",
-    "type_erreur": "plusieurs_manquantes"
-  },
-  {
-    "theoreme_id": "T27",
-    "nom": "Loi des Grands Nombres (faible)",
-    "copie": [
-      "les Xₙ sont indépendantes uniquement",
-      "les Xₙ sont identiquement distribuées",
-      "E[|X₁|] est finie"
-    ],
-    "attendu": [
-      "(Xₙ) est une suite de variables aléatoires indépendantes",
-      "les Xₙ sont identiquement distribuées",
-      "E[|X₁|] est finie"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "hypothese_mal_formulee"
-  },
-  {
-    "theoreme_id": "T25",
-    "nom": "Principe de superposition (EDO linéaires)",
-    "copie": [
-      "L est un opérateur différentiel linéaire"
-    ],
-    "attendu": [
-      "L est un opérateur différentiel linéaire",
-      "y₁ est solution de L(y) = f₁",
-      "y₂ est solution de L(y) = f₂"
-    ],
-    "est_correcte": false,
-    "raison": "manquante: y₂ est solution de L(y) = f₂; manquante: y₁ est solution de L(y) = f₁",
-    "type_erreur": "plusieurs_manquantes"
-  },
-  {
-    "theoreme_id": "T16",
-    "nom": "Inégalité de Cauchy-Schwarz",
-    "copie": [
-      "E est un espace vectoriel muni d'un produit scalaire",
-      "u et v sont deux vecteurs de E"
-    ],
-    "attendu": [
-      "E est un espace vectoriel muni d'un produit scalaire",
-      "u et v sont deux vecteurs de E"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T04",
-    "nom": "Théorème de Weierstrass",
-    "copie": [
-      "f est continue sur ]a, b[",
-      "[a, b] est un intervalle fermé et borné"
-    ],
-    "attendu": [
-      "f est continue sur [a, b]",
-      "[a, b] est un intervalle fermé et borné"
-    ],
-    "est_correcte": false,
-    "raison": "mal_formulee: f est continue sur [a, b]",
-    "type_erreur": "intervalle_errone"
-  },
-  {
-    "theoreme_id": "T29",
-    "nom": "Réduction de Jordan (existence)",
-    "copie": [
-      "A est une matrice carrée n×n à coefficients complexes",
-      "A est une matrice carrée réelle"
-    ],
-    "attendu": [
-      "A est une matrice carrée n×n à coefficients complexes"
-    ],
-    "est_correcte": false,
-    "raison": "inventee: [inventee] A_MATRICE_REELLE",
-    "type_erreur": "hypothese_inventee"
-  },
-  {
-    "theoreme_id": "T02",
-    "nom": "Théorème des Accroissements Finis (Lagrange)",
-    "copie": [
-      "f est continue sur ]a, b[",
-      "f est dérivable sur ]a, b["
-    ],
-    "attendu": [
-      "f est continue sur [a, b]",
-      "f est dérivable sur ]a, b["
-    ],
-    "est_correcte": false,
-    "raison": "mal_formulee: f est continue sur [a, b]",
-    "type_erreur": "hypothese_mal_formulee"
-  },
-  {
-    "theoreme_id": "T24",
-    "nom": "Théorème de Cauchy-Lipschitz",
-    "copie": [
-      "f est continue en t",
-      "f est lipschitzienne en y",
-      "une condition initiale y(t₀) = y₀ est donnée"
-    ],
-    "attendu": [
-      "f est continue en t",
-      "f est lipschitzienne en y",
-      "une condition initiale y(t₀) = y₀ est donnée"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_invalide"
-  },
-  {
     "theoreme_id": "T27",
     "nom": "Loi des Grands Nombres (faible)",
     "copie": [
@@ -1001,10 +1258,43 @@
     "type_erreur": "hypothese_manquante"
   },
   {
+    "theoreme_id": "T15",
+    "nom": "Théorème spectral (matrices symétriques réelles)",
+    "copie": [
+      "A est une matrice carrée réelle",
+      "A est symétrique (A = Aᵀ)",
+      "A est orthogonale"
+    ],
+    "attendu": [
+      "A est une matrice carrée réelle",
+      "A est symétrique (A = Aᵀ)"
+    ],
+    "est_correcte": false,
+    "raison": "inventee: [inventee] A_ORTHOGONALE",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T13",
+    "nom": "Diagonalisabilité (valeurs propres distinctes)",
+    "copie": [
+      "f admet n valeurs propres distinctes"
+    ],
+    "attendu": [
+      "f est un endomorphisme de E (dim finie n)",
+      "f admet n valeurs propres distinctes"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: f est un endomorphisme de E (dim finie n)",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
     "theoreme_id": "T25",
     "nom": "Principe de superposition (EDO linéaires)",
     "copie": [
-      "L est un opérateur différentiel linéaire"
+      "L est un opérateur différentiel linéaire",
+      "y₁ est solution de L(y) = f₁",
+      "y₂ est solution de L(y) = f₂",
+      "y₁ et y₂ sont solutions de L(y) = 0"
     ],
     "attendu": [
       "L est un opérateur différentiel linéaire",
@@ -1012,214 +1302,102 @@
       "y₂ est solution de L(y) = f₂"
     ],
     "est_correcte": false,
-    "raison": "manquante: y₂ est solution de L(y) = f₂; manquante: y₁ est solution de L(y) = f₁",
-    "type_erreur": "plusieurs_manquantes"
-  },
-  {
-    "theoreme_id": "T18",
-    "nom": "Théorème de Heine (continuité uniforme)",
-    "copie": [
-      "f est continue sur [a, b]",
-      "[a, b] est un intervalle fermé et borné"
-    ],
-    "attendu": [
-      "f est continue sur [a, b]",
-      "[a, b] est un intervalle fermé et borné"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T09",
-    "nom": "Changement de variable dans une intégrale",
-    "copie": [
-      "φ est de classe C¹ sur [α, β]",
-      "f est continue sur φ([α, β])"
-    ],
-    "attendu": [
-      "φ est de classe C¹ sur [α, β]",
-      "f est continue sur φ([α, β])"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_valide"
-  },
-  {
-    "theoreme_id": "T07",
-    "nom": "Théorème Fondamental de l'Analyse",
-    "copie": [
-      "f est de classe C¹ sur I"
-    ],
-    "attendu": [
-      "f est continue sur [a, b]"
-    ],
-    "est_correcte": false,
-    "raison": "mal_formulee: f est continue sur [a, b]",
-    "type_erreur": "hypothese_mal_formulee"
-  },
-  {
-    "theoreme_id": "T22",
-    "nom": "Critère de Cauchy (suites)",
-    "copie": [
-      "(uₙ) est une suite dans un espace complet"
-    ],
-    "attendu": [
-      "(uₙ) est une suite dans un espace complet"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T15",
-    "nom": "Théorème spectral (matrices symétriques réelles)",
-    "copie": [
-      "A est une matrice carrée réelle",
-      "A est symétrique (A = Aᵀ)"
-    ],
-    "attendu": [
-      "A est une matrice carrée réelle",
-      "A est symétrique (A = Aᵀ)"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_invalide"
-  },
-  {
-    "theoreme_id": "T04",
-    "nom": "Théorème de Weierstrass",
-    "copie": [
-      "f est continue sur ]a, b[",
-      "[a, b] est un intervalle fermé et borné"
-    ],
-    "attendu": [
-      "f est continue sur [a, b]",
-      "[a, b] est un intervalle fermé et borné"
-    ],
-    "est_correcte": false,
-    "raison": "mal_formulee: f est continue sur [a, b]",
-    "type_erreur": "hypothese_mal_formulee"
-  },
-  {
-    "theoreme_id": "T11",
-    "nom": "Théorème du rang",
-    "copie": [
-      "f est une application linéaire de E vers F",
-      "E est un espace vectoriel de dimension finie n"
-    ],
-    "attendu": [
-      "f est une application linéaire de E vers F",
-      "E est un espace vectoriel de dimension finie n"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T19",
-    "nom": "Théorème de Bolzano-Weierstrass",
-    "copie": [
-      "(uₙ) est une suite croissante"
-    ],
-    "attendu": [
-      "(uₙ) est une suite bornée de réels"
-    ],
-    "est_correcte": false,
-    "raison": "mal_formulee: (uₙ) est une suite bornée de réels",
-    "type_erreur": "hypothese_mal_formulee"
-  },
-  {
-    "theoreme_id": "T03",
-    "nom": "Théorème des Valeurs Intermédiaires",
-    "copie": [
-      "f est continue sur [a, b]",
-      "y est compris entre f(a) et f(b)"
-    ],
-    "attendu": [
-      "f est continue sur [a, b]",
-      "y est compris entre f(a) et f(b)"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T08",
-    "nom": "Intégration par parties",
-    "copie": [
-      "u et v sont de classe C¹ sur [a, b]"
-    ],
-    "attendu": [
-      "u et v sont de classe C¹ sur [a, b]"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T29",
-    "nom": "Réduction de Jordan (existence)",
-    "copie": [
-      "A est une matrice carrée n×n à coefficients complexes"
-    ],
-    "attendu": [
-      "A est une matrice carrée n×n à coefficients complexes"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T28",
-    "nom": "Inégalité de Jensen",
-    "copie": [
-      "φ est une fonction convexe",
-      "X est une variable aléatoire réelle intégrable"
-    ],
-    "attendu": [
-      "φ est une fonction convexe",
-      "X est une variable aléatoire réelle intégrable"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T03",
-    "nom": "Théorème des Valeurs Intermédiaires",
-    "copie": [
-      "f est continue sur [a, b]",
-      "f(a) et f(b) sont de signes strictement opposés"
-    ],
-    "attendu": [
-      "f est continue sur [a, b]",
-      "y est compris entre f(a) et f(b)"
-    ],
-    "est_correcte": false,
-    "raison": "mal_formulee: y est compris entre f(a) et f(b)",
-    "type_erreur": "hypothese_mal_formulee"
+    "raison": "inventee: [inventee] Y1_Y2_SOLUTIONS_HOMOGENE",
+    "type_erreur": "hypothese_inventee"
   },
   {
     "theoreme_id": "T16",
     "nom": "Inégalité de Cauchy-Schwarz",
     "copie": [
-      "E est un espace vectoriel de dimension finie n",
-      "u et v sont deux vecteurs de E"
+      "E est un espace vectoriel muni d'un produit scalaire"
     ],
     "attendu": [
       "E est un espace vectoriel muni d'un produit scalaire",
       "u et v sont deux vecteurs de E"
     ],
     "est_correcte": false,
-    "raison": "mal_formulee: E est un espace vectoriel muni d'un produit scalaire",
-    "type_erreur": "hypothese_mal_formulee"
+    "raison": "manquante: u et v sont deux vecteurs de E",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T08",
+    "nom": "Intégration par parties",
+    "copie": [
+      "u et v sont de classe C¹ sur [a, b]",
+      "u' et v sont continues sur [a, b]"
+    ],
+    "attendu": [
+      "u et v sont de classe C¹ sur [a, b]"
+    ],
+    "est_correcte": false,
+    "raison": "inventee: [inventee] UPRIME_V_CONTINUES_FERME",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T13",
+    "nom": "Diagonalisabilité (valeurs propres distinctes)",
+    "copie": [
+      "f est un endomorphisme de E (dim finie n)",
+      "le polynôme caractéristique est scindé"
+    ],
+    "attendu": [
+      "f est un endomorphisme de E (dim finie n)",
+      "f admet n valeurs propres distinctes"
+    ],
+    "est_correcte": false,
+    "raison": "hypothese_inventee: f admet n valeurs propres distinctes",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T25",
+    "nom": "Principe de superposition (EDO linéaires)",
+    "copie": [
+      "L est un opérateur différentiel linéaire",
+      "y₁ est solution de L(y) = f₁",
+      "y₂ est solution de L(y) = f₂"
+    ],
+    "attendu": [
+      "L est un opérateur différentiel linéaire",
+      "y₁ est solution de L(y) = f₁",
+      "y₂ est solution de L(y) = f₂"
+    ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correcte"
+  },
+  {
+    "theoreme_id": "T14",
+    "nom": "Théorème de Cayley-Hamilton",
+    "copie": [
+      "A est une matrice carrée n×n",
+      "χ_A est le polynôme minimal de A"
+    ],
+    "attendu": [
+      "A est une matrice carrée n×n",
+      "χ_A est le polynôme caractéristique de A"
+    ],
+    "est_correcte": false,
+    "raison": "hypothese_inventee: χ_A est le polynôme caractéristique de A",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T22",
+    "nom": "Critère de Cauchy (suites)",
+    "copie": [
+      "(uₙ) est une suite dans un espace complet",
+      "(uₙ) est dans un espace vectoriel normé (sans complet)"
+    ],
+    "attendu": [
+      "(uₙ) est une suite dans un espace complet"
+    ],
+    "est_correcte": false,
+    "raison": "inventee: [inventee] UN_ESPACE_NORME_SANS_COMPLET",
+    "type_erreur": "hypothese_inventee"
   },
   {
     "theoreme_id": "T30",
     "nom": "Formule de Taylor avec reste de Lagrange",
     "copie": [
-      "f est de classe Cⁿ uniquement",
       "f est n+1 fois dérivable sur ]a, b["
     ],
     "attendu": [
@@ -1227,245 +1405,103 @@
       "f est n+1 fois dérivable sur ]a, b["
     ],
     "est_correcte": false,
-    "raison": "implication_invalide: f est n fois dérivable sur [a, b] (continue)",
-    "type_erreur": "implication_invalide"
-  },
-  {
-    "theoreme_id": "T08",
-    "nom": "Intégration par parties",
-    "copie": [
-      "u et v sont de classe C¹ sur [a, b]"
-    ],
-    "attendu": [
-      "u et v sont de classe C¹ sur [a, b]"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_invalide"
-  },
-  {
-    "theoreme_id": "T26",
-    "nom": "Théorème Central Limite",
-    "copie": [
-      "(Xₙ) est une suite de variables aléatoires indépendantes",
-      "les Xₙ sont identiquement distribuées",
-      "E[X₁] = μ est finie",
-      "Var(X₁) = σ² est finie et strictement positive"
-    ],
-    "attendu": [
-      "(Xₙ) est une suite de variables aléatoires indépendantes",
-      "les Xₙ sont identiquement distribuées",
-      "E[X₁] = μ est finie",
-      "Var(X₁) = σ² est finie et strictement positive"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_valide"
-  },
-  {
-    "theoreme_id": "T07",
-    "nom": "Théorème Fondamental de l'Analyse",
-    "copie": [
-      "f est continue sur [a, b]"
-    ],
-    "attendu": [
-      "f est continue sur [a, b]"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T04",
-    "nom": "Théorème de Weierstrass",
-    "copie": [
-      "f est dérivable sur [a, b]",
-      "[a, b] est un intervalle fermé et borné"
-    ],
-    "attendu": [
-      "f est continue sur [a, b]",
-      "[a, b] est un intervalle fermé et borné"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_valide"
-  },
-  {
-    "theoreme_id": "T12",
-    "nom": "Théorème de la base incomplète",
-    "copie": [
-      "E est un espace vectoriel de dimension finie n",
-      "F est une base de E"
-    ],
-    "attendu": [
-      "E est un espace vectoriel de dimension finie n",
-      "F = (f₁, ..., fₖ) est une famille libre de E avec k ≤ n"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_valide"
-  },
-  {
-    "theoreme_id": "T14",
-    "nom": "Théorème de Cayley-Hamilton",
-    "copie": [
-      "A est une matrice carrée n×n",
-      "χ_A est le polynôme caractéristique de A"
-    ],
-    "attendu": [
-      "A est une matrice carrée n×n",
-      "χ_A est le polynôme caractéristique de A"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_invalide"
-  },
-  {
-    "theoreme_id": "T28",
-    "nom": "Inégalité de Jensen",
-    "copie": [
-      "φ est une fonction convexe",
-      "X est une variable aléatoire réelle intégrable"
-    ],
-    "attendu": [
-      "φ est une fonction convexe",
-      "X est une variable aléatoire réelle intégrable"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T22",
-    "nom": "Critère de Cauchy (suites)",
-    "copie": [
-      "(uₙ) est une suite dans un espace complet"
-    ],
-    "attendu": [
-      "(uₙ) est une suite dans un espace complet"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T02",
-    "nom": "Théorème des Accroissements Finis (Lagrange)",
-    "copie": [
-      "f est continue sur [a, b]",
-      "f est dérivable sur [a, b]"
-    ],
-    "attendu": [
-      "f est continue sur [a, b]",
-      "f est dérivable sur ]a, b["
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_valide"
-  },
-  {
-    "theoreme_id": "T24",
-    "nom": "Théorème de Cauchy-Lipschitz",
-    "copie": [
-      "f est continue en t",
-      "f est lipschitzienne en y",
-      "une condition initiale y(t₀) = y₀ est donnée"
-    ],
-    "attendu": [
-      "f est continue en t",
-      "f est lipschitzienne en y",
-      "une condition initiale y(t₀) = y₀ est donnée"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T26",
-    "nom": "Théorème Central Limite",
-    "copie": [
-      "(Xₙ) est une suite de variables aléatoires indépendantes",
-      "E[X₁] = μ est finie",
-      "Var(X₁) = σ² est finie et strictement positive"
-    ],
-    "attendu": [
-      "(Xₙ) est une suite de variables aléatoires indépendantes",
-      "les Xₙ sont identiquement distribuées",
-      "E[X₁] = μ est finie",
-      "Var(X₁) = σ² est finie et strictement positive"
-    ],
-    "est_correcte": false,
-    "raison": "manquante: les Xₙ sont identiquement distribuées",
+    "raison": "manquante: f est n fois dérivable sur [a, b] (continue)",
     "type_erreur": "hypothese_manquante"
   },
   {
-    "theoreme_id": "T07",
-    "nom": "Théorème Fondamental de l'Analyse",
+    "theoreme_id": "T30",
+    "nom": "Formule de Taylor avec reste de Lagrange",
     "copie": [
-      "f est intégrable sur [a, b]"
+      "f est analytique",
+      "f est n+1 fois dérivable sur ]a, b["
     ],
     "attendu": [
-      "f est continue sur [a, b]"
+      "f est n fois dérivable sur [a, b] (continue)",
+      "f est n+1 fois dérivable sur ]a, b["
     ],
     "est_correcte": false,
-    "raison": "mal_formulee: f est continue sur [a, b]",
-    "type_erreur": "hypothese_mal_formulee"
+    "raison": "hypothese_inventee: f est n fois dérivable sur [a, b] (continue)",
+    "type_erreur": "hypothese_inventee"
   },
   {
-    "theoreme_id": "T14",
-    "nom": "Théorème de Cayley-Hamilton",
+    "theoreme_id": "T05",
+    "nom": "Règle de L'Hôpital",
     "copie": [
-      "A est une matrice carrée n×n",
-      "χ_A est le polynôme caractéristique de A"
+      "f et g sont dérivables au voisinage de a",
+      "f et g sont continues en a",
+      "f(a) = g(a) = 0 ou f et g tendent vers ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ existe"
     ],
     "attendu": [
-      "A est une matrice carrée n×n",
-      "χ_A est le polynôme caractéristique de A"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T09",
-    "nom": "Changement de variable dans une intégrale",
-    "copie": [
-      "φ est de classe C¹ sur [α, β]",
-      "f est continue sur φ([α, β])"
-    ],
-    "attendu": [
-      "φ est de classe C¹ sur [α, β]",
-      "f est continue sur φ([α, β])"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "implication_invalide"
-  },
-  {
-    "theoreme_id": "T08",
-    "nom": "Intégration par parties",
-    "copie": [
-      "u et v sont de classe C¹ sur [a, b]"
-    ],
-    "attendu": [
-      "u et v sont de classe C¹ sur [a, b]"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T15",
-    "nom": "Théorème spectral (matrices symétriques réelles)",
-    "copie": [
-      "A est symétrique (A = Aᵀ)"
-    ],
-    "attendu": [
-      "A est une matrice carrée réelle",
-      "A est symétrique (A = Aᵀ)"
+      "f et g sont dérivables au voisinage de a",
+      "g'(x) ≠ 0 au voisinage de a",
+      "f(a) = g(a) = 0 ou f et g tendent vers ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ existe"
     ],
     "est_correcte": false,
-    "raison": "manquante: A est une matrice carrée réelle",
+    "raison": "hypothese_inventee: g'(x) ≠ 0 au voisinage de a",
+    "type_erreur": "hypothese_inventee"
+  },
+  {
+    "theoreme_id": "T23",
+    "nom": "Théorème de convergence dominée",
+    "copie": [
+      "fₙ → f presque partout"
+    ],
+    "attendu": [
+      "(fₙ) est une suite de fonctions mesurables",
+      "fₙ → f presque partout",
+      "∃ g intégrable telle que |fₙ| ≤ g p.p. pour tout n"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: ∃ g intégrable telle que |fₙ| ≤ g p.p. pour tout n; manquante: (fₙ) est une suite de fonctions mesurables",
+    "type_erreur": "plusieurs_manquantes"
+  },
+  {
+    "theoreme_id": "T25",
+    "nom": "Principe de superposition (EDO linéaires)",
+    "copie": [
+      "L est un opérateur différentiel linéaire",
+      "y₂ est solution de L(y) = f₂"
+    ],
+    "attendu": [
+      "L est un opérateur différentiel linéaire",
+      "y₁ est solution de L(y) = f₁",
+      "y₂ est solution de L(y) = f₂"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: y₁ est solution de L(y) = f₁",
+    "type_erreur": "hypothese_manquante"
+  },
+  {
+    "theoreme_id": "T01",
+    "nom": "Théorème de Rolle",
+    "copie": [
+      "f(a) = f(b)"
+    ],
+    "attendu": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: f est dérivable sur ]a, b[; manquante: f est continue sur [a, b]",
+    "type_erreur": "plusieurs_manquantes"
+  },
+  {
+    "theoreme_id": "T23",
+    "nom": "Théorème de convergence dominée",
+    "copie": [
+      "fₙ → f presque partout",
+      "∃ g intégrable telle que |fₙ| ≤ g p.p. pour tout n"
+    ],
+    "attendu": [
+      "(fₙ) est une suite de fonctions mesurables",
+      "fₙ → f presque partout",
+      "∃ g intégrable telle que |fₙ| ≤ g p.p. pour tout n"
+    ],
+    "est_correcte": false,
+    "raison": "manquante: (fₙ) est une suite de fonctions mesurables",
     "type_erreur": "hypothese_manquante"
   },
   {
@@ -1473,29 +1509,15 @@
     "nom": "Théorème des suites adjacentes",
     "copie": [
       "(uₙ) est croissante et (vₙ) est décroissante",
-      "vₙ − uₙ → 0"
+      "vₙ − uₙ → 0",
+      "uₙ ≤ vₙ pour tout n"
     ],
     "attendu": [
       "(uₙ) est croissante et (vₙ) est décroissante",
       "vₙ − uₙ → 0"
     ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correcte"
-  },
-  {
-    "theoreme_id": "T03",
-    "nom": "Théorème des Valeurs Intermédiaires",
-    "copie": [
-      "f est dérivable sur [a, b]",
-      "y est compris entre f(a) et f(b)"
-    ],
-    "attendu": [
-      "f est continue sur [a, b]",
-      "y est compris entre f(a) et f(b)"
-    ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "hypothese_mal_formulee"
+    "est_correcte": false,
+    "raison": "inventee: [inventee] UN_LEQ_VN",
+    "type_erreur": "hypothese_inventee"
   }
 ]
