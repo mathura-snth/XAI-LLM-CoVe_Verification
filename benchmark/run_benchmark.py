@@ -23,11 +23,10 @@ while len(dataset) < N and tentatives < max_tentatives:
     type_erreur = random.choice(TYPES_ERREURS)
     copie = generer_copie(t_id, type_erreur)
 
-    if copie["type_erreur"] != "correcte":
-        cle = (copie["theoreme_id"], copie["type_erreur"])
-        if cle in erreurs_vues:
-            continue  # cette paire (théorème, type_erreur) existe déjà, on l'ignore
-        erreurs_vues.add(cle)
+    cle = (copie["theoreme_id"], tuple(sorted(copie["copie"])), copie["type_erreur"])
+    if cle in erreurs_vues:
+        continue  # cette paire (théorème, type_erreur) existe déjà, on l'ignore
+    erreurs_vues.add(cle)
 
     dataset.append(copie)
 

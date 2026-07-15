@@ -7,10 +7,7 @@ TYPES_ERREURS = [
     "correcte",
     "hypothese_manquante",
     "plusieurs_manquantes",
-    "hypothese_mal_formulee",
     "hypothese_inventee",
-    "intervalle_errone",
-    "implication_valide",
     "implication_invalide",
 ]
 
@@ -46,52 +43,62 @@ def generer_copie(theoreme_id, type_erreur=None):
             hypotheses_citees.remove(h)
             labels[h] = "absente"
 
-    # hypothèse mal formulée
-    elif type_erreur == "hypothese_mal_formulee" and "erreurs_courantes":
-        idx = random.randint(0, len(gold) - 1)
-        hypotheses_citees[idx] = random.choice(erreurs_courantes)
-        labels[gold[idx]] = "mal_formulee"
+    # hypothèse inventée a plusieurs sous-types :
+    elif type_erreur == "hypothese_inventee":
+        sous_type = random.choice(["mal_formulee", "inventee", "intervalle", "implication_invalide"])
 
-    # hypothèse inventée
-    elif type_erreur == "hypothese_inventee" and "erreurs_courantes":
-        h_inventee = random.choice(erreurs_courantes)
-        hypotheses_citees.append(h_inventee)
-        labels["[inventee] " + h_inventee] = "inventee"
+        # hypothèse mal formulée
+        if sous_type == "mal_formulee" and erreurs_courantes:
+            idx = random.randint(0, len(gold) - 1)
+            hypotheses_citees[idx] = random.choice(erreurs_courantes)
+            labels[gold[idx]] = "mal_formulee"
 
-    # intervalle ouvert/fermé inversé
-    elif type_erreur == "intervalle_errone":
-        modifiee = False
-        for i, h in enumerate(hypotheses_citees):
-            if h in ["F_CONTINUE_FERME", "F_DERIVABLE_FERME"] and not modifiee:
-                hypotheses_citees[i] = h.replace("FERME", "OUVERT")
-                labels[gold[i]] = "mal_formulee"
-                modifiee = True
-            elif h in ["F_CONTINUE_OUVERT", "F_DERIVABLE_OUVERT"] and not modifiee:
-                hypotheses_citees[i] = h.replace("OUVERT", "FERME")
-                labels[gold[i]] = "mal_formulee"
-                modifiee = True
-        if not modifiee:
-            erreur_appliquee = "correcte"
+        # hypothèse inventée
+        elif sous_type == "inventee" and erreurs_courantes:
+            h_inventee = random.choice(erreurs_courantes)
+            hypotheses_citees.append(h_inventee)
+            labels["[inventee] " + h_inventee] = "inventee"
+
+        # intervalle ouvert/fermé inversé
+        elif sous_type == "intervalle":
+            modifiee = False
+            for i, h in enumerate(hypotheses_citees):
+                if h in ["F_CONTINUE_FERME", "F_DERIVABLE_FERME"] and not modifiee:
+                    hypotheses_citees[i] = h.replace("FERME", "OUVERT")
+                    labels[gold[i]] = "mal_formulee"
+                    modifiee = True
+                elif h in ["F_CONTINUE_OUVERT", "F_DERIVABLE_OUVERT"] and not modifiee:
+                    hypotheses_citees[i] = h.replace("OUVERT", "FERME")
+                    labels[gold[i]] = "mal_formulee"
+                    modifiee = True
+            if not modifiee:
+                erreur_appliquee = "correcte"
         
+        elif type_erreur == "implication_invalide" and MAUVAISES_IMPLICATIONS:
+            # le remplacement par une hypothèse plus faible est INVALIDE
+            for faux_fort, faux_faible in MAUVAISES_IMPLICATIONS:
+                if faux_faible in gold and faux_fort not in hypotheses_citees:
+                    idx = hypotheses_citees.index(faux_faible)
+                    hypotheses_citees[idx] = faux_fort
+                    labels[faux_faible] = "implication_invalide"
+                    break
+
     elif type_erreur == "implication_valide" and IMPLICATIONS_LIST:
         # le remplacement par une hypothèse plus forte est valide
+        implication_trouvee = False
         for fort, faible in IMPLICATIONS_LIST:
             if faible in gold and fort not in hypotheses_citees:
                 idx = hypotheses_citees.index(faible)
                 hypotheses_citees[idx] = fort
                 labels[faible] = "satisfaite_par_implication"
+                implication_trouvee = True
                 break
-    
-    elif type_erreur == "implication_invalide" and MAUVAISES_IMPLICATIONS:
-        # le remplacement par une hypothèse plus faible est INVALIDE
-        for faux_fort, faux_faible in MAUVAISES_IMPLICATIONS:
-            if faux_faible in gold and faux_fort not in hypotheses_citees:
-                idx = hypotheses_citees.index(faux_faible)
-                hypotheses_citees[idx] = faux_fort
-                labels[faux_faible] = "implication_invalide"
-                break
-
+        if not implication_trouvee:
+            erreur_appliquee = "correcte"
     else:
+        erreur_appliquee = "correcte"
+
+    if hypotheses_citees == gold:
         erreur_appliquee = "correcte"
 
 # verdict    
@@ -106,10 +113,8 @@ def generer_copie(theoreme_id, type_erreur=None):
             # on cherche les justifications
             if labels.get(h) == "absente":
                 raisons.append(f"manquante: {texte(h)}")
-            elif labels.get(h) == "mal_formulee":
-                raisons.append(f"mal_formulee: {texte(h)}")
-            elif labels.get(h) == "implication_invalide":
-                raisons.append(f"implication_invalide: {texte(h)}")
+            elif labels.get(h) in ("mal_formulee","implication_invalide"):
+                raisons.append(f"hypothese_inventee: {texte(h)}")
             elif labels.get(h) == "inventee":
                 raisons.append(f"inventee: {h}")
             else:
@@ -122,7 +127,7 @@ def generer_copie(theoreme_id, type_erreur=None):
             # car on a déjà ajouté la raison
             raisons.append(f"inventee: {label_key}")
 
-    if type_erreur == "hypothese_mal_formulee" and est_correcte:
+    if erreur_appliquee == "hypothese_mal_formulee" and est_correcte:
         erreur_appliquee = "implication_valide"
 
     raisons = list(set(raisons))
