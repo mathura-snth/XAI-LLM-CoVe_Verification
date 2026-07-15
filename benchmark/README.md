@@ -123,9 +123,7 @@ Une copie part toujours d'une version **100% correcte** de la vérité terrain, 
 | **`correcte`** | Aucune dégradation |
 | **`hypothese_manquante`** | Une hypothèse gold est retirée |
 | **`plusieurs_manquantes`** | Entre 2 et n−1 hypothèses gold sont retirées |
-| **`hypothese_mal_formulee`** | Une hypothèse gold est remplacée par un id d'`erreurs_courantes` du théorème |
-| **`hypothese_inventee`** | Un id d'`erreurs_courantes` est ajouté en plus de la liste gold complète |
-| **`intervalle_errone`** | Inversion ouvert/fermé (`FERME` ↔ `OUVERT`) sur une hypothèse gold |
+| **`hypothese_inventee`** | Tire au sort un sous-type : remplace une hypothèse gold par une erreur courante, ajoute une erreur courante en plus, ou inverse un intervalle (FERME ↔ OUVERT) |
 | **`implication_valide`** | Une hypothèse gold est remplacée par une hypothèse **plus forte et valide** (tirée de `IMPLICATIONS_LIST`) → doit rester `VRAI` |
 | **`implication_invalide`** | Une hypothèse gold est remplacée par une hypothèse **invalide** (tirée de `MAUVAISES_IMPLICATIONS`) → doit être `FAUX` |
 
@@ -181,6 +179,11 @@ Transforme `benchmark_data.json` en :
 | **Copie** | La liste des hypothèses citées par l'étudiant synthétique (texte français) |
 | **Verdict** | `VRAI` / `FAUX` + raison précise si `FAUX` |
 
+---
+
+## Version anglaise
+
+Une version anglophone de ce benchmark est disponible. Elle repose exactement sur la même architecture logique, les mêmes théorèmes et les mêmes identifiants de validation, mais les chaînes de caractères affichées dans les JSON générés sont traduites en anglais pour permettre l'évaluation de LLMs sur des prompts anglophones.
 
 ## Extensibilité
 
