@@ -12,16 +12,33 @@ random.seed(SEED)
 ids = list(THEOREMS.keys())
 dataset = []
 
-for _ in range(N):
+seen_errors = set()
+
+max_attempts = N * 30
+attempts = 0
+
+while len(dataset) < N and attempts < max_attempts:
+    attempts += 1
     t_id = random.choice(ids)
     error_type = random.choice(ERROR_TYPES)
-    copy = generate_copy(t_id, error_type)
-    dataset.append(copy)
+    la_copy = generate_copy(t_id, error_type)
+
+    if la_copy["error_type"] != "correct":
+        key = (la_copy["theorem_id"], tuple(sorted(la_copy["copy"])))
+        if key in seen_errors:
+            continue
+        seen_errors.add(key)
+
+    dataset.append(la_copy)
+
+if attempts >= max_attempts:
+    print(f"Warning: stopped after {attempts} attempts with only {len(dataset)}/{N} copies "
+          f"(not enough remaining unique (theorem, error_type) pairs).")
 
 with open(OUTPUT, "w", encoding="utf-8") as f:
     json.dump(dataset, f, ensure_ascii=False, indent=2)
 
-print(f"{N} copies generated in {OUTPUT}")
+print(f"{len(dataset)} copies generated in {OUTPUT} ({attempts} attempts)")
 
 # Display in 2 columns
 print("\n" + "="*100)
@@ -29,9 +46,9 @@ print(f"{'COPY':<70} | {'VERDICT':<30}")
 print("="*100)
 
 for item in dataset:
-    copy_text = ", ".join(item["copy"])
+    la_copytext = ", ".join(item["copy"])
     verdict = f"TRUE" if item["is_correct"] else f"FALSE ({item['reason']})"
-    print(f"{copy_text[:68]:<70} | {verdict:<30}")
+    print(f"{la_copytext[:68]:<70} | {verdict:<30}")
 
 print("="*100)
 print(f"Total: {len(dataset)} | Correct copies: {sum(1 for d in dataset if d['is_correct'])} | Incorrect copies: {sum(1 for d in dataset if not d['is_correct'])}")

@@ -7,11 +7,8 @@ ERROR_TYPES = [
     "correct",
     "missing_hypothesis",
     "multiple_missing",
-    "misformulated_hypothesis",
     "invented_hypothesis",
-    "erroneous_interval",
     "valid_implication",
-    "invalid_implication",
 ]
 
 def generate_copy(theorem_id, error_type=None):
@@ -46,52 +43,61 @@ def generate_copy(theorem_id, error_type=None):
             cited_hypotheses.remove(h)
             labels[h] = "absent"
 
-    # Misformulated hypothesis
-    elif error_type == "misformulated_hypothesis" and common_errors:
-        idx = random.randint(0, len(gold) - 1)
-        cited_hypotheses[idx] = random.choice(common_errors)
-        labels[gold[idx]] = "misformulated"
+    # invented hypothesis has multiple sub_errors ()
+    elif error_type == "invented_hypothesis":
 
-    # Invented hypothesis
-    elif error_type == "invented_hypothesis" and common_errors:
-        invented_h = random.choice(common_errors)
-        cited_hypotheses.append(invented_h)
-        labels["[invented] " + invented_h] = "invented"
-
-    # Open/closed interval inversion
-    elif error_type == "erroneous_interval":
-        modified = False
-        for i, h in enumerate(cited_hypotheses):
-            if h in ["F_CONTINUE_FERME", "F_DERIVABLE_FERME"] and not modified:
-                cited_hypotheses[i] = h.replace("FERME", "OUVERT")
-                labels[gold[i]] = "misformulated"
-                modified = True
-            elif h in ["F_CONTINUE_OUVERT", "F_DERIVABLE_OUVERT"] and not modified:
-                cited_hypotheses[i] = h.replace("OUVERT", "FERME")
-                labels[gold[i]] = "misformulated"
-                modified = True
-        if not modified:
-            applied_error = "correct"
+        sub_type = random.choice(["misformulated", "invented", "interval", "invalid_implication"])
         
+        # misformulated hypothesis
+        if sub_type == "misformulated" and common_errors:
+            idx = random.randint(0, len(gold) - 1)
+            cited_hypotheses[idx] = random.choice(common_errors)
+            labels[gold[idx]] = "misformulated"
+        
+        elif sub_type == "invented" and common_errors:
+            invented_h = random.choice(common_errors)
+            cited_hypotheses.append(invented_h)
+            labels["[invented] " + invented_h] = "invented"
+
+        # interval inversion
+        elif sub_type == "interval":
+            modified = False
+            for i, h in enumerate(cited_hypotheses):
+                if h in ["F_CONTINUE_FERME", "F_DERIVABLE_FERME"] and not modified:
+                    cited_hypotheses[i] = h.replace("FERME", "OUVERT")
+                    labels[gold[i]] = "misformulated"
+                    modified = True
+                elif h in ["F_CONTINUE_OUVERT", "F_DERIVABLE_OUVERT"] and not modified:
+                    cited_hypotheses[i] = h.replace("OUVERT", "FERME")
+                    labels[gold[i]] = "misformulated"
+                    modified = True
+            if not modified:
+                applied_error = "correct"
+        
+        elif sub_type == "invalid_implication" and INVALID_IMPLICATIONS:
+            # Replacement by a weaker hypothesis is INVALID
+            for false_stronger, false_weaker in INVALID_IMPLICATIONS:
+                if false_weaker in gold and false_stronger not in cited_hypotheses:
+                    idx = cited_hypotheses.index(false_weaker)
+                    cited_hypotheses[idx] = false_stronger
+                    labels[false_weaker] = "invalid_implication"
+                    break
+
     elif error_type == "valid_implication" and IMPLICATIONS_LIST:
+        implication_found = False
         # Replacement by a stronger hypothesis is valid
         for stronger, weaker in IMPLICATIONS_LIST:
             if weaker in gold and stronger not in cited_hypotheses:
                 idx = cited_hypotheses.index(weaker)
                 cited_hypotheses[idx] = stronger
                 labels[weaker] = "satisfied_by_implication"
+                implication_found = True
                 break
-    
-    elif error_type == "invalid_implication" and INVALID_IMPLICATIONS:
-        # Replacement by a weaker hypothesis is INVALID
-        for false_stronger, false_weaker in INVALID_IMPLICATIONS:
-            if false_weaker in gold and false_stronger not in cited_hypotheses:
-                idx = cited_hypotheses.index(false_weaker)
-                cited_hypotheses[idx] = false_stronger
-                labels[false_weaker] = "invalid_implication"
-                break
-
+        if not implication_found:
+            applied_error = "correct"
     else:
+        applied_error = "correct"
+    if cited_hypotheses == gold:
         applied_error = "correct"
 
 # Verdict    
@@ -106,12 +112,8 @@ def generate_copy(theorem_id, error_type=None):
             # Find justifications
             if labels.get(h) == "absent":
                 reasons.append(f"missing: {text(h)}")
-            elif labels.get(h) == "misformulated":
-                reasons.append(f"misformulated: {text(h)}")
-            elif labels.get(h) == "invalid_implication":
-                reasons.append(f"invalid_implication: {text(h)}")
-            elif labels.get(h) == "invented":
-                reasons.append(f"invented: {h}")
+            elif labels.get(h) in ("misformulated", "invalid_implication"):
+                reasons.append(f"invented_hypothesis: {text(h)}")
             else:
                 reasons.append(f"unsatisfied: {text(h)}")
     
@@ -119,10 +121,9 @@ def generate_copy(theorem_id, error_type=None):
     for label_key, label_val in labels.items():
         if label_val == "invented":
             is_correct = False
-            # Already added the reason
-            reasons.append(f"invented: {label_key}")
+            reasons.append(f"invented_hypothesis: {label_key}")
 
-    if error_type == "misformulated_hypothesis" and is_correct:
+    if applied_error == "invented_hypothesis" and is_correct:
         applied_error = "valid_implication"
 
     reasons = list(set(reasons))
