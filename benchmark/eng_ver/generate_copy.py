@@ -117,14 +117,25 @@ def generate_copy(theorem_id, error_type=None):
             else:
                 reasons.append(f"unsatisfied: {text(h)}")
     
-    # Inventions
+    # Inventions -> extra hypo added
     for label_key, label_val in labels.items():
         if label_val == "invented":
             is_correct = False
             reasons.append(f"invented_hypothesis: {label_key}")
 
-    if applied_error == "invented_hypothesis" and is_correct:
-        applied_error = "valid_implication"
+    # "extra" -> contient au moins un id qui ne fait pas partie du gold ; si pas "extra" pour substituer une hypo alors juste missing hypo 
+    if error_type == "invented_hypothesis":
+        if is_correct:
+            if cited_hypotheses != gold:
+                applied_error = "valid_implication"
+            else:
+                applied_error = "correct"
+        else:
+            extra = [h for h in cited_hypotheses if h not in gold]
+            if extra:
+                applied_error = "invented_hypothesis"
+            else:
+                applied_error = "missing_hypothesis"
 
     reasons = list(set(reasons))
     if not reasons and is_correct:

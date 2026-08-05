@@ -1,7 +1,7 @@
 import json
 import random
 from theorems import THEOREMS
-from copy import generate_copy, ERROR_TYPES
+from generate_copy import generate_copy, ERROR_TYPES
 
 N = 100
 SEED = 42
