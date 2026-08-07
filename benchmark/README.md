@@ -63,7 +63,7 @@ Chaque théorème est défini uniquement en termes d'ids :
 
 ## Les implications (`implications.py`)
 
-Pour déterminer si une hypothèse citée, même différente de la hypothèse requise, la **satisfait tout de même** parce qu'elle est logiquement plus forte.
+Pour déterminer si une hypothèse citée, même différente de l'hypothèse requise, la **satisfait tout de même** parce qu'elle est logiquement plus forte.
 
 ### Implications valides — `IMPLICATIONS_LIST`
 
@@ -110,7 +110,7 @@ def satisfait(hypotheses_citees, hypothese_requise):
     """
 ```
 
-Recherche **récursive** dans `IMPLICATIONS_LIST` (on utimose une ensemble `visites` pour éviter les cycles), jamais dans `MAUVAISES_IMPLICATIONS`.
+Recherche **récursive** dans `IMPLICATIONS_LIST` (on utilise un ensemble `visites` pour éviter les cycles), jamais dans `MAUVAISES_IMPLICATIONS`.
 
 ---
 
