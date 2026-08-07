@@ -116,34 +116,35 @@ Recherche **récursive** dans `IMPLICATIONS_LIST` (on utilise un ensemble `visit
 
 ## Génération des copies (`generer_copie.py`)
 
-Une copie part toujours d'une version **100% correcte** de la vérité terrain, puis est dégradée selon un **type d'erreur** :
+Une copie part toujours d'une version **100% correcte** de la vérité terrain, puis est dégradée selon un **mécanisme d'erreur initial** (omission, ajout, substitution, inversion d'intervalle) :
 
-| Type d'erreur | Effet |
-|---|---|
-| **`correcte`** | Aucune dégradation |
-| **`hypothese_manquante`** | Une hypothèse gold est retirée |
-| **`plusieurs_manquantes`** | Entre 2 et n−1 hypothèses gold sont retirées |
-| **`hypothese_inventee`** | Tire au sort un sous-type : remplace une hypothèse gold par une erreur courante, ajoute une erreur courante en plus, ou inverse un intervalle (FERME ↔ OUVERT) |
-| **`implication_valide`** | Une hypothèse gold est remplacée par une hypothèse **plus forte et valide** (tirée de `IMPLICATIONS_LIST`) → doit rester `VRAI` |
-| **`implication_invalide`** | Une hypothèse gold est remplacée par une hypothèse **invalide** (tirée de `MAUVAISES_IMPLICATIONS`) → doit être `FAUX` |
+### Recalibrage des labels
 
-### Calcul du verdict
+Pour de ne pas biaiser l'évaluation du LLM (qui ne voit que le texte final et non l'intention du mécanisme d'erreur initiale), les étiquettes de sortie (type_erreur et raison) sont recalculées après la génération de la copie, en se basant **que** sur son contenu réel :
 
-Pour chaque hypothèse `h` de la vérité terrain :
-1. Si `satisfait(hypotheses_citees, h)` est vrai → hypothèse validée (directement ou par implication)
-2. Sinon → copie fausse, raison enregistrée (`manquante`, `mal_formulee`, `implication_invalide`, `inventee`, etc)
+**1. Distinction entre Omission et Invention :**
+Si le code remplace une hypothèse vraie par une fausse, la copie finale contient le même nombre d'hypothèses, ce qui ressemble à une simple omission pour un modèle externe.
+Pour corriger ça, le script calcule une variable `extra` contenant les hypothèses générées qui n'appartiennent pas au gold :
+- Si `extra` n'est pas vide ➔ classé catégoriquement en `invented_hypothesis`
+- Si `extra` est vide (rien n'a été ajouté) ➔ classé en `missing_hypothesis`
+  
+**2. Éviter les faux positifs d'Implication Valide :**
+Si le code tente d'inverser un intervalle sur un théorème qui n'en contient pas, la copie reste identique au gold. Donc j'ai mis en place un test qui vérifie si la copie a réellement été modifiée (`if cited_hypotheses != gold`) avant d'autoriser l'étiquette `valid_implication`. Dans le cas contraire, la copie est marquée comme `correct`.
 
-Le résultat final contient :
+**3. Unification des sous-mécanismes d'invention :**
+Les erreurs de type `misformulated` et `invalid_implication` sont regroupées sous `invented_hypothesis` pour que le LLM identifie plus facilement toute hypothèse intruse ou altérée.
+
+### Résultat final de la génération
 
 ```python
 {
     "theoreme_id": "T01",
     "nom": "Théorème de Rolle",
-    "copie": [...],              # textes français affichés
-    "attendu": [...],            # textes français de la vérité terrain
+    "copie": [...], # textes français affichés
+    "attendu": [...], # textes français de la vérité terrain
     "est_correcte": True/False,
-    "raison": "OK" | "manquante: ..." | "mal_formulee: ..." | ...,
-    "type_erreur": "hypothese_manquante" | ...,
+    "raison": "OK" | "missing: ..." | "invented_hypothesis: ...",
+    "type_erreur": "missing_hypothesis" | "multiple_missing" | "invented_hypothesis" | "valid_implication" | "correct"
 }
 ```
 
@@ -180,10 +181,6 @@ Transforme `benchmark_data.json` en :
 | **Verdict** | `VRAI` / `FAUX` + raison précise si `FAUX` |
 
 ---
-
-## Version anglaise
-
-Une version anglophone de ce benchmark est disponible. Elle repose exactement sur la même architecture logique, les mêmes théorèmes et les mêmes identifiants de validation, mais les chaînes de caractères affichées dans les JSON générés sont traduites en anglais pour permettre l'évaluation de LLMs sur des prompts anglophones.
 
 ## Extensibilité
 
