@@ -1,0 +1,1518 @@
+[
+  {
+    "theorem_id": "T21",
+    "name": "Adjacent Sequences Theorem",
+    "copy": [
+      "(uₙ) is increasing and (vₙ) is decreasing",
+      "vₙ − uₙ → 0"
+    ],
+    "expected": [
+      "(uₙ) is increasing and (vₙ) is decreasing",
+      "vₙ − uₙ → 0"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T01",
+    "name": "Rolle's Theorem",
+    "copy": [
+      "f is differentiable on ]a, b["
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "is_correct": false,
+    "reason": "missing: f is continuous on [a, b]; missing: f(a) = f(b)",
+    "validation_type": "multiple_missing"
+  },
+  {
+    "theorem_id": "T24",
+    "name": "Cauchy-Lipschitz Theorem",
+    "copy": [
+      "f is continuous in t",
+      "f is Lipschitz in y",
+      "an initial condition y(t₀) = y₀ is given"
+    ],
+    "expected": [
+      "f is continuous in t",
+      "f is Lipschitz in y",
+      "an initial condition y(t₀) = y₀ is given"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T22",
+    "name": "Cauchy Criterion (sequences)",
+    "copy": [
+      "(uₙ) is a sequence in a complete space"
+    ],
+    "expected": [
+      "(uₙ) is a sequence in a complete space"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T03",
+    "name": "Intermediate Value Theorem",
+    "copy": [
+      "f is of class C¹ on I",
+      "y is between f(a) and f(b)"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "y is between f(a) and f(b)"
+    ],
+    "is_correct": true,
+    "reason": "stronger_hypothesis: f is of class C¹ on I implies f is continuous on [a, b]",
+    "validation_type": "stronger_hypothesis"
+  },
+  {
+    "theorem_id": "T14",
+    "name": "Cayley-Hamilton Theorem",
+    "copy": [
+      "A is an n×n square matrix",
+      "χ_A is the characteristic polynomial of A"
+    ],
+    "expected": [
+      "A is an n×n square matrix",
+      "χ_A is the characteristic polynomial of A"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T01",
+    "name": "Rolle's Theorem",
+    "copy": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T07",
+    "name": "Fundamental Theorem of Calculus",
+    "copy": [
+      "f is continuous on [a, b]"
+    ],
+    "expected": [
+      "f is continuous on [a, b]"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T17",
+    "name": "Orthogonal Projection Theorem (Hilbert)",
+    "copy": [
+      "E is a Hilbert space",
+      "F is a closed subspace of E"
+    ],
+    "expected": [
+      "E is a Hilbert space",
+      "F is a closed subspace of E"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T01",
+    "name": "Rolle's Theorem",
+    "copy": [
+      "f is continuous on [a, b]",
+      "f is differentiable on [a, b]",
+      "f(a) = f(b)"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "is_correct": true,
+    "reason": "stronger_hypothesis: f is differentiable on [a, b] implies f is differentiable on ]a, b[",
+    "validation_type": "stronger_hypothesis"
+  },
+  {
+    "theorem_id": "T07",
+    "name": "Fundamental Theorem of Calculus",
+    "copy": [
+      "f is of class C¹ on I"
+    ],
+    "expected": [
+      "f is continuous on [a, b]"
+    ],
+    "is_correct": true,
+    "reason": "stronger_hypothesis: f is of class C¹ on I implies f is continuous on [a, b]",
+    "validation_type": "stronger_hypothesis"
+  },
+  {
+    "theorem_id": "T14",
+    "name": "Cayley-Hamilton Theorem",
+    "copy": [
+      "A is an n×n square matrix"
+    ],
+    "expected": [
+      "A is an n×n square matrix",
+      "χ_A is the characteristic polynomial of A"
+    ],
+    "is_correct": false,
+    "reason": "missing: χ_A is the characteristic polynomial of A",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T19",
+    "name": "Bolzano-Weierstrass Theorem",
+    "copy": [
+      "(uₙ) is a bounded sequence of reals"
+    ],
+    "expected": [
+      "(uₙ) is a bounded sequence of reals"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T26",
+    "name": "Central Limit Theorem",
+    "copy": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed",
+      "E[X₁] = μ is finite",
+      "Var(X₁) = σ² is finite and strictly positive"
+    ],
+    "expected": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed",
+      "E[X₁] = μ is finite",
+      "Var(X₁) = σ² is finite and strictly positive"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T25",
+    "name": "Superposition Principle (linear ODEs)",
+    "copy": [
+      "L is a linear differential operator",
+      "y₁ is a solution of L(y) = f₁"
+    ],
+    "expected": [
+      "L is a linear differential operator",
+      "y₁ is a solution of L(y) = f₁",
+      "y₂ is a solution of L(y) = f₂"
+    ],
+    "is_correct": false,
+    "reason": "missing: y₂ is a solution of L(y) = f₂",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T09",
+    "name": "Change of Variable in Integrals",
+    "copy": [
+      "f is continuous on φ([α, β])"
+    ],
+    "expected": [
+      "φ is of class C¹ on [α, β]",
+      "f is continuous on φ([α, β])"
+    ],
+    "is_correct": false,
+    "reason": "missing: φ is of class C¹ on [α, β]",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T25",
+    "name": "Superposition Principle (linear ODEs)",
+    "copy": [
+      "y₂ is a solution of L(y) = f₂"
+    ],
+    "expected": [
+      "L is a linear differential operator",
+      "y₁ is a solution of L(y) = f₁",
+      "y₂ is a solution of L(y) = f₂"
+    ],
+    "is_correct": false,
+    "reason": "missing: L is a linear differential operator; missing: y₁ is a solution of L(y) = f₁",
+    "validation_type": "multiple_missing"
+  },
+  {
+    "theorem_id": "T04",
+    "name": "Weierstrass Theorem",
+    "copy": [
+      "f is continuous on [a, b]",
+      "[a, b] is a closed and bounded interval"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "[a, b] is a closed and bounded interval"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T28",
+    "name": "Jensen's Inequality",
+    "copy": [
+      "φ is a convex function",
+      "X is an integrable real random variable"
+    ],
+    "expected": [
+      "φ is a convex function",
+      "X is an integrable real random variable"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T20",
+    "name": "Monotone Convergence Theorem (sequences)",
+    "copy": [
+      "(uₙ) is an increasing sequence",
+      "(uₙ) is bounded above"
+    ],
+    "expected": [
+      "(uₙ) is an increasing sequence",
+      "(uₙ) is bounded above"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T24",
+    "name": "Cauchy-Lipschitz Theorem",
+    "copy": [
+      "f is continuous in t",
+      "f is continuous in y",
+      "an initial condition y(t₀) = y₀ is given"
+    ],
+    "expected": [
+      "f is continuous in t",
+      "f is Lipschitz in y",
+      "an initial condition y(t₀) = y₀ is given"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: f is continuous in y (instead of f is Lipschitz in y)",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T18",
+    "name": "Heine's Theorem (uniform continuity)",
+    "copy": [
+      "f is continuous on [a, b]",
+      "[a, b] is a closed and bounded interval"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "[a, b] is a closed and bounded interval"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T27",
+    "name": "Weak Law of Large Numbers",
+    "copy": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed",
+      "E[X₁²] is finite"
+    ],
+    "expected": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed",
+      "E[|X₁|] is finite"
+    ],
+    "is_correct": true,
+    "reason": "stronger_hypothesis: E[X₁²] is finite implies E[|X₁|] is finite",
+    "validation_type": "stronger_hypothesis"
+  },
+  {
+    "theorem_id": "T29",
+    "name": "Jordan Normal Form (existence)",
+    "copy": [
+      "A is an n×n complex square matrix"
+    ],
+    "expected": [
+      "A is an n×n complex square matrix"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T23",
+    "name": "Dominated Convergence Theorem",
+    "copy": [
+      "(fₙ) is a sequence of measurable functions",
+      "fₙ → f almost everywhere",
+      "∃ g integrable such that |fₙ| ≤ g a.e. for all n"
+    ],
+    "expected": [
+      "(fₙ) is a sequence of measurable functions",
+      "fₙ → f almost everywhere",
+      "∃ g integrable such that |fₙ| ≤ g a.e. for all n"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T02",
+    "name": "Mean Value Theorem (Lagrange)",
+    "copy": [
+      "f is continuous on [a, b]"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b["
+    ],
+    "is_correct": false,
+    "reason": "missing: f is differentiable on ]a, b[",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T03",
+    "name": "Intermediate Value Theorem",
+    "copy": [
+      "y is between f(a) and f(b)"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "y is between f(a) and f(b)"
+    ],
+    "is_correct": false,
+    "reason": "missing: f is continuous on [a, b]",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T13",
+    "name": "Diagonalizability (distinct eigenvalues)",
+    "copy": [
+      "f is an endomorphism of E (finite dimension n)",
+      "f has n distinct eigenvalues"
+    ],
+    "expected": [
+      "f is an endomorphism of E (finite dimension n)",
+      "f has n distinct eigenvalues"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T15",
+    "name": "Spectral Theorem (real symmetric matrices)",
+    "copy": [
+      "A is a real square matrix",
+      "A is symmetric (A = Aᵀ)"
+    ],
+    "expected": [
+      "A is a real square matrix",
+      "A is symmetric (A = Aᵀ)"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T06",
+    "name": "Taylor-Young Formula",
+    "copy": [
+      "f is n times differentiable at a"
+    ],
+    "expected": [
+      "f is n times differentiable at a"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T12",
+    "name": "Incomplete Basis Theorem",
+    "copy": [
+      "E is a finite-dimensional vector space of dimension n"
+    ],
+    "expected": [
+      "E is a finite-dimensional vector space of dimension n",
+      "F = (f₁, ..., fₖ) is a linearly independent family in E with k ≤ n"
+    ],
+    "is_correct": false,
+    "reason": "missing: F = (f₁, ..., fₖ) is a linearly independent family in E with k ≤ n",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T20",
+    "name": "Monotone Convergence Theorem (sequences)",
+    "copy": [
+      "(uₙ) is bounded above"
+    ],
+    "expected": [
+      "(uₙ) is an increasing sequence",
+      "(uₙ) is bounded above"
+    ],
+    "is_correct": false,
+    "reason": "missing: (uₙ) is an increasing sequence",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T09",
+    "name": "Change of Variable in Integrals",
+    "copy": [
+      "φ is of class C¹ on [α, β]",
+      "f is continuous on φ([α, β])"
+    ],
+    "expected": [
+      "φ is of class C¹ on [α, β]",
+      "f is continuous on φ([α, β])"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T08",
+    "name": "Integration by Parts",
+    "copy": [
+      "u and v are of class C¹ on [a, b]"
+    ],
+    "expected": [
+      "u and v are of class C¹ on [a, b]"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T27",
+    "name": "Weak Law of Large Numbers",
+    "copy": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed",
+      "E[|X₁|] is finite"
+    ],
+    "expected": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed",
+      "E[|X₁|] is finite"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T26",
+    "name": "Central Limit Theorem",
+    "copy": [
+      "the Xₙ are identically distributed"
+    ],
+    "expected": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed",
+      "E[X₁] = μ is finite",
+      "Var(X₁) = σ² is finite and strictly positive"
+    ],
+    "is_correct": false,
+    "reason": "missing: E[X₁] = μ is finite; missing: (Xₙ) is a sequence of independent random variables; missing: Var(X₁) = σ² is finite and strictly positive",
+    "validation_type": "multiple_missing"
+  },
+  {
+    "theorem_id": "T30",
+    "name": "Taylor's Formula with Lagrange Remainder",
+    "copy": [
+      "f is n times differentiable on [a, b] (continuous)",
+      "f is n+1 times differentiable on ]a, b["
+    ],
+    "expected": [
+      "f is n times differentiable on [a, b] (continuous)",
+      "f is n+1 times differentiable on ]a, b["
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T07",
+    "name": "Fundamental Theorem of Calculus",
+    "copy": [
+      "f is continuous on ]a, b["
+    ],
+    "expected": [
+      "f is continuous on [a, b]"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: f is continuous on ]a, b[ (instead of f is continuous on [a, b])",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T29",
+    "name": "Jordan Normal Form (existence)",
+    "copy": [
+      "A is an n×n complex square matrix",
+      "A is a diagonalizable matrix"
+    ],
+    "expected": [
+      "A is an n×n complex square matrix"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: A is a diagonalizable matrix",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T05",
+    "name": "L'Hôpital's Rule",
+    "copy": [
+      "f and g are differentiable in a neighborhood of a",
+      "g'(x) ≠ 0 in a neighborhood of a",
+      "lim_{x→a} f'(x)/g'(x) = ℓ exists"
+    ],
+    "expected": [
+      "f and g are differentiable in a neighborhood of a",
+      "g'(x) ≠ 0 in a neighborhood of a",
+      "f(a) = g(a) = 0 or f and g tend to ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ exists"
+    ],
+    "is_correct": false,
+    "reason": "missing: f(a) = g(a) = 0 or f and g tend to ±∞",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T17",
+    "name": "Orthogonal Projection Theorem (Hilbert)",
+    "copy": [
+      "F is a subspace of E (not necessarily closed)",
+      "F is a closed subspace of E"
+    ],
+    "expected": [
+      "E is a Hilbert space",
+      "F is a closed subspace of E"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: F is a subspace of E (not necessarily closed) (instead of E is a Hilbert space)",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T05",
+    "name": "L'Hôpital's Rule",
+    "copy": [
+      "f and g are differentiable in a neighborhood of a",
+      "g'(x) ≠ 0 in a neighborhood of a",
+      "f(a) = g(a) = 0 or f and g tend to ±∞"
+    ],
+    "expected": [
+      "f and g are differentiable in a neighborhood of a",
+      "g'(x) ≠ 0 in a neighborhood of a",
+      "f(a) = g(a) = 0 or f and g tend to ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ exists"
+    ],
+    "is_correct": false,
+    "reason": "missing: lim_{x→a} f'(x)/g'(x) = ℓ exists",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T12",
+    "name": "Incomplete Basis Theorem",
+    "copy": [
+      "F = (f₁, ..., fₖ) is a linearly independent family in E with k ≤ n"
+    ],
+    "expected": [
+      "E is a finite-dimensional vector space of dimension n",
+      "F = (f₁, ..., fₖ) is a linearly independent family in E with k ≤ n"
+    ],
+    "is_correct": false,
+    "reason": "missing: E is a finite-dimensional vector space of dimension n",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T16",
+    "name": "Cauchy-Schwarz Inequality",
+    "copy": [
+      "E is a vector space with an inner product",
+      "u and v are two vectors in E"
+    ],
+    "expected": [
+      "E is a vector space with an inner product",
+      "u and v are two vectors in E"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T08",
+    "name": "Integration by Parts",
+    "copy": [
+      "u and v are of class C² on [a, b]"
+    ],
+    "expected": [
+      "u and v are of class C¹ on [a, b]"
+    ],
+    "is_correct": true,
+    "reason": "stronger_hypothesis: u and v are of class C² on [a, b] implies u and v are of class C¹ on [a, b]",
+    "validation_type": "stronger_hypothesis"
+  },
+  {
+    "theorem_id": "T03",
+    "name": "Intermediate Value Theorem",
+    "copy": [
+      "f is continuous on [a, b]",
+      "y is between f(a) and f(b)"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "y is between f(a) and f(b)"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T24",
+    "name": "Cauchy-Lipschitz Theorem",
+    "copy": [
+      "f is continuous in t",
+      "f is Lipschitz in y",
+      "f is continuous in y"
+    ],
+    "expected": [
+      "f is continuous in t",
+      "f is Lipschitz in y",
+      "an initial condition y(t₀) = y₀ is given"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: f is continuous in y (instead of an initial condition y(t₀) = y₀ is given)",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T05",
+    "name": "L'Hôpital's Rule",
+    "copy": [
+      "f and g are differentiable in a neighborhood of a",
+      "g'(x) ≠ 0 in a neighborhood of a",
+      "f(a) = g(a) = 0 or f and g tend to ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ exists",
+      "f and g are continuous at a"
+    ],
+    "expected": [
+      "f and g are differentiable in a neighborhood of a",
+      "g'(x) ≠ 0 in a neighborhood of a",
+      "f(a) = g(a) = 0 or f and g tend to ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ exists"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: f and g are continuous at a",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T14",
+    "name": "Cayley-Hamilton Theorem",
+    "copy": [
+      "χ_A is the characteristic polynomial of A"
+    ],
+    "expected": [
+      "A is an n×n square matrix",
+      "χ_A is the characteristic polynomial of A"
+    ],
+    "is_correct": false,
+    "reason": "missing: A is an n×n square matrix",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T23",
+    "name": "Dominated Convergence Theorem",
+    "copy": [
+      "(fₙ) is a sequence of measurable functions"
+    ],
+    "expected": [
+      "(fₙ) is a sequence of measurable functions",
+      "fₙ → f almost everywhere",
+      "∃ g integrable such that |fₙ| ≤ g a.e. for all n"
+    ],
+    "is_correct": false,
+    "reason": "missing: ∃ g integrable such that |fₙ| ≤ g a.e. for all n; missing: fₙ → f almost everywhere",
+    "validation_type": "multiple_missing"
+  },
+  {
+    "theorem_id": "T18",
+    "name": "Heine's Theorem (uniform continuity)",
+    "copy": [
+      "[a, b] is a closed and bounded interval"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "[a, b] is a closed and bounded interval"
+    ],
+    "is_correct": false,
+    "reason": "missing: f is continuous on [a, b]",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T22",
+    "name": "Cauchy Criterion (sequences)",
+    "copy": [
+      "(uₙ) is a sequence in a complete space",
+      "(uₙ) is a monotone sequence"
+    ],
+    "expected": [
+      "(uₙ) is a sequence in a complete space"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: (uₙ) is a monotone sequence",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T05",
+    "name": "L'Hôpital's Rule",
+    "copy": [
+      "f and g are differentiable in a neighborhood of a",
+      "g'(x) ≠ 0 in a neighborhood of a",
+      "f(a) = g(a) = 0 or f and g tend to ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ exists"
+    ],
+    "expected": [
+      "f and g are differentiable in a neighborhood of a",
+      "g'(x) ≠ 0 in a neighborhood of a",
+      "f(a) = g(a) = 0 or f and g tend to ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ exists"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T19",
+    "name": "Bolzano-Weierstrass Theorem",
+    "copy": [
+      "(uₙ) is a bounded sequence of reals",
+      "(uₙ) is a Cauchy sequence"
+    ],
+    "expected": [
+      "(uₙ) is a bounded sequence of reals"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: (uₙ) is a Cauchy sequence",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T26",
+    "name": "Central Limit Theorem",
+    "copy": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed",
+      "E[X₁] = μ is finite",
+      "Var(X₁) = σ² is finite and strictly positive",
+      "the Xₙ are independent (not identically distributed)"
+    ],
+    "expected": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed",
+      "E[X₁] = μ is finite",
+      "Var(X₁) = σ² is finite and strictly positive"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: the Xₙ are independent (not identically distributed)",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T04",
+    "name": "Weierstrass Theorem",
+    "copy": [
+      "f is continuous on ]a, b[",
+      "[a, b] is a closed and bounded interval"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "[a, b] is a closed and bounded interval"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: f is continuous on ]a, b[ (instead of f is continuous on [a, b])",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T02",
+    "name": "Mean Value Theorem (Lagrange)",
+    "copy": [
+      "f is continuous on ]a, b[",
+      "f is differentiable on ]a, b["
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b["
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: f is continuous on ]a, b[ (instead of f is continuous on [a, b])",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T15",
+    "name": "Spectral Theorem (real symmetric matrices)",
+    "copy": [
+      "A is a real square matrix"
+    ],
+    "expected": [
+      "A is a real square matrix",
+      "A is symmetric (A = Aᵀ)"
+    ],
+    "is_correct": false,
+    "reason": "missing: A is symmetric (A = Aᵀ)",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T15",
+    "name": "Spectral Theorem (real symmetric matrices)",
+    "copy": [
+      "A is symmetric (A = Aᵀ)"
+    ],
+    "expected": [
+      "A is a real square matrix",
+      "A is symmetric (A = Aᵀ)"
+    ],
+    "is_correct": false,
+    "reason": "missing: A is a real square matrix",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T07",
+    "name": "Fundamental Theorem of Calculus",
+    "copy": [
+      "f is of class C¹ on I"
+    ],
+    "expected": [
+      "f is continuous on [a, b]"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: f is of class C¹ on I (instead of f is continuous on [a, b])",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T01",
+    "name": "Rolle's Theorem",
+    "copy": [
+      "f is continuous on ]a, b[",
+      "f is differentiable on ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: f is continuous on ]a, b[ (instead of f is continuous on [a, b])",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T22",
+    "name": "Cauchy Criterion (sequences)",
+    "copy": [
+      "(uₙ) is a sequence in a complete space",
+      "(uₙ) is bounded"
+    ],
+    "expected": [
+      "(uₙ) is a sequence in a complete space"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: (uₙ) is bounded",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T10",
+    "name": "d'Alembert's Criterion (series)",
+    "copy": [
+      "lim_{n→∞} u_{n+1}/uₙ = ℓ exists"
+    ],
+    "expected": [
+      "uₙ > 0 for all n sufficiently large",
+      "lim_{n→∞} u_{n+1}/uₙ = ℓ exists"
+    ],
+    "is_correct": false,
+    "reason": "missing: uₙ > 0 for all n sufficiently large",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T02",
+    "name": "Mean Value Theorem (Lagrange)",
+    "copy": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b["
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b["
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T19",
+    "name": "Bolzano-Weierstrass Theorem",
+    "copy": [
+      "(uₙ) is a bounded sequence of reals",
+      "(uₙ) is an increasing sequence"
+    ],
+    "expected": [
+      "(uₙ) is a bounded sequence of reals"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: (uₙ) is an increasing sequence",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T28",
+    "name": "Jensen's Inequality",
+    "copy": [
+      "X is an integrable real random variable"
+    ],
+    "expected": [
+      "φ is a convex function",
+      "X is an integrable real random variable"
+    ],
+    "is_correct": false,
+    "reason": "missing: φ is a convex function",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T11",
+    "name": "Rank Theorem",
+    "copy": [
+      "f is a linear map from E to F",
+      "E is a finite-dimensional vector space of dimension n"
+    ],
+    "expected": [
+      "f is a linear map from E to F",
+      "E is a finite-dimensional vector space of dimension n"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T13",
+    "name": "Diagonalizability (distinct eigenvalues)",
+    "copy": [
+      "f is an endomorphism of E (finite dimension n)"
+    ],
+    "expected": [
+      "f is an endomorphism of E (finite dimension n)",
+      "f has n distinct eigenvalues"
+    ],
+    "is_correct": false,
+    "reason": "missing: f has n distinct eigenvalues",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T01",
+    "name": "Rolle's Theorem",
+    "copy": [
+      "f is differentiable at a and b",
+      "f is differentiable on ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: f is differentiable at a and b (instead of f is continuous on [a, b])",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T09",
+    "name": "Change of Variable in Integrals",
+    "copy": [
+      "φ is of class C¹ on [α, β]"
+    ],
+    "expected": [
+      "φ is of class C¹ on [α, β]",
+      "f is continuous on φ([α, β])"
+    ],
+    "is_correct": false,
+    "reason": "missing: f is continuous on φ([α, β])",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T12",
+    "name": "Incomplete Basis Theorem",
+    "copy": [
+      "E is a finite-dimensional vector space of dimension n",
+      "F = (f₁, ..., fₖ) is a linearly independent family in E with k ≤ n"
+    ],
+    "expected": [
+      "E is a finite-dimensional vector space of dimension n",
+      "F = (f₁, ..., fₖ) is a linearly independent family in E with k ≤ n"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T20",
+    "name": "Monotone Convergence Theorem (sequences)",
+    "copy": [
+      "(uₙ) is an increasing sequence",
+      "(uₙ) is a decreasing and bounded above sequence"
+    ],
+    "expected": [
+      "(uₙ) is an increasing sequence",
+      "(uₙ) is bounded above"
+    ],
+    "is_correct": true,
+    "reason": "stronger_hypothesis: (uₙ) is a decreasing and bounded above sequence implies (uₙ) is bounded above",
+    "validation_type": "stronger_hypothesis"
+  },
+  {
+    "theorem_id": "T10",
+    "name": "d'Alembert's Criterion (series)",
+    "copy": [
+      "uₙ > 0 for all n sufficiently large",
+      "lim_{n→∞} u_{n+1}/uₙ = ℓ exists"
+    ],
+    "expected": [
+      "uₙ > 0 for all n sufficiently large",
+      "lim_{n→∞} u_{n+1}/uₙ = ℓ exists"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T05",
+    "name": "L'Hôpital's Rule",
+    "copy": [
+      "f and g are differentiable in a neighborhood of a"
+    ],
+    "expected": [
+      "f and g are differentiable in a neighborhood of a",
+      "g'(x) ≠ 0 in a neighborhood of a",
+      "f(a) = g(a) = 0 or f and g tend to ±∞",
+      "lim_{x→a} f'(x)/g'(x) = ℓ exists"
+    ],
+    "is_correct": false,
+    "reason": "missing: g'(x) ≠ 0 in a neighborhood of a; missing: f(a) = g(a) = 0 or f and g tend to ±∞; missing: lim_{x→a} f'(x)/g'(x) = ℓ exists",
+    "validation_type": "multiple_missing"
+  },
+  {
+    "theorem_id": "T03",
+    "name": "Intermediate Value Theorem",
+    "copy": [
+      "f is continuous on ]a, b[",
+      "y is between f(a) and f(b)"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "y is between f(a) and f(b)"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: f is continuous on ]a, b[ (instead of f is continuous on [a, b])",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T11",
+    "name": "Rank Theorem",
+    "copy": [
+      "f is a linear map from E to F"
+    ],
+    "expected": [
+      "f is a linear map from E to F",
+      "E is a finite-dimensional vector space of dimension n"
+    ],
+    "is_correct": false,
+    "reason": "missing: E is a finite-dimensional vector space of dimension n",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T27",
+    "name": "Weak Law of Large Numbers",
+    "copy": [
+      "E[|X₁|] is finite"
+    ],
+    "expected": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed",
+      "E[|X₁|] is finite"
+    ],
+    "is_correct": false,
+    "reason": "missing: the Xₙ are identically distributed; missing: (Xₙ) is a sequence of independent random variables",
+    "validation_type": "multiple_missing"
+  },
+  {
+    "theorem_id": "T12",
+    "name": "Incomplete Basis Theorem",
+    "copy": [
+      "E is a finite-dimensional vector space of dimension n",
+      "F is a basis of E"
+    ],
+    "expected": [
+      "E is a finite-dimensional vector space of dimension n",
+      "F = (f₁, ..., fₖ) is a linearly independent family in E with k ≤ n"
+    ],
+    "is_correct": true,
+    "reason": "stronger_hypothesis: F is a basis of E implies F = (f₁, ..., fₖ) is a linearly independent family in E with k ≤ n",
+    "validation_type": "stronger_hypothesis"
+  },
+  {
+    "theorem_id": "T29",
+    "name": "Jordan Normal Form (existence)",
+    "copy": [
+      "A is an n×n complex square matrix",
+      "A is a real square matrix"
+    ],
+    "expected": [
+      "A is an n×n complex square matrix"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: A is a real square matrix",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T29",
+    "name": "Jordan Normal Form (existence)",
+    "copy": [
+      "the characteristic polynomial of A splits over ℝ"
+    ],
+    "expected": [
+      "A is an n×n complex square matrix"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: the characteristic polynomial of A splits over ℝ (instead of A is an n×n complex square matrix)",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T26",
+    "name": "Central Limit Theorem",
+    "copy": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed",
+      "E[X₁] = μ is finite",
+      "Var(X₁) = σ² is finite and strictly positive",
+      "σ² > 0 without mentioning that σ² is finite"
+    ],
+    "expected": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed",
+      "E[X₁] = μ is finite",
+      "Var(X₁) = σ² is finite and strictly positive"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: σ² > 0 without mentioning that σ² is finite",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T28",
+    "name": "Jensen's Inequality",
+    "copy": [
+      "φ is a convex function",
+      "X is an integrable real random variable",
+      "φ is a concave function"
+    ],
+    "expected": [
+      "φ is a convex function",
+      "X is an integrable real random variable"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: φ is a concave function",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T01",
+    "name": "Rolle's Theorem",
+    "copy": [
+      "f is continuous on [a, b]",
+      "f(a) = f(b)"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "is_correct": false,
+    "reason": "missing: f is differentiable on ]a, b[",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T25",
+    "name": "Superposition Principle (linear ODEs)",
+    "copy": [
+      "L is a linear differential operator"
+    ],
+    "expected": [
+      "L is a linear differential operator",
+      "y₁ is a solution of L(y) = f₁",
+      "y₂ is a solution of L(y) = f₂"
+    ],
+    "is_correct": false,
+    "reason": "missing: y₂ is a solution of L(y) = f₂; missing: y₁ is a solution of L(y) = f₁",
+    "validation_type": "multiple_missing"
+  },
+  {
+    "theorem_id": "T04",
+    "name": "Weierstrass Theorem",
+    "copy": [
+      "f is of class C¹ on I",
+      "[a, b] is a closed and bounded interval"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "[a, b] is a closed and bounded interval"
+    ],
+    "is_correct": true,
+    "reason": "stronger_hypothesis: f is of class C¹ on I implies f is continuous on [a, b]",
+    "validation_type": "stronger_hypothesis"
+  },
+  {
+    "theorem_id": "T24",
+    "name": "Cauchy-Lipschitz Theorem",
+    "copy": [
+      "f is Lipschitz in y"
+    ],
+    "expected": [
+      "f is continuous in t",
+      "f is Lipschitz in y",
+      "an initial condition y(t₀) = y₀ is given"
+    ],
+    "is_correct": false,
+    "reason": "missing: an initial condition y(t₀) = y₀ is given; missing: f is continuous in t",
+    "validation_type": "multiple_missing"
+  },
+  {
+    "theorem_id": "T02",
+    "name": "Mean Value Theorem (Lagrange)",
+    "copy": [
+      "f is differentiable on [a, b]",
+      "f is differentiable on ]a, b["
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b["
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: f is differentiable on [a, b] (instead of f is continuous on [a, b])",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T24",
+    "name": "Cauchy-Lipschitz Theorem",
+    "copy": [
+      "f is continuous in t"
+    ],
+    "expected": [
+      "f is continuous in t",
+      "f is Lipschitz in y",
+      "an initial condition y(t₀) = y₀ is given"
+    ],
+    "is_correct": false,
+    "reason": "missing: an initial condition y(t₀) = y₀ is given; missing: f is Lipschitz in y",
+    "validation_type": "multiple_missing"
+  },
+  {
+    "theorem_id": "T14",
+    "name": "Cayley-Hamilton Theorem",
+    "copy": [
+      "A is an n×n square matrix",
+      "χ_A is the characteristic polynomial of A",
+      "A is a symmetric matrix"
+    ],
+    "expected": [
+      "A is an n×n square matrix",
+      "χ_A is the characteristic polynomial of A"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: A is a symmetric matrix",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T17",
+    "name": "Orthogonal Projection Theorem (Hilbert)",
+    "copy": [
+      "E is a Hilbert space",
+      "F is a closed subspace of E",
+      "F is finite-dimensional"
+    ],
+    "expected": [
+      "E is a Hilbert space",
+      "F is a closed subspace of E"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: F is finite-dimensional",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T27",
+    "name": "Weak Law of Large Numbers",
+    "copy": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed"
+    ],
+    "expected": [
+      "(Xₙ) is a sequence of independent random variables",
+      "the Xₙ are identically distributed",
+      "E[|X₁|] is finite"
+    ],
+    "is_correct": false,
+    "reason": "missing: E[|X₁|] is finite",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T15",
+    "name": "Spectral Theorem (real symmetric matrices)",
+    "copy": [
+      "A is a real square matrix",
+      "A is symmetric (A = Aᵀ)",
+      "A is orthogonal"
+    ],
+    "expected": [
+      "A is a real square matrix",
+      "A is symmetric (A = Aᵀ)"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: A is orthogonal",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T13",
+    "name": "Diagonalizability (distinct eigenvalues)",
+    "copy": [
+      "f has n distinct eigenvalues"
+    ],
+    "expected": [
+      "f is an endomorphism of E (finite dimension n)",
+      "f has n distinct eigenvalues"
+    ],
+    "is_correct": false,
+    "reason": "missing: f is an endomorphism of E (finite dimension n)",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T25",
+    "name": "Superposition Principle (linear ODEs)",
+    "copy": [
+      "L is a linear differential operator",
+      "y₁ is a solution of L(y) = f₁",
+      "y₂ is a solution of L(y) = f₂",
+      "y₁ and y₂ are solutions of L(y) = 0"
+    ],
+    "expected": [
+      "L is a linear differential operator",
+      "y₁ is a solution of L(y) = f₁",
+      "y₂ is a solution of L(y) = f₂"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: y₁ and y₂ are solutions of L(y) = 0",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T18",
+    "name": "Heine's Theorem (uniform continuity)",
+    "copy": [
+      "f is of class C¹ on I",
+      "[a, b] is a closed and bounded interval"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "[a, b] is a closed and bounded interval"
+    ],
+    "is_correct": true,
+    "reason": "stronger_hypothesis: f is of class C¹ on I implies f is continuous on [a, b]",
+    "validation_type": "stronger_hypothesis"
+  },
+  {
+    "theorem_id": "T16",
+    "name": "Cauchy-Schwarz Inequality",
+    "copy": [
+      "E is a vector space with an inner product"
+    ],
+    "expected": [
+      "E is a vector space with an inner product",
+      "u and v are two vectors in E"
+    ],
+    "is_correct": false,
+    "reason": "missing: u and v are two vectors in E",
+    "validation_type": "missing_hypothesis"
+  },
+  {
+    "theorem_id": "T08",
+    "name": "Integration by Parts",
+    "copy": [
+      "u and v are of class C¹ on [a, b]",
+      "u' and v are continuous on [a, b]"
+    ],
+    "expected": [
+      "u and v are of class C¹ on [a, b]"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: u' and v are continuous on [a, b]",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T18",
+    "name": "Heine's Theorem (uniform continuity)",
+    "copy": [
+      "f is continuous on ]a, b[",
+      "[a, b] is a closed and bounded interval"
+    ],
+    "expected": [
+      "f is continuous on [a, b]",
+      "[a, b] is a closed and bounded interval"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: f is continuous on ]a, b[ (instead of f is continuous on [a, b])",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T13",
+    "name": "Diagonalizability (distinct eigenvalues)",
+    "copy": [
+      "f is an endomorphism of E (finite dimension n)",
+      "the characteristic polynomial is split"
+    ],
+    "expected": [
+      "f is an endomorphism of E (finite dimension n)",
+      "f has n distinct eigenvalues"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: the characteristic polynomial is split (instead of f has n distinct eigenvalues)",
+    "validation_type": "invented_hypothesis"
+  },
+  {
+    "theorem_id": "T25",
+    "name": "Superposition Principle (linear ODEs)",
+    "copy": [
+      "L is a linear differential operator",
+      "y₁ is a solution of L(y) = f₁",
+      "y₂ is a solution of L(y) = f₂"
+    ],
+    "expected": [
+      "L is a linear differential operator",
+      "y₁ is a solution of L(y) = f₁",
+      "y₂ is a solution of L(y) = f₂"
+    ],
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
+  }
+]
