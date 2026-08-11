@@ -23,7 +23,7 @@ while len(dataset) < N and attempts < max_attempts:
     error_type = random.choice(ERROR_TYPES)
     la_copy = generate_copy(t_id, error_type)
 
-    key = (la_copy["theorem_id"], tuple(sorted(la_copy["copy"])), la_copy["error_type"])
+    key = (la_copy["theorem_id"], tuple(sorted(la_copy["copy"])), la_copy["validation_type"])
     if key in seen_errors:
         continue
     seen_errors.add(key)
