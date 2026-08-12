@@ -428,14 +428,45 @@ Chaque copie produite est représentée sous la forme :
 
 ## Génération du dataset (`run_benchmark.py`)
 
+Le benchmark complet peut être généré avec :
 ```bash
 python3 run_benchmark.py
 ```
+Le script :
+ - utilise une seed fixe (pour garantir la reproductibilité)
+ - sélectionne aléatoirement un théorème
+ - sélectionne un mécanisme d'erreur
+ - génère une copie
+ - recalcule son verdict à partir de la copie finale
+ - répète l'opération N fois (100 fois par défaut)
+ - écrit le résultat dans benchmark_data.json
+  
+#### Structure du dataset JSON
 
-- Tire aléatoirement (seed fixée pour reproductibilité) un théorème et un type d'erreur, `N` fois (défaut 100)
-- Exporte `benchmark_data.json` : une liste de dictionnaires
-- Affiche un résumé en 2 colonnes (`COPIE` / `VERDICT`) et des statistiques globales (total, correctes, incorrectes)
+Le fichier : `benchmark_data.json` contient une liste de dictionnaires.
 
+Exemple :
+```json
+[
+  {
+    "theoreme_id": "T01",
+    "nom": "Théorème de Rolle",
+    "copie": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "attendu": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b[",
+      "f(a) = f(b)"
+    ],
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correct"
+  }
+]
+```
 ---
 
 ## Exportation sous d'autres formats (`exporter_tableau.py`)
