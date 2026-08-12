@@ -193,7 +193,7 @@ Recherche **récursive** dans `IMPLICATIONS_LIST` (on utilise un ensemble `visit
 
 ---
 
-## 4.Génération des copies (`generer_copie.py`)
+## 4. Génération des copies (`generer_copie.py`)
 
 Une copie part toujours d'une version **100% correcte** de la vérité terrain, puis est dégradée selon un **mécanisme d'erreur initial** (omission, ajout, substitution, inversion d'intervalle) :
 
@@ -426,7 +426,7 @@ Chaque copie produite est représentée sous la forme :
 
 ---
 
-## Génération du dataset (`run_benchmark.py`)
+## 5. Génération du dataset (`run_benchmark.py`)
 
 Le benchmark complet peut être généré avec :
 ```bash
@@ -469,7 +469,7 @@ Exemple :
 ```
 ---
 
-## Exportation sous d'autres formats (`exporter_tableau.py`)
+## 6. Exportation sous d'autres formats (`exporter_tableau.py`)
 
 ```bash
 python3 exporter_tableau.py
@@ -489,14 +489,58 @@ Transforme `benchmark_data.json` en :
 
 ---
 
-## Extensibilité
+## 7. Vue finale du benchmark
 
-Ajouter un théorème ne modifie pas le pipeline d'évaluation :
+Pour le LLM évalué, la structure conceptuelle est volontairement simple. Il reçoit :
+```text
+THÉORÈME
+↓
+Hypothèses attendues
 
-1. Ajouter les nouveaux ids d'hypothèses nécessaires dans `hypotheses.py`
-2. Ajouter l'entrée du théorème dans `theoremes.py` (`hypotheses` + `erreurs_courantes`, en ids)
-3. Ajouter les nouvelles implications valides et invalides correspondantes dans `implications.py`
-4. Relancer `python3 theoremes.py` et `python3 implications.py` pour vérifier qu'aucun id n'est manquant ou dupliqué avant de régénérer le dataset
+COPIE DE L'ÉTUDIANT
+↓
+Hypothèses citées
+
+QUESTION
+↓
+La copie est-elle correcte ?
+Si non : pourquoi ?
+```
+Le LLM doit donc reconstruire le raisonnement logique.
+
+---
+
+## 8. Validation du benchmark
+
+Avant de générer un dataset final, il est recommandé de valider les tables internes.
+
+1. Pour les théorèmes : `python3 theoremes.py`
+
+2. Pour les implications : `python3 implications.py`
+
+Ces vérifications doivent notamment détecter :
+
+- les ids inexistants ;
+- les ids dupliqués lorsque cela est interdit ;
+- les références à des hypothèses non présentes dans HYPOTHESES ;
+- les incohérences dans les tables d'implications.
+
+---
+
+## 9. Extensibilité
+
+Ajouter un nouveau théorème ne nécessite pas de modifier le pipeline général.
+
+Il suffit de :
+
+1. ajouter les nouveaux ids d'hypothèses nécessaires dans hypotheses.py
+2. ajouter l'entrée du théorème dans theoremes.py
+3. renseigner ses hypothèses gold
+4. renseigner ses erreurs courantes
+5. ajouter les implications valides correspondantes dans implications.py
+6. ajouter éventuellement les fausses implications correspondantes
+7. exécuter les scripts de validation
+8. régénérer le dataset
 
 | Domaine | Théorèmes couverts |
 |---|---|
@@ -508,3 +552,58 @@ Ajouter un théorème ne modifie pas le pipeline d'évaluation :
 | Intégration | Convergence dominée |
 | Équations Différentielles | Cauchy-Lipschitz, Superposition |
 | Probabilités | TCL, LGN faible, Jensen |
+
+---
+
+## 10. Résumé du pipeline
+
+Le benchmark génère des copies mathématiques synthétiques, puis demande à un LLM de déterminer si les hypothèses d'un théorème sont correctement satisfaites, en tenant compte des omissions, des hypothèses inventées et des implications logiques valides, avec une vérité terrain calculée indépendamment du mécanisme de génération.
+
+Le fonctionnement global peut être résumé ainsi :
+```text
+                         ┌──────────────────┐
+                         │   HYPOTHESES     │
+                         │  id → texte      │
+                         └────────┬─────────┘
+                                  │
+                                  ▼
+                         ┌──────────────────┐
+                         │    THEOREMES     │
+                         │ gold hypotheses  │
+                         └────────┬─────────┘
+                                  │
+                                  ▼
+                         ┌──────────────────┐
+                         │   IMPLICATIONS   │
+                         │  valides/fausses │
+                         └────────┬─────────┘
+                                  │
+                                  ▼
+                         ┌──────────────────┐
+                         │ GENERER_COPIE    │
+                         │ gold → erreur    │
+                         └────────┬─────────┘
+                                  │
+                                  ▼
+                         ┌──────────────────┐
+                         │ COPIE FINALE     │
+                         │ observable       │
+                         └────────┬─────────┘
+                                  │
+                                  ▼
+                         ┌──────────────────┐
+                         │ RECALCUL LABEL   │
+                         │ sur contenu réel │
+                         └────────┬─────────┘
+                                  │
+                                  ▼
+                         ┌──────────────────┐
+                         │ DATASET JSON     │
+                         └────────┬─────────┘
+                                  │
+                         ┌────────┴────────┐
+                         ▼                 ▼
+                  ┌──────────────┐  ┌──────────────┐
+                  │     CSV      │  │  Markdown    │
+                  └──────────────┘  └──────────────┘
+```
