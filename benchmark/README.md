@@ -193,37 +193,234 @@ Recherche **récursive** dans `IMPLICATIONS_LIST` (on utilise un ensemble `visit
 
 ---
 
-## Génération des copies (`generer_copie.py`)
+## 4.Génération des copies (`generer_copie.py`)
 
 Une copie part toujours d'une version **100% correcte** de la vérité terrain, puis est dégradée selon un **mécanisme d'erreur initial** (omission, ajout, substitution, inversion d'intervalle) :
 
-### Recalibrage des labels
+```text
+gold
+ ↓
+mécanisme de dégradation
+ ↓
+copie synthétique
+ ↓
+recalcul du verdict
+```
 
-Pour de ne pas biaiser l'évaluation du LLM (qui ne voit que le texte final et non l'intention du mécanisme d'erreur initiale), les étiquettes de sortie (type_erreur et raison) sont recalculées après la génération de la copie, en se basant **que** sur son contenu réel :
+Les mécanismes de génération peuvent produire :
 
-**1. Distinction entre Omission et Invention :**
-Si le code remplace une hypothèse vraie par une fausse, la copie finale contient le même nombre d'hypothèses, ce qui ressemble à une simple omission pour un modèle externe.
-Pour corriger ça, le script calcule une variable `extra` contenant les hypothèses générées qui n'appartiennent pas au gold :
-- Si `extra` n'est pas vide ➔ classé catégoriquement en `invented_hypothesis`
-- Si `extra` est vide (rien n'a été ajouté) ➔ classé en `missing_hypothesis`
-  
-**2. Éviter les faux positifs d'Implication Valide :**
-Si le code tente d'inverser un intervalle sur un théorème qui n'en contient pas, la copie reste identique au gold. Donc j'ai mis en place un test qui vérifie si la copie a réellement été modifiée (`if cited_hypotheses != gold`) avant d'autoriser l'étiquette `valid_implication`. Dans le cas contraire, la copie est marquée comme `correct`.
+- une omission ;
+- plusieurs omissions ;
+- un ajout d'hypothèse ;
+- une substitution ;
+- une implication valide ;
+- une implication invalide ;
+- une inversion d'intervalle.
 
-**3. Unification des sous-mécanismes d'invention :**
-Les erreurs de type `misformulated` et `invalid_implication` sont regroupées sous `invented_hypothesis` pour que le LLM identifie plus facilement toute hypothèse intruse ou altérée.
+### 4.1 Le label dépend de la copie finale
+
+Le benchmark ne doit pas supposer que le LLM connaît la manière dont la copie a été générée. Il ne voit que :
+```text
+le théorème
++
+la copie finale de l'étudiant
+```
+
+Il ne voit pas :
+```text
+"cette copie a été générée par le mécanisme substitution"
+```
+
+Donc le label de référence doit être recalculé à partir de la copie finale observable.
+C'est cette propriété qui garantit que le benchmark mesure réellement la capacité du LLM à diagnostiquer la copie.
+
+### 4.2 Recalibrage des labels
+Pour ne pas biaiser l'évaluation du LLM (qui ne voit que le texte final et non
+l'intention du mécanisme d'erreur initial), le générateur conserve certaines
+informations sur la transformation effectivement appliquée :
+
+- `removed_hypotheses` : hypothèses du gold explicitement supprimées ;
+- `invented_entries` : hypothèses incorrectes ajoutées ou substituées à une
+  hypothèse du gold ;
+- `implication_swaps` : hypothèses du gold remplacées par une hypothèse plus
+  forte qui l'implique.
+
+Ces informations permettent de distinguer les différents cas.
+
+#### 1. Omission pure
+
+Si une hypothèse est simplement supprimée :
+
+```text
+Gold  : [A, B, C]
+Copie : [A, C]
+```
+le générateur enregistre :
+
+```python
+removed_hypotheses = [B]
+invented_entries = []
+```
+
+La copie est alors classée : `missing_hypothesis` ou, si plusieurs hypothèses ont été supprimées : `multiple_missing`.
+
+#### 2. Substitution par une hypothèse incorrecte
+
+Si une hypothèse est remplacée :
+
+```text
+Gold  : [A, B, C]
+Copie : [A, D, C]
+```
+Il ne s'agit pas d'une simple omission. Le générateur enregistre la substitution dans `invented_entries` :
+
+```python
+invented_entries.append({
+    "invented": D,
+    "instead_of": B
+})
+```
+
+La copie finale contient donc une hypothèse incorrecte à la place d'une hypothèse attendue. Elle est classée : `invented_hypothesis`. Le fait que le nombre total d'hypothèses reste identique ne change pas cette
+classification : l'opération réalisée est une substitution B → D.
+
+#### 3. Ajout d'une hypothèse en plus
+
+Si une hypothèse est ajoutée sans remplacer une hypothèse existante :
+```text
+Gold  : [A, B, C]
+Copie : [A, B, C, D]
+```
+le générateur enregistre :
+```python
+invented_entries.append({
+    "invented": D,
+    "instead_of": None
+})
+```
+
+La copie est également classée : `invented_hypothesis`.
+
+#### 4. Remplacement par une hypothèse plus forte
+
+Si une hypothèse requise est remplacée par une hypothèse différente mais mathématiquement plus forte :
+```text
+Gold  : [A, B, C]
+Copie : [A, D, C]
+
+D ⇒ B
+```
+le générateur enregistre cette opération dans implication_swaps : `implication_swaps.append((D, B))`. Comme D satisfait B, la copie reste correcte. Elle reçoit alors :
+```text
+validation_type = "stronger_hypothesis"
+is_correct = True
+```
+#### 5. Aucune modification
+
+Si aucune dégradation n'est effectivement possible, le générateur remet :
+```python
+applied_error = "correct"
+```
+et si la copie finale est identique au gold :
+```python
+validation_type = "exact_match"
+is_correct = True
+```
+**Distinction importante entre génération et validation**
+
+Il faut distinguer le type d'erreur demandé au générateur du type de validation attribué à la copie finale.
+
+`error_type` est utilisé en interne par `generate_copy()` pour choisir le mécanisme de dégradation :
+
+- correct
+- missing_hypothesis
+- multiple_missing
+- invented_hypothesis
+- valid_implication
+
+Le résultat final utilise en revanche `validation_type`, qui décrit la nature de la copie effectivement produite :
+
+- exact_match
+- stronger_hypothesis
+- missing_hypothesis
+- multiple_missing
+- invented_hypothesis
+- unknown_error
+
+Ainsi, `error_type` décrit l'opération demandée au générateur, tandis que `validation_type` décrit le verdict obtenu après génération.
+
+#### **Éviter les faux positifs d'Implication Valide :**
+Certains mécanismes de génération peuvent ne produire aucune modification effective.
+Si le générateur tente d'inverser un intervalle sur un théorème qui n'en contient pas, la copie reste identique au gold. Donc j'ai mis en place un test qui vérifie si la copie a réellement été modifiée (`if cited_hypotheses != gold`) avant d'autoriser l'étiquette `valid_implication`. Dans le cas contraire, la copie est marquée comme `correct`.
+
+#### **Unification des sous-mécanismes d'invention :**
+Plusieurs mécanismes internes peuvent produire une hypothèse qui n'est pas acceptable dans la copie finale.
+
+Par exemple :
+
+- une hypothèse mal formulée ;
+- une implication invalide ;
+- une hypothèse explicitement inventée ;
+- une substitution par une variante incorrecte.
+
+Ces mécanismes peuvent être différents du point de vue du générateur, mais ils ont un point commun du point de vue du LLM : **la copie contient une hypothèse qui ne satisfait pas correctement les exigences du théorème.**
+
+Ils sont donc regroupés sous : `invented_hypothesis`.
+
+Cela permet de garder une sortie suffisamment simple et stable pour l'évaluation du LLM.
+
+Ainsi, le benchmark utilise les catégories suivantes :
+
+| Type | Signification |
+|---|---|
+| **`correct`** | Toutes les hypothèses requises sont satisfaites |
+| **`missing_hypothesis`** | Une seule hypothèse requise est absente |
+| **`multiple_missing`** | Plusieurs hypothèses requises sont absentes |
+| **`invented_hypothesis`** | Une hypothèse incorrecte, étrangère ou remplaçant une hypothèse attendue est présente |
+| **`valid_implication`** | Une hypothèse différente de la gold satisfait néanmoins l'exigence car elle est logiquement plus forte |
+
+### Priorité des catégories
+
+Quand plusieurs descriptions sont possibles, les règles suivantes sont appliquées dans l'ordre :
+
+1. Copie identique au gold → `correct`
+2. Une hypothèse étrangère/incorrecte est présente → `invented_hypothesis`
+3. Aucune hypothèse étrangère, une seule hypothèse gold manque → `missing_hypothesis`
+4. Aucune hypothèse étrangère, plusieurs hypothèses gold manquent → `multiple_missing`
+5. Une hypothèse plus forte satisfait une hypothèse gold → `valid_implication`
+
+Cette hiérarchie permet de rendre les labels **déterministes**.
 
 ### Résultat final de la génération
 
+Chaque copie produite est représentée sous la forme :
 ```python
 {
+    {
     "theoreme_id": "T01",
     "nom": "Théorème de Rolle",
+
     "copie": [...], # textes français affichés
     "attendu": [...], # textes français de la vérité terrain
+
     "est_correcte": True/False,
-    "raison": "OK" | "missing: ..." | "invented_hypothesis: ...",
-    "type_erreur": "missing_hypothesis" | "multiple_missing" | "invented_hypothesis" | "valid_implication" | "correct"
+
+    "raison": (
+        "OK"
+        | "missing: ..."
+        | "multiple_missing: ..."
+        | "invented_hypothesis: ..."
+        | "valid_implication: ..."
+    ),
+
+    "type_erreur": (
+        "missing_hypothesis"
+        | "multiple_missing"
+        | "invented_hypothesis"
+        | "valid_implication"
+        | "correct"
+    )
+}
 }
 ```
 
