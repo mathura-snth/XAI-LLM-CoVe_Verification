@@ -1,4 +1,4 @@
-# Benchmark Synthétique
+# Synthetic Benchmark
 
 Mathematical theorems have **formal and verifiable** assumptions — like the rules of a decision tree.
 
