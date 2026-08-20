@@ -530,83 +530,84 @@ These checks should notably detect:
 
 ---
 
-## 9. Extensibilité
+## 9. Extensibility
 
-Ajouter un nouveau théorème ne nécessite pas de modifier le pipeline général.
+Adding a new theorem does not require modifying the general pipeline.
 
-Il suffit de :
+Simply:
 
-1. ajouter les nouveaux ids d'hypothèses nécessaires dans hypotheses.py
-2. ajouter l'entrée du théorème dans theoremes.py
-3. renseigner ses hypothèses gold
-4. renseigner ses erreurs courantes
-5. ajouter les implications valides correspondantes dans implications.py
-6. ajouter éventuellement les fausses implications correspondantes
-7. exécuter les scripts de validation
-8. régénérer le dataset
+1. add the new required assumption ids to hypotheses.py
+2. add the theorem entry to theoremes.py
+3. specify its gold assumptions
+4. specify its common errors
+5. add the corresponding valid implications to implications.py
+6. optionally add the corresponding false implications
+7. run the validation scripts
+8. regenerate the dataset
 
-| Domaine | Théorèmes couverts |
+| Domain | Theorems covered |
+
 |---|---|
-| Analyse | Rolle, Lagrange, TVI, Weierstrass, L'Hôpital, Taylor-Young, Taylor-Lagrange, TFA, IPP, Changement de variable |
-| Séries | Critère de d'Alembert |
-| Algèbre Linéaire | Rang, Base incomplète, Diagonalisabilité, Cayley-Hamilton, Spectral, Cauchy-Schwarz, Jordan |
-| Topologie | Heine, Bolzano-Weierstrass |
-| Suites | Convergence monotone, Suites adjacentes, Critère de Cauchy |
-| Intégration | Convergence dominée |
-| Équations Différentielles | Cauchy-Lipschitz, Superposition |
-| Probabilités | TCL, LGN faible, Jensen |
+| Analysis | Rolle, Lagrange, IVT, Weierstrass, L'Hôpital, Taylor-Young, Taylor-Lagrange, FTA, IBP, Change of Variables |
+| Series | D'Alembert's Criterion |
+| Linear Algebra | Rank, Incomplete Basis, Diagonalizability, Cayley-Hamilton, Spectral, Cauchy-Schwarz, Jordan |
+| Topology | Heine, Bolzano-Weierstrass |
+| Sequences | Monotone Convergence, Adjacent Sequences, Cauchy's Criterion |
+| Integration | Dominated Convergence |
+| Differential Equations | Cauchy-Lipschitz, Superposition |
+| Probability | CLT, Weak LLN, Jensen |
 
 ---
 
-## 10. Résumé du pipeline
+## 10. Pipeline Summary
 
-Le benchmark génère des copies mathématiques synthétiques, puis demande à un LLM de déterminer si les hypothèses d'un théorème sont correctement satisfaites, en tenant compte des omissions, des hypothèses inventées et des implications logiques valides, avec une vérité terrain calculée indépendamment du mécanisme de génération.
+The benchmark generates synthetic mathematical copies, then asks an LLM to determine whether the assumptions of a theorem are correctly satisfied, taking into account omissions, invented assumptions, and valid logical implications, with ground truth calculated independently of the generation mechanism.
 
-Le fonctionnement global peut être résumé ainsi :
+The overall operation can be summarized as follows:
 ```text
                          ┌──────────────────┐
-                         │   HYPOTHESES     │
-                         │  id → texte      │
+                         │    HYPOTHESES    │
+                         │    id → texte    │
                          └────────┬─────────┘
                                   │
                                   ▼
                          ┌──────────────────┐
-                         │    THEOREMES     │
-                         │ gold hypotheses  │
+                         │     THEOREMS     │
+                         │  gold hypotheses │
                          └────────┬─────────┘
                                   │
                                   ▼
                          ┌──────────────────┐
                          │   IMPLICATIONS   │
-                         │  valides/fausses │
+                         │   valid/invalid  │
                          └────────┬─────────┘
                                   │
                                   ▼
                          ┌──────────────────┐
-                         │ GENERER_COPIE    │
-                         │ gold → erreur    │
+                         │  GENERATE_COPY   │
+                         │  gold → error    │
                          └────────┬─────────┘
                                   │
                                   ▼
                          ┌──────────────────┐
-                         │ COPIE FINALE     │
-                         │ observable       │
+                         │    FINAL COPY    │
+                         │    observable    │
                          └────────┬─────────┘
                                   │
                                   ▼
                          ┌──────────────────┐
-                         │ RECALCUL LABEL   │
-                         │ sur contenu réel │
+                         │ RECALCULATE LABEL│
+                         │ on actual content│
                          └────────┬─────────┘
                                   │
                                   ▼
                          ┌──────────────────┐
-                         │ DATASET JSON     │
+                         │   JSON DATASET   │
                          └────────┬─────────┘
                                   │
                          ┌────────┴────────┐
                          ▼                 ▼
                   ┌──────────────┐  ┌──────────────┐
-                  │     CSV      │  │  Markdown    │
+                  │     CSV      │  │   Markdown   │
                   └──────────────┘  └──────────────┘
 ```
