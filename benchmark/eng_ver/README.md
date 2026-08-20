@@ -477,55 +477,56 @@ Example:
 python3 exporter_tableau.py
 ```
 
-Transforme `benchmark_data.json` en :
+Transforms `benchmark_data.json` into:
 
-- **`benchmark_data_tab.csv`** — colonnes : `ID`, `Théorème`, `Copie`, `Attendu`, `Correct (bool)`, `Correct (texte)`, `Raison`, `Type_erreur`
-- **`benchmark_data_tab.md`** — même contenu en tableau Markdown, avec statistiques globales (total, correctes, fausses, répartition par type d'erreur, top 5 des raisons d'échec)
+- **`benchmark_data_tab.csv`** — columns: ID, Theorem, Copy, Expected, Correct (bool), Correct (text), Reason, Error_type
 
-**Structure finale à 2 colonnes :**
+- **`benchmark_data_tab.md`** — same content as a Markdown table, with global statistics (total, correct, false, distribution by error type, top 5 failure reasons)
 
-| Colonne | Contenu |
+**Final 2-column structure:**
+
+| Column | Content |
 |---|---|
-| **Copie** | La liste des hypothèses citées par l'étudiant synthétique (texte français) |
-| **Verdict** | `VRAI` / `FAUX` + raison précise si `FAUX` |
+| **Copy** | The list of assumptions cited by the synthetic student (French text) |
+| **Verdict** | `TRUE` / `FALSE` + precise reason if `FALSE` |
 
 ---
 
-## 7. Vue finale du benchmark
+## 7. Final Benchmark View
 
-Pour le LLM évalué, la structure conceptuelle est volontairement simple. Il reçoit :
+For the evaluated LLM, the conceptual structure is deliberately simple. It receives:
 ```text
-THÉORÈME
+THEOREM
 ↓
-Hypothèses attendues
+Expected assumptions
 
-COPIE DE L'ÉTUDIANT
+STUDENT COPY
 ↓
-Hypothèses citées
+Cited assumptions
 
 QUESTION
 ↓
-La copie est-elle correcte ?
-Si non : pourquoi ?
+Is the copy correct?
+
+If not: why?
 ```
-Le LLM doit donc reconstruire le raisonnement logique.
+The LLM must therefore reconstruct the logical reasoning.
 
 ---
 
-## 8. Validation du benchmark
+## 8. Benchmark Validation
 
-Avant de générer un dataset final, il est recommandé de valider les tables internes.
+Before generating a final dataset, it is recommended to validate the internal tables.
 
-1. Pour les théorèmes : `python3 theoremes.py`
+1. For the theorems: `python3 theoremes.py`
+2. For the implications: `python3 implications.py`
 
-2. Pour les implications : `python3 implications.py`
+These checks should notably detect:
 
-Ces vérifications doivent notamment détecter :
-
-- les ids inexistants ;
-- les ids dupliqués lorsque cela est interdit ;
-- les références à des hypothèses non présentes dans HYPOTHESES ;
-- les incohérences dans les tables d'implications.
+- nonexistent ids;
+- duplicated ids where this is prohibited;
+- references to assumptions not present in HYPOTHESES;
+- inconsistencies in the implication tables.
 
 ---
 
