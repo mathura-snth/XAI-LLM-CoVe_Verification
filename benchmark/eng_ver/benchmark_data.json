@@ -895,19 +895,6 @@
     "validation_type": "missing_hypothesis"
   },
   {
-    "theorem_id": "T07",
-    "name": "Fundamental Theorem of Calculus",
-    "copy": [
-      "f is of class C¹ on I"
-    ],
-    "expected": [
-      "f is continuous on [a, b]"
-    ],
-    "is_correct": false,
-    "reason": "invented_hypothesis: f is of class C¹ on I (instead of f is continuous on [a, b])",
-    "validation_type": "invented_hypothesis"
-  },
-  {
     "theorem_id": "T01",
     "name": "Rolle's Theorem",
     "copy": [
@@ -1310,9 +1297,9 @@
       "f is continuous on [a, b]",
       "f is differentiable on ]a, b["
     ],
-    "is_correct": false,
-    "reason": "invented_hypothesis: f is differentiable on [a, b] (instead of f is continuous on [a, b])",
-    "validation_type": "invented_hypothesis"
+    "is_correct": true,
+    "reason": "stronger_hypothesis: f is differentiable on [a, b] implies f is continuous on [a, b]",
+    "validation_type": "stronger_hypothesis"
   },
   {
     "theorem_id": "T24",
@@ -1514,5 +1501,20 @@
     "is_correct": true,
     "reason": "hypotheses match exactly.",
     "validation_type": "exact_match"
+  },
+  {
+    "theorem_id": "T14",
+    "name": "Cayley-Hamilton Theorem",
+    "copy": [
+      "A is an n×n square matrix",
+      "χ_A is the minimal polynomial of A"
+    ],
+    "expected": [
+      "A is an n×n square matrix",
+      "χ_A is the characteristic polynomial of A"
+    ],
+    "is_correct": false,
+    "reason": "invented_hypothesis: χ_A is the minimal polynomial of A (instead of χ_A is the characteristic polynomial of A)",
+    "validation_type": "invented_hypothesis"
   }
 ]

@@ -28,8 +28,6 @@ def generate_copy(theorem_id, error_type=None):
     invented_entries = []
     implication_swaps = []
 
-    applied_error = error_type
-
     # Correct copy
     if error_type == "correct":
         pass
@@ -88,8 +86,6 @@ def generate_copy(theorem_id, error_type=None):
                     cited_hypotheses[i] = new_h
                     invented_entries.append({ "invented": new_h, "instead_of": h })
                     modified = True
-            if not modified:
-                applied_error = "correct"
         
         elif sub_type == "invalid_implication" and INVALID_IMPLICATIONS:
             modified = False
@@ -102,27 +98,30 @@ def generate_copy(theorem_id, error_type=None):
                     invented_entries.append({ "invented": false_stronger, "instead_of": false_weaker })
                     modified = True
                     break
-            if not modified:
-                applied_error = "correct"
 
     elif error_type == "valid_implication" and IMPLICATIONS_LIST:
-        implication_found = False
         # Replacement by a stronger hypothesis is valid
         for stronger, weaker in IMPLICATIONS_LIST:
             if weaker in gold and weaker in cited_hypotheses and stronger not in cited_hypotheses:
                 idx = cited_hypotheses.index(weaker)
                 cited_hypotheses[idx] = stronger
                 implication_swaps.append((stronger, weaker))
-                implication_found = True
                 break
-        if not implication_found:
-            applied_error = "correct"
-    else:
-        applied_error = "correct"
-    if cited_hypotheses == gold:
-        applied_error = "correct"
 
-# Verdict    
+    still_invented = []
+    for entry in invented_entries:
+        replacement = entry["invented"]
+        original = entry["instead_of"]
+        if (original is not None
+                and replacement in HYPOTHESES
+                and original in HYPOTHESES
+                and satisfies([replacement], original)):
+            implication_swaps.append((replacement, original))
+        else:
+            still_invented.append(entry)
+    invented_entries = still_invented
+
+# Verdict
     is_correct = True
     reasons = []
     

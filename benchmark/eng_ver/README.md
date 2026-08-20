@@ -315,11 +315,14 @@ le générateur enregistre cette opération dans implication_swaps : `implicatio
 validation_type = "stronger_hypothesis"
 is_correct = True
 ```
+
+*N.B. : Lorsqu'une hypothèse est remplacée par substitution (`invented_hypothesis`), il peut arriver que l'hypothèse de remplacement soit plus forte que l'hypothèse originale. Donc pour éviter de pénaliser la copie qui reste logiquement correcte, un bloc de filtrage parcourt la liste des `invented_entries` : si la substitution satisfait l'hypothèse d'origine (via `satisfait()`), l'entrée est retirée des erreurs et reclassifiée en tant qu'implication valide dans `implication_swaps`.*
+
 #### 5. Aucune modification
 
 Si aucune dégradation n'est effectivement possible, le générateur remet :
 ```python
-applied_error = "correct"
+error_type = "correct"
 ```
 et si la copie finale est identique au gold :
 ```python
@@ -396,31 +399,30 @@ Cette hiérarchie permet de rendre les labels **déterministes**.
 Chaque copie produite est représentée sous la forme :
 ```python
 {
-    {
-    "theoreme_id": "T01",
-    "nom": "Théorème de Rolle",
+    "theorem_id": "T01",
+    "name": "Rolle's Theorem",
 
-    "copie": [...], # textes français affichés
-    "attendu": [...], # textes français de la vérité terrain
+    "copy": [...], # textes des hypothèses citées
+    "expected": [...], # textes de la vérité terrain
 
-    "est_correcte": True/False,
+    "is_correct": True/False,
 
-    "raison": (
-        "OK"
+    "reason": (
+        "hypotheses match exactly."
         | "missing: ..."
-        | "multiple_missing: ..."
         | "invented_hypothesis: ..."
-        | "valid_implication: ..."
+        | "stronger_hypothesis: ..."
+        | "unable to determine the exact error."
     ),
 
-    "type_erreur": (
-        "missing_hypothesis"
+    "validation_type": (
+        "exact_match"
+        | "stronger_hypothesis"
+        | "missing_hypothesis"
         | "multiple_missing"
         | "invented_hypothesis"
-        | "valid_implication"
-        | "correct"
+        | "unknown_error"
     )
-}
 }
 ```
 
@@ -449,21 +451,21 @@ Exemple :
 ```json
 [
   {
-    "theoreme_id": "T01",
-    "nom": "Théorème de Rolle",
-    "copie": [
-      "f est continue sur [a, b]",
-      "f est dérivable sur ]a, b[",
+    "theorem_id": "T01",
+    "name": "Rolle's Theorem",
+    "copy": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b[",
       "f(a) = f(b)"
     ],
-    "attendu": [
-      "f est continue sur [a, b]",
-      "f est dérivable sur ]a, b[",
+    "expected": [
+      "f is continuous on [a, b]",
+      "f is differentiable on ]a, b[",
       "f(a) = f(b)"
     ],
-    "est_correcte": true,
-    "raison": "OK",
-    "type_erreur": "correct"
+    "is_correct": true,
+    "reason": "hypotheses match exactly.",
+    "validation_type": "exact_match"
   }
 ]
 ```
