@@ -46,22 +46,22 @@ Note that comparisons are made using identifiers *(e.g. F_CONTINUE_FERME)*. The 
 
 ---
 
-## Architecture du dossier
+## Directory Architecture
 
-| Fichier | But |
+| File | Purpose |
 |---|---|
-| **`hypotheses.py`** | Catalogue de toutes les hypothèses associées à leur id : `id → texte affiché` |
-| **`theoremes.py`** | Définit les 30 théorèmes : hypothèses obligatoires (ids), conclusion, erreurs courantes (ids) |
-| **`implications.py`** | Ensemble d'implications logiques **valides** et **invalides** et la fonction `satisfait()` |
-| **`generer_copie.py`** | Génère une copie synthétique dégradée selon un type d'erreur donné (ou sans erreur) et calcule du verdict |
-| **`run_benchmark.py`** | Génère N copies (par défaut 100) |
-| **`exporter_tableau.py`** | Convertit le .json en .csv et .md |
+| **`hypotheses.py`** | Catalogue of all assumptions associated with their id: id → displayed text |
+| **`theoremes.py`** | Defines the 30 theorems: mandatory assumptions (ids), conclusion, common errors (ids) |
+| **`implications.py`** | Set of **valid** and **invalid** logical implications and the `satisfait()` function |
+| **`generer_copie.py`** | Generates a degraded synthetic copy according to a given error type (or without error) and computes the verdict |
+| **`run_benchmark.py`** | Generates N copies (100 by default) |
+| **`exporter_tableau.py`** | Converts the .json into .csv and .md |
 
 ---
 
-## 1. L'ensemble des hypothèses (`hypotheses.py`)
+## 1. The Set of Assumptions (`hypotheses.py`)
 
-Le fichier hypotheses.py constitue le catalogue central des hypothèses.
+The hypotheses.py file is the central catalogue of assumptions.
 
 ```python
 HYPOTHESES = {
@@ -72,19 +72,21 @@ HYPOTHESES = {
 }
 ```
 
-Chaque hypothèse possède :
-1. un identifiant stable, utilisé par tout le benchmark ;
-2. un texte français, utilisé uniquement pour l'affichage et la génération de la copie présentée au LLM.
+Each assumption has:
 
-Le fichier contient deux fonctions :
-  - `texte(hyp_id)` → renvoie le texte français d'un id
-  - `textes(hyp_ids)` → renvoie la liste des textes pour une liste d'ids
+1. a stable identifier, used throughout the benchmark;
+2. French text, used only for display and for generating the copy presented to the LLM.
+
+The file contains two functions:
+
+- `texte(hyp_id)` → returns the French text for an id
+- `textes(hyp_ids)` → returns the list of texts for a list of ids
 
 ---
 
-## 2. Les théorèmes (`theoremes.py`)
+## 2. Theorems (`theoremes.py`)
 
-Chaque théorème est défini uniquement en termes d'ids :
+Each theorem is defined solely in terms of ids:
 
 ```python
 "T01": {
@@ -103,31 +105,31 @@ Chaque théorème est défini uniquement en termes d'ids :
 },
 ```
 
-- **`hypotheses`** : la vérité terrain, la liste exhaustive et obligatoire des hypothèses du théorème.
-- **`conclusion`** : c'est le résultat attendu lorsque toutes les hypothèses sont satisfaites.
-- **`erreurs_courantes`** : des ids d'hypothèses **plausibles mais incorrectes** pour simuler des copies mal formulées ou inventées.
+- **`hypotheses`**: the ground truth, the exhaustive and mandatory list of assumptions of the theorem.
+- **`conclusion`**: the expected result when all assumptions are satisfied.
+- **`erreurs_courantes`**: **plausible but incorrect** assumption ids used to simulate poorly worded or invented copies.
 
-**Règle importante :** Ce ne sont **jamais** des hypothèses valides pour ce théorème — une erreur courante ne doit jamais apparaître comme `plus_fort` d'une implication valide vers une hypothèse gold du même théorème.
+**Important rule:** These are **never** valid assumptions for this theorem — a common error must never appear as `stronger` in a valid implication toward a gold assumption of the same theorem.
 
 ---
 
-## 3. Les implications (`implications.py`)
+## 3. Implications (`implications.py`)
 
-Le fichier implications.py formalise les relations logiques entre hypothèses.
+The `implications.py` file formalizes logical relationships between assumptions.
 
-Elle permet de déterminer si une hypothèse citée, même différente de l'hypothèse requise, la **satisfait tout de même** parce qu'elle est logiquement plus forte.
+It makes it possible to determine whether a cited assumption, even if different from the required assumption, **nevertheless satisfies it** because it is logically stronger.
 
-Par exemple :
+For example:
 ```text
 f est de classe C¹
         ↓
 f est dérivable
 ```
-Donc si le théorème exige seulement que f soit dérivable et que l'étudiant indique que f est de classe C¹, l'hypothèse est satisfaite.
+Therefore, if the theorem only requires f to be differentiable and the student states that f is of class C¹, the assumption is satisfied.
 
-### 3.1 Implications valides — `IMPLICATIONS_LIST`
+### 3.1 Valid implications — IMPLICATIONS_LIST
 
-Liste de paires `(plus_fort, plus_faible)` mathématiquement vraies :
+List of pairs (stronger, weaker) that are mathematically true:
 
 ```python
 IMPLICATIONS_LIST = [
@@ -138,16 +140,19 @@ IMPLICATIONS_LIST = [
 ]
 ```
 
-### 3.2 Règles de validation pour chaque paire ajoutée à la table
+### 3.2 Validation rules for each pair added to the table
 
-- L'implication doit être **vraie isolément**, sans hypothèse supplémentaire sous-entendue. (`"croissante ⟹ bornée"` est **faux** il manque "majorée" ; une conjonction de deux hypothèses ne se code pas comme une implication à un seul terme)
-- Un id d'`erreurs_courantes` d'un théorème **ne doit jamais** apparaître comme `plus_fort` impliquant une hypothèse `gold` de ce même théorème, sinon l'erreur courante passera comme valide
-- Pas de doublons de paires
-- Chaque id utilisé doit exister dans `HYPOTHESES` (une fonction en fait la vérificatin)
+- The implication must be **true in isolation**, without any additional assumption being implicitly understood. ("increasing ⟹ bounded" is **false**; "bounded above" is missing; a conjunction of two assumptions is not encoded as a single-term implication)
 
-### 3.3 Implications invalides — `MAUVAISES_IMPLICATIONS`
+- A `common_error` id of a theorem **must never** appear as `stronger` implying a gold assumption of that same theorem, otherwise the common error will pass as valid
 
-Liste de paires qui **ressemblent** à des implications valides mais sont fausses (c'est le genre de piège que le LLM doit détecter)
+- No duplicate pairs
+
+- Each id used must exist in `HYPOTHESES` (a function performs the verification)
+
+### 3.3 Invalid implications — `MAUVAISES_IMPLICATIONS`
+
+List of pairs that **look like** valid implications but are false (this is the kind of trap the LLM must detect)
 
 ```python
 MAUVAISES_IMPLICATIONS = [
@@ -158,7 +163,7 @@ MAUVAISES_IMPLICATIONS = [
 ]
 ```
 
-Ces paires servent à générer le type d'erreur `implication_invalide`, elles ne sont jamais utilisées par `satisfait()`.
+These pairs are used to generate the `implication_invalide` error type; they are never used by `satisfait()`.
 
 ``` text
 IMPLICATIONS_LIST
@@ -170,26 +175,20 @@ MAUVAISES_IMPLICATIONS
 erreurs volontairement générées
 ```
 
-### 3.4 La fonction `satisfait(hypotheses_citees, hypothese_requise)`
+### 3.4 The `satisfait(hypotheses_citees, hypothese_requise)` function
 
-Elle répond à la question : *Une hypothèse requise par le théorème est-elle satisfaite par les hypothèses effectivement citées dans la copie ?*
+It answers the question: **Is a theorem assumption satisfied by the assumptions actually cited in the copy?*
 
-Elle retourne `True` dans deux cas :
+It returns `True` in two cases:
 
-1. l'hypothèse requise est citée directement
-2. une hypothèse citée est plus forte et implique l'hypothèse requise par une chaîne d'implications valides
+1. the required assumption is cited directly
+2. a cited assumption is stronger and implies the required assumption through a chain of valid implications
 
 ```python
 def satisfait(hypotheses_citees, hypothese_requise):
-    """
-    True si hypothese_requise est citée directement,
-    ou si elle est déduite par une chaîne d'implications valides
-    à partir d'une hypothèse présente dans hypotheses_citees.
-    """
 ```
 
-Recherche **récursive** dans `IMPLICATIONS_LIST` (on utilise un ensemble `visites` pour éviter les cycles), jamais dans `MAUVAISES_IMPLICATIONS`.
-
+Searches **recursively** in `IMPLICATIONS_LIST` (a `visites` set is used to avoid cycles), never in `MAUVAISES_IMPLICATIONS`.
 ---
 
 ## 4. Génération des copies (`generer_copie.py`)
