@@ -1,49 +1,48 @@
 # Benchmark Synthétique
 
-Les théorèmes mathématiques ont des hypothèses **formelles et vérifiables** — comme les règles d'un arbre de décision.
+Mathematical theorems have **formal and verifiable** assumptions — like the rules of a decision tree.
 
-On génère synthétiquement des réponses d'étudiants appliquant un théorème (correctement ou non), et on mesure si le LLM détecte les hypothèses manquantes, mal citées, ou inventées.
+We synthetically generate student answers applying a theorem (correctly or incorrectly), and measure whether the LLM detects missing, misquoted, or invented assumptions.
 
-Il ne s'agit pas que de vérifier une égalité exacte entre listes d'hypothèses, mais de tester le raisonnement du LLM sur la présence, l'absence, le remplacement et les implications logiques.
+The goal is not just to check for an exact equality between lists of assumptions, but to test the LLM's reasoning about the presence, absence, replacement, and logical implications of assumptions.
 
-L'objectif est donc de distinguer plusieurs situations différentes :
+The objective is therefore to distinguish several different situations:
 
-- toutes les hypothèses requises sont présentes → `correct`
-- une ou plusieurs hypothèses requises sont absentes → `missing_hypothesis` ou `multiple_missing`
-- une hypothèse attendue a été remplacée par une hypothèse incorrecte ou étrangère au théorème → `invented_hypothesis`
-- une hypothèse différente est **plus forte** qu'une hypothèse requise et permet donc de la satisfaire → `valid_implication`.
+- all required assumptions are present → `correct`
+- one or more required assumptions are missing → `missing_hypothesis` or `multiple_missing`
+- an expected assumption has been replaced by an incorrect assumption or one unrelated to the theorem → `invented_hypothesis`
+- a different assumption is **stronger** than a required assumption and therefore allows it to be satisfied → `valid_implication`.
 
-*N.B. : une hypothèse plus forte qui permet de satisfaire une hypothèse requise par une implication valide est considérée comme **correcte**. Il s'agit d'un choix volontaire afin de tester la capacité du LLM à effectuer un raisonnement logique, plutôt qu'à vérifier uniquement l'identité textuelle des hypothèses.*
+*N.B.: a stronger assumption that allows a required assumption to be satisfied by a valid implication is considered **correct**. This is a deliberate choice in order to test the LLM's ability to perform logical reasoning, rather than merely checking the textual identity of assumptions.*
 
-**Règle importante :** lorsqu'une hypothèse attendue est remplacée par une autre hypothèse qui ne satisfait pas la première, on considère qu'il s'agit d'une `invented_hypothesis`, et non d'une combinaison `missing_hypothesis` + `invented_hypothesis`. L'intention du mécanisme est donc interprétée comme une **substitution**.
+**Important rule:** when an expected assumption is replaced by another assumption that does not satisfy the former, it is considered an `invented_hypothesis`, and not a combination of `missing_hypothesis` + `invented_hypothesis`. The mechanism's intent is therefore interpreted as a **substitution**.
 
 ---
 
-## Principe général
+## General Principle
 
-Chaque théorème a une liste d'hypothèses obligatoires, **la vérité terrain** (gold standard).
+Each theorem has a list of mandatory assumptions, the **ground truth** (gold standard).
+A synthetic copy is then generated from this ground truth. It may be:
 
-Une copie synthétique est ensuite générée à partir de cette vérité terrain. Elle peut être :
+- correct;
+- missing an assumption;
+- missing several assumptions;
+- enriched or modified with an incorrect assumption;
+- constructed with a stronger assumption that implies a required assumption;
+- constructed with an assumption that looks like a valid implication but is not.
 
-- correcte ;
-- privée d'une hypothèse ;
-- privée de plusieurs hypothèses ;
-- enrichie ou modifiée par une hypothèse incorrecte ;
-- construite avec une hypothèse plus forte qui implique une hypothèse requise ;
-- construite avec une hypothèse qui ressemble à une implication valide mais qui ne l'est pas.
+Each copy is associated with a verdict:
 
-À chaque copie est associé un verdict :
+- `TRUE` if all necessary assumptions are satisfied;
+- `FALSE` otherwise.
 
-- `VRAI` si toutes les hypothèses nécessaires sont satisfaites ;
-- `FAUX` sinon.
+When a copy is false, a **reason** and a precise **error type** are also associated with it.
 
-Lorsqu'une copie est fausse, une raison et un type d'erreur précis sont également associés.
+### Comparison by identifiers
 
-### Comparaison par identifiants
+Note that comparisons are made using identifiers *(e.g. F_CONTINUE_FERME)*. The French text exists only for display.
 
-À noter que le benchmark ne compare **jamais** du texte en toutes lettres : les comparaisons se font sur des identifiants *(ex : F_CONTINUE_FERME)*. Le texte français n'existe que pour l'affichage.
-
-*N.B. : Le but étant d'éliminer les faux négatifs dus aux différences de formulation ("f continue" au lieu de "f est continue").*
+*N.B.: The goal is to eliminate ***false negatives*** caused by differences in wording ("f continuous" instead of "f is continuous").*
 
 ---
 
@@ -315,14 +314,11 @@ le générateur enregistre cette opération dans implication_swaps : `implicatio
 validation_type = "stronger_hypothesis"
 is_correct = True
 ```
-
-*N.B. : Lorsqu'une hypothèse est remplacée par substitution (`invented_hypothesis`), il peut arriver que l'hypothèse de remplacement soit plus forte que l'hypothèse originale. Donc pour éviter de pénaliser la copie qui reste logiquement correcte, un bloc de filtrage parcourt la liste des `invented_entries` : si la substitution satisfait l'hypothèse d'origine (via `satisfait()`), l'entrée est retirée des erreurs et reclassifiée en tant qu'implication valide dans `implication_swaps`.*
-
 #### 5. Aucune modification
 
 Si aucune dégradation n'est effectivement possible, le générateur remet :
 ```python
-error_type = "correct"
+applied_error = "correct"
 ```
 et si la copie finale est identique au gold :
 ```python
@@ -399,30 +395,31 @@ Cette hiérarchie permet de rendre les labels **déterministes**.
 Chaque copie produite est représentée sous la forme :
 ```python
 {
-    "theorem_id": "T01",
-    "name": "Rolle's Theorem",
+    {
+    "theoreme_id": "T01",
+    "nom": "Théorème de Rolle",
 
-    "copy": [...], # textes des hypothèses citées
-    "expected": [...], # textes de la vérité terrain
+    "copie": [...], # textes français affichés
+    "attendu": [...], # textes français de la vérité terrain
 
-    "is_correct": True/False,
+    "est_correcte": True/False,
 
-    "reason": (
-        "hypotheses match exactly."
+    "raison": (
+        "OK"
         | "missing: ..."
+        | "multiple_missing: ..."
         | "invented_hypothesis: ..."
-        | "stronger_hypothesis: ..."
-        | "unable to determine the exact error."
+        | "valid_implication: ..."
     ),
 
-    "validation_type": (
-        "exact_match"
-        | "stronger_hypothesis"
-        | "missing_hypothesis"
+    "type_erreur": (
+        "missing_hypothesis"
         | "multiple_missing"
         | "invented_hypothesis"
-        | "unknown_error"
+        | "valid_implication"
+        | "correct"
     )
+}
 }
 ```
 
@@ -451,21 +448,21 @@ Exemple :
 ```json
 [
   {
-    "theorem_id": "T01",
-    "name": "Rolle's Theorem",
-    "copy": [
-      "f is continuous on [a, b]",
-      "f is differentiable on ]a, b[",
+    "theoreme_id": "T01",
+    "nom": "Théorème de Rolle",
+    "copie": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b[",
       "f(a) = f(b)"
     ],
-    "expected": [
-      "f is continuous on [a, b]",
-      "f is differentiable on ]a, b[",
+    "attendu": [
+      "f est continue sur [a, b]",
+      "f est dérivable sur ]a, b[",
       "f(a) = f(b)"
     ],
-    "is_correct": true,
-    "reason": "hypotheses match exactly.",
-    "validation_type": "exact_match"
+    "est_correcte": true,
+    "raison": "OK",
+    "type_erreur": "correct"
   }
 ]
 ```
